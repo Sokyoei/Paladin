@@ -1,0 +1,11 @@
+numpy
+
+# dev
+isort
+autopep8
+ruff
+
+# build
+build
+setuptools
+hatchling
