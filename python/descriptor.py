@@ -1,9 +1,10 @@
 """
 descriptor 描述符
-将一个类属性托管给一个类，这个属性就是一个描述符
-非数据描述符 __get__()
-数据描述符 __get__(), __set__() or(and) __delete__()
-__getattribute__() > data descriptor > __init__() > non-data descriptor > __getattr__()
+
+    将一个类属性托管给一个类，这个属性就是一个描述符
+    非数据描述符 __get__()
+    数据描述符 __get__(), __set__() or(and) __delete__()
+    __getattribute__() > data descriptor > __init__() > non-data descriptor > __getattr__()
 """
 
 

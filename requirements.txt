@@ -1,5 +1,9 @@
 numpy
 
+# file
+pyyaml
+tomli
+
 # dev
 isort
 autopep8
