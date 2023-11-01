@@ -13,6 +13,7 @@ dependencies = ["numpy"]
 
 [project.optional-dependencies]
 dev = ["isort", "ruff", "autopep8"]
+test = ["pytest"]
 
 [tool.isort]
 line_length = 120

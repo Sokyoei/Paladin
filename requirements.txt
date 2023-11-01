@@ -5,6 +5,9 @@ isort
 autopep8
 ruff
 
+# test
+pytest
+
 # build
 build
 setuptools
