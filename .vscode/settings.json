@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "*.m": "matlab",
+        ".editorconfig": "editorconfig",
+        "*.cppm": "cpp",
+        "*.cuf": "FortranFreeForm",
+        "stdio.h": "c",
+        "string.h": "c",
+        "python.h": "c"
+    }
+}

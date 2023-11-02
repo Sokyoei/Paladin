@@ -16,3 +16,5 @@ pytest
 build
 setuptools
 hatchling
+Cython
+pybind11

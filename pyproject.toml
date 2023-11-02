@@ -9,6 +9,7 @@ build-backend = "hatchling.build"
 name = "Paladin"
 version = "0.0.1"
 authors = [{ name = "Sokyoei" }]
+license = { text = "MIT" }
 dependencies = ["numpy"]
 
 [project.optional-dependencies]
