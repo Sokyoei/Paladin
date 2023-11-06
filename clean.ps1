@@ -14,9 +14,10 @@ foreach ($path in $root_cache_paths) {
 
 $recurse_cache_paths = @(
     "__pycache__"
+    "build"
     # "*.dll"
     # "*.lib"
-    # "*.pyd"
+    "*.pyd"
     # "*.a"
     # "*.obj"
     "tempCodeRunnerFile.*"

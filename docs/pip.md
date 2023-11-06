@@ -3,7 +3,7 @@
 ## 导出配置
 
 ```powershell
-pip freeze --all | Out-File requirements--text.txt -Encoding utf8
+pip freeze --all | Out-File requirements.txt -Encoding utf8
 ```
 
 ```shell
