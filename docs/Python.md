@@ -44,7 +44,7 @@ python -m build
 > Complex is better than complicated. 「复杂优于凌乱」<br>
 > Flat is better than nested. 「扁平优于嵌套」<br>
 > Sparse is better than dense. 「稀疏优于稠密」<br>
-> Readability counts. *「可读性很重要*<br>
+> Readability counts. 「可读性很重要」<br>
 > Special cases aren't special enough to break the rules. 「即使实用比纯粹更优」<br>
 > Although practicality beats purity. 「特例亦不可违背原则」<br>
 > Errors should never pass silently. 「错误绝不能悄悄忽略」<br>
