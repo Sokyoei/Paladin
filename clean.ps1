@@ -15,7 +15,9 @@ foreach ($path in $root_cache_paths) {
 $recurse_cache_paths = @(
     "__pycache__"
     "build"
-    # "*.dll"
+    ".pytest_cache"
+    "*.dll"
+    "*.mod"
     # "*.lib"
     "*.pyd"
     # "*.a"

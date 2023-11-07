@@ -5,6 +5,24 @@ https://docs.python.org/zh-cn/3/library/exceptions.html
 https://docs.python.org/zh-cn/3/library/exceptions.html#exception-hierarchy
 """
 
+
+class SokyoeiError(RuntimeError):
+    """Sokyoei'Error sample"""
+    pass
+
+
+class AhriError(Exception):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
+    def __str__(self) -> str:
+        return super().__str__()
+
+
+class NonoError(Exception):
+    pass
+
+
 exit(0)
 
 BUILTINS_EXCEPTION_ERROR_WARNING = {

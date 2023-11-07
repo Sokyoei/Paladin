@@ -6,6 +6,7 @@
         "*.cuf": "FortranFreeForm",
         "stdio.h": "c",
         "string.h": "c",
-        "python.h": "c"
+        "python.h": "c",
+        "xstring": "cpp"
     }
 }

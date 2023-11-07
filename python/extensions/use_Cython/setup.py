@@ -1,6 +1,11 @@
 from Cython.Build import cythonize
 from setuptools import Extension, setup
 
+
+def get_modele_list():
+    pass
+
+
 # python setup.py build_ext --inplace
 setup(
     name="use_Cython",
@@ -13,8 +18,12 @@ setup(
                 name="AhriC.OpenMP",
                 sources=["AhriC/OpenMP.pyx"],
                 include_dirs=["AhriC"],
+                # MSVC
                 extra_compile_args=["/openmp"],
                 extra_link_args=["/openmp"],
+                # GNU
+                # extra_compile_args=["-openmp"],
+                # extra_link_args=["-openmp"],
             ),
             Extension(
                 name="AhriCXX.AhriCXX", sources=["AhriCXX/AhriCXX.pyx"], include_dirs=["AhriCXX"], language="c++"
