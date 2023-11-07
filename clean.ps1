@@ -1,10 +1,10 @@
 $root_cache_paths = @(
-    ".\build"
-    ".\dist"
-    ".\*.egg-info"
-    ".\htmlcov"
     ".\.pytest_cache"
     ".\.ruff_cache"
+    ".\build"
+    ".\dist"
+    ".\htmlcov"
+    ".\*.egg-info"
 )
 foreach ($path in $root_cache_paths) {
     if (Test-Path $path) {
@@ -14,12 +14,14 @@ foreach ($path in $root_cache_paths) {
 
 $recurse_cache_paths = @(
     "__pycache__"
-    "build"
     ".pytest_cache"
+    "build"
+    "target"
+    "*.pyd"
     "*.dll"
     "*.mod"
+    "*.lock"
     # "*.lib"
-    "*.pyd"
     # "*.a"
     # "*.obj"
     "tempCodeRunnerFile.*"
