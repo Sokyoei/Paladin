@@ -1,4 +1,6 @@
-# python bytecode
+"""
+python bytecode
+"""
 
 import dis
 from typing import Literal

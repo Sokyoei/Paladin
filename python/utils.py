@@ -1,3 +1,4 @@
+import inspect
 import time
 from functools import wraps
 
@@ -15,3 +16,9 @@ def timer(func):
         return ret
 
     return wrapper
+
+
+def track() -> None:
+    """打印函数被调用的函数名"""
+    who = inspect.getframeinfo(inspect.currentframe().f_back)[2]
+    print(f"{who}() call me")

@@ -1,12 +1,14 @@
-# context manager 上下文管理器
-# __enter__()
-# __exit__()
+"""
+context manager 上下文管理器
+
+__enter__()
+__exit__()
+"""
 
 import contextlib
 
 
 class Resource(object):
-
     def __enter__(self):
         print("Resource.__enter__()")
         return self

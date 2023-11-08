@@ -1,6 +1,8 @@
-# Assignment Expressions   赋值表达式
-# walrus operator          海象运算符
-# var_name := exp or value
+"""
+Assignment Expressions   赋值表达式
+walrus operator          海象运算符
+var_name := exp or value
+"""
 
 import sys
 

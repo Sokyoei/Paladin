@@ -1,3 +1,6 @@
+# ignore Sokyoei's temp dir
+temp/
+
 # ruff
 .ruff_cache/
 

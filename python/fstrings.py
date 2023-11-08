@@ -1,6 +1,9 @@
-# f-string
-# https://peps.python.org/pep-0498/
-# https://docs.python.org/zh-cn/3/library/string.html#formatstrings
+"""
+f-string
+
+https://peps.python.org/pep-0498/
+https://docs.python.org/zh-cn/3/library/string.html#formatstrings
+"""
 
 import sys
 
@@ -8,7 +11,6 @@ name = "Ahri"
 
 
 class Person(object):
-
     def __init__(self, name: str, age: int) -> None:
         self.name = name
         self.age = age
