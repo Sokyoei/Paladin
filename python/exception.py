@@ -8,7 +8,6 @@ https://docs.python.org/zh-cn/3/library/exceptions.html#exception-hierarchy
 
 class SokyoeiError(RuntimeError):
     """Sokyoei'Error sample"""
-    pass
 
 
 class AhriError(Exception):
@@ -23,8 +22,17 @@ class NonoError(Exception):
     pass
 
 
+try:
+    raise SokyoeiError("Sokyoei Error")
+except SokyoeiError as e:
+    print(e)
+
+
 exit(0)
 
+########################################################################################################################
+# Builtins exceptions error and warning
+########################################################################################################################
 BUILTINS_EXCEPTION_ERROR_WARNING = {
     BaseException: {
         BaseExceptionGroup: "",
