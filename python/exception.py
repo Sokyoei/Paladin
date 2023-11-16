@@ -4,6 +4,7 @@ Python Exception
 https://docs.python.org/zh-cn/3/library/exceptions.html
 https://docs.python.org/zh-cn/3/library/exceptions.html#exception-hierarchy
 """
+import sys
 
 
 class SokyoeiError(RuntimeError):
@@ -22,11 +23,33 @@ class NonoError(Exception):
     pass
 
 
+# Python 3.11 try except*
+if sys.version_info >= (3, 11):
+    try:
+        raise ExceptionGroup(
+            "MyError", [SokyoeiError("Sokyoei Error"), AhriError("Ahri Error"), NonoError("Nono Error")]
+        )
+    except* SokyoeiError as e:
+        print(e.exceptions)
+    except* AhriError as e:
+        print(e.exceptions)
+    except* NonoError as e:
+        print(e.exceptions)
+    else:
+        print("No Error")
+    finally:
+        print("end try except*")
+
 try:
     raise SokyoeiError("Sokyoei Error")
 except SokyoeiError as e:
     print(e)
-
+except (SokyoeiError, AhriError, NonoError) as e:
+    print(e)
+else:
+    print("No Error")
+finally:
+    print("end try except")
 
 exit(0)
 
