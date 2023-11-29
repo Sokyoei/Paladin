@@ -8,5 +8,6 @@
         "string.h": "c",
         "python.h": "c",
         "xstring": "cpp"
-    }
+    },
+    "python.analysis.autoImportCompletions": true
 }
