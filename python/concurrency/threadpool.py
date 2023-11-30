@@ -3,7 +3,7 @@ Python 线程池
 """
 
 import time
-from concurrent.futures import ThreadPoolExecutor, Future, as_completed
+from concurrent.futures import Future, ThreadPoolExecutor, as_completed
 
 
 def do_work(n):
