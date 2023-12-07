@@ -38,11 +38,3 @@ AHRI_API Student* student_add(Student* stus) {
     }
     return stus;
 }
-
-#if _DEBUG
-int main(int argc, char const* argv[]) {
-    printf("Popstar Ahri");
-    printf("\n");
-    return 0;
-}
-#endif  // _DEBUG
