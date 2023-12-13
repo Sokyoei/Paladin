@@ -2,7 +2,7 @@ from Cython.Build import cythonize
 from setuptools import Extension, setup
 
 
-def get_modele_list():
+def get_module_list():
     pass
 
 
