@@ -38,3 +38,20 @@ AHRI_API Student* student_add(Student* stus) {
     }
     return stus;
 }
+
+typedef struct Ahri {
+    int age;
+    int* score;
+    int score_len;
+} Ahri;
+
+AHRI_API void print_Ahri(Ahri* arr, int len) {
+    for (int i = 0; i < len; i++) {
+        printf("age: %d, ", arr[i].age);
+        printf("score_len: %d, ", arr[i].score_len);
+        for (int j = 0; j < arr[i].score_len; j++) {
+            printf("%d ", arr[i].score[j]);
+        }
+        printf("\n");
+    }
+}

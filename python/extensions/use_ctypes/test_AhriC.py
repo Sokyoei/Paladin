@@ -27,3 +27,22 @@ AhriC.student_add.restype = POINTER(Student)
 stus_ret = AhriC.student_add(stus)
 for i in range(3):  # for i in stus_ret 会越界
     print(stus_ret[i].age, stus_ret[i].name)
+
+
+l = 5
+
+
+class Ahri(Structure):
+    _fields_ = [
+        ("age", c_int),
+        ("score", POINTER(c_int)),
+        ("score_len", c_int),
+    ]
+
+
+a = Ahri(c_int(18), (c_int * l)(1, 2, 3, 4, 5), c_int(l))
+b = Ahri(c_int(12), (c_int * l)(5, 4, 3, 2, 1), c_int(l))
+c = Ahri(c_int(15), (c_int * l)(6, 7, 8, 9, 0), c_int(l))
+ahris = (Ahri * 3)(a, b, c)
+
+AhriC.print_Ahri(ahris, 3)
