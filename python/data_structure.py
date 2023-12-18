@@ -14,7 +14,7 @@ from collections import (
     UserList,
     UserString,
     defaultdict,
-    deque,
+    deque,  # 双端队列
     namedtuple,
 )
 from queue import LifoQueue, PriorityQueue, Queue, SimpleQueue
@@ -31,7 +31,8 @@ UserList()
 ########################################################################################################################
 tuple()
 tuple_ = (1, "we", b"\n")
-namedtuple_ = namedtuple("namedtuple_", [1, "hello", 3.3])
+Point = namedtuple("Point", ["x", "y"])
+p1 = Point(1, 2)
 
 ########################################################################################################################
 # set
@@ -53,12 +54,12 @@ UserDict()
 ########################################################################################################################
 # binary
 ########################################################################################################################
-bytes()
-bytearray()
-memoryview()
+bytes()  # 不可变
+bytearray()  # 可变
+# memoryview()  # 内存视图，需要支持缓冲区协议(bytes, bytearray)
 
 Counter()
 ChainMap()
-UserString()
+# UserString()
 deque()
-array()
+# array()
