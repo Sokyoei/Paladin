@@ -16,6 +16,12 @@ dependencies = ["numpy"]
 dev = ["isort", "ruff", "autopep8"]
 test = ["pytest"]
 
+[tool.hatch.build.targets.sdist]
+exclude = ["/.vscode"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["./data", "./docs", "./python", "./tests"]
+
 [tool.isort]
 line_length = 120
 multi_line_output = 0

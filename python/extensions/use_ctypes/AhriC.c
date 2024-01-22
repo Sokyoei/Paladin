@@ -55,3 +55,21 @@ AHRI_API void print_Ahri(Ahri* arr, int len) {
         printf("\n");
     }
 }
+
+AHRI_API void update_Ahri(Ahri* arr, int len) {
+    for (int i = 0; i < len; i++) {
+        for (int j = 0; j < arr[i].score_len; j++) {
+            arr[i].score[j] += 2;
+        }
+    }
+}
+
+int SOKYOEI = 0;
+
+AHRI_API int set_SOKYOEI(int n) {
+    SOKYOEI = n;
+}
+
+AHRI_API void print_SOKYOEI() {
+    printf("SOKYOEI: %d\n", SOKYOEI);
+}

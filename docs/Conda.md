@@ -1,4 +1,5 @@
 # [Conda](https://docs.conda.io/en/latest/)
+
 - [Anaconda](https://www.anaconda.com/)
 - [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/)
 
@@ -32,6 +33,21 @@ conda env export > environment.yml
 
 ```shell
 conda env create -f environment.yml
+```
+
+## 打包环境
+
+```shell
+conda pack -n env_name
+```
+
+## 打包环境激活
+
+```shell
+cd ~/conda_dir/envs
+# 解压环境
+tar -zxvf env_name
+conda activate env_name
 ```
 
 ## 清理缓存
