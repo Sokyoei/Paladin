@@ -1,9 +1,12 @@
 [build-system]
-# requires = ["setuptools", "wheel"]
-# build-backend = "setuptools.build_meta"
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
 
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+# On Win11 conda virtualenv, `virtualenv` package has a BUG, not find ssl module(copy Library\bin libcryoto-* and
+# libssl-* into DLLs can resolve), hatch require it, waiting to fix.
+
+# requires = ["hatchling"]
+# build-backend = "hatchling.build"
 
 [project]
 name = "Paladin"
@@ -15,6 +18,9 @@ dependencies = ["numpy"]
 [project.optional-dependencies]
 dev = ["isort", "ruff", "autopep8"]
 test = ["pytest"]
+build = ["setuptools", "wheel"]
+
+[project.scripts]
 
 [tool.hatch.build.targets.sdist]
 exclude = ["/.vscode"]
