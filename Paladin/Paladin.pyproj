@@ -25,7 +25,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Paladin.py" />
-    <Compile Include="utils\contants.py" />
+    <Compile Include="utils\check.py" />
+    <Compile Include="utils\constants.py" />
+    <Compile Include="utils\logger.py" />
     <Compile Include="utils\__init__.py" />
     <Compile Include="__init__.py" />
     <Compile Include="__main__.py" />

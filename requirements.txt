@@ -5,9 +5,13 @@ pyyaml
 tomli
 
 # dev
-isort
-autopep8
-ruff
+isort       # sort import
+autopep8    # formatter
+ruff        # linter
+
+# utils
+pipdeptree  # show python package dependency
+pip_search  # pip search
 
 # test
 pytest

@@ -1,6 +1,8 @@
 $root_cache_paths = @(
     ".\.pytest_cache"
     ".\.ruff_cache"
+    ".\.mypy_cache"
+    ".\.tox"
     ".\build"
     ".\dist"
     ".\htmlcov"
@@ -15,6 +17,7 @@ foreach ($path in $root_cache_paths) {
 $recurse_cache_paths = @(
     "__pycache__"
     ".pytest_cache"
+    ".\.ipynb_checkpoints"
     "build"
     "target"
     "*.pyd"
