@@ -1,4 +1,7 @@
 numpy
+scipy
+pandas
+matplotlib
 
 # file
 pyyaml
@@ -12,13 +15,16 @@ ruff        # linter
 # utils
 pipdeptree  # show python package dependency
 pip_search  # pip search
+tqdm        # progress bar
 
 # test
 pytest
+tox
+coverage
 
 # build
 build
 setuptools
-hatchling
+hatch
 Cython
 pybind11

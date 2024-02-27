@@ -8,7 +8,7 @@ from typing import Union
 
 
 def check_path(path: Union[Path, str]):
-    if type(path) == Path:
+    if isinstance(path, Path):
         if not path.exists():
             print("path not exists")
         else:

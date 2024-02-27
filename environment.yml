@@ -1,0 +1,31 @@
+name: Paladin
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  # file
+  - pyyaml
+  # devtools
+  - ruff
+  - black
+  - isort
+  # test
+  - pytest
+  - tox
+  - coverage
+  # build
+  - build
+  - pip
+  - setuptools
+  - hatch
+  - wheel
+  - cython
+  - pybind11
+  # utils
+  - tqdm
+  - pip:
+      - pip_search

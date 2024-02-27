@@ -18,7 +18,7 @@ dependencies = ["numpy"]
 [project.optional-dependencies]
 dev = ["isort", "ruff", "autopep8"]
 utils = ["pipdeptree", "pip_search"]
-test = ["pytest"]
+test = ["pytest", "tox", "coverage"]
 build = ["setuptools", "wheel"]
 
 [project.scripts]

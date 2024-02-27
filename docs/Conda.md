@@ -6,7 +6,7 @@
 ## 新建环境
 
 ```shell
-conda create -n env_name python=3.12
+conda create -n env_name python=python_version
 ```
 
 ## 删除环境
@@ -50,8 +50,22 @@ tar -zxvf env_name
 conda activate env_name
 ```
 
+## conda 更新
+
+```shell
+conda update conda
+```
+
+## conda 离线安装
+
+```shell
+conda install --use-local package_name.tar.bz2
+# or
+conda install -c local package_name.tar.bz2
+```
+
 ## 清理缓存
 
 ```shell
-conda clean -a
+conda clean -a -y
 ```

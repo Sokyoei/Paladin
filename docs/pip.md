@@ -15,3 +15,7 @@ pip freeze --all > requirements.txt
 ```shell
 pip install -r requirements.txt
 ```
+
+## 第三方 whl 包
+
+https://www.cgohlke.com/
