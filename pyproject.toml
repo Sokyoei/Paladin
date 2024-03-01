@@ -23,6 +23,9 @@ build = ["setuptools", "wheel"]
 
 [project.scripts]
 
+[tool.setuptools]
+include-package-data = true
+
 [tool.hatch.build.targets.sdist]
 exclude = ["/.vscode"]
 
@@ -32,6 +35,12 @@ packages = ["./data", "./docs", "./python", "./tests"]
 [tool.isort]
 line_length = 120
 multi_line_output = 0
+
+[tool.black]
+line-length = 120
+preview = true
+skip-string-normalization = true
+skip-magic-trailing-comma = true
 
 [tool.autopep8]
 max_line_length = 120
