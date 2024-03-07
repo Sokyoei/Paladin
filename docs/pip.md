@@ -16,6 +16,12 @@ pip freeze --all > requirements.txt
 pip install -r requirements.txt
 ```
 
+## 删除 pip 缓存
+
+```shell
+pip cache purge
+```
+
 ## 第三方 whl 包
 
 https://www.cgohlke.com/

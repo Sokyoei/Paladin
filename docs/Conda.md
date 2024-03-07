@@ -35,6 +35,12 @@ conda env export > environment.yml
 conda env create -f environment.yml
 ```
 
+## 按照 environment.yml 升级环境
+
+```shell
+conda env update -n env_name --file environment.yml
+```
+
 ## 打包环境
 
 ```shell
@@ -54,6 +60,8 @@ conda activate env_name
 
 ```shell
 conda update conda
+# `conda update conda` conda 未更新时执行
+conda update -n base -c defaults conda --repodata-fn=repodata.json
 ```
 
 ## conda 离线安装
