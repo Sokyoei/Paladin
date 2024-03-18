@@ -4,6 +4,7 @@ channels:
   - defaults
 dependencies:
   - python
+  # data analysis
   - numpy
   - scipy
   - pandas
@@ -24,6 +25,7 @@ dependencies:
   - setuptools
   - hatch
   - wheel
+  # extension
   - cython
   - pybind11
   # utils
