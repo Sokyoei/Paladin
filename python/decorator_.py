@@ -13,8 +13,29 @@ from functools import wraps
 ########################################################################################################################
 # function decorator
 ########################################################################################################################
-# 函数装饰器
 def time_logger(flag):  # 再包一层用来传递参数
+    """
+    Examples:
+    >>> @time_logger(True)
+    ... def foo(a, b):
+    ...     print(a + b)
+
+    >>> def doo(a, b):
+    ...     print(a - b)
+
+    >>> foo(1, 2)
+    3
+    hello world
+    do something
+
+    >>> # 输出 foo, 而不是 wrapper
+    >>> print(foo.__name__)
+    foo
+
+    >>> print(doo.__name__)
+    doo
+    """
+
     def showtime(func):  # 装饰器的参数类型是函数，否则是闭包
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -28,26 +49,20 @@ def time_logger(flag):  # 再包一层用来传递参数
     return showtime
 
 
-@time_logger(2)
-def foo(a, b):
-    print(a + b)
-
-
-def doo(a, b):
-    print(a - b)
-
-
-foo(1, 2)
-
-print(foo.__name__)  # foo
-print(doo.__name__)  # doo
-
-
 ########################################################################################################################
 # class decorator
 ########################################################################################################################
 class Hello(object):
-    """不带参数的类装饰器"""
+    """不带参数的类装饰器
+
+    Examples:
+    >>> @Hello
+    ... def world(s):
+    ...     print(s + "world")
+
+    >>> world("llo ")
+    hello world
+    """
 
     def __init__(self, func):
         """接收被装饰函数"""
@@ -59,16 +74,18 @@ class Hello(object):
         self.__func(*args, **kwargs)
 
 
-@Hello
-def world(s):
-    print(s + "world")
-
-
-world("llo ")
-
-
 class logger(object):
-    """带参数的类装饰器"""
+    """带参数的类装饰器
+
+    Examples:
+    >>> @logger(level="WARNING")
+    ... def say(something):
+    ...     print(f"say {something}!")
+
+    >>> say("hello")  # doctest: +ELLIPSIS
+    [WARNING]...
+    say hello!...
+    """
 
     def __init__(self, level="INFO"):
         """不再接收被装饰函数，而是接收传入参数"""
@@ -84,65 +101,7 @@ class logger(object):
         return wrapper
 
 
-@logger(level="WARNING")
-def say(something):
-    print(f"say {something}!")
+if __name__ == '__main__':
+    import doctest
 
-
-say("hello")
-
-
-class locker(object):
-    """带类参数的装饰器
-    对一个函数应用多个类装饰器"""
-
-    def __init__(self):
-        print("locker.__init__()")
-
-    @staticmethod
-    def acquire():
-        print("locker.acquire()")
-
-    @staticmethod
-    def release():
-        print("locker.release()")
-
-
-class locker2(object):
-    def __init__(self):
-        print("locker2.__init__()")
-
-    @staticmethod
-    def acquire():
-        print("locker2.acquire()")
-
-    @staticmethod
-    def release():
-        print("locker2.release()")
-
-
-def lock_helper(cls):
-    def decor(func):
-        def wrapper(*args, **kwargs):
-            cls.acquire()
-            try:
-                return func(*args, **kwargs)
-            finally:
-                cls.release()
-
-        return wrapper
-
-    return decor
-
-
-class example(object):
-    @lock_helper(locker)  # 2
-    @lock_helper(locker2)  # 1
-    def func2(self, a, b):
-        """{decorator{decorator[function]decorator}decorator}"""
-        print("func2()")
-        print(a + b)
-
-
-a = example()
-a.func2(1, 2)
+    doctest.testmod(verbose=True)

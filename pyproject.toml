@@ -13,15 +13,35 @@ name = "Paladin"
 version = "0.0.1"
 authors = [{ name = "Sokyoei" }]
 license = { text = "MIT" }
-dependencies = ["numpy"]
+dependencies = ["numpy>=1.26.4", "scipy>=1.12.0", "pandas>=2.2.1", "matplotlib>=3.8.3"]
 
 [project.optional-dependencies]
 dev = ["isort", "ruff", "autopep8"]
 utils = ["pipdeptree", "pip_search"]
 test = ["pytest", "tox", "coverage"]
 build = ["setuptools", "wheel"]
+ai = [
+    # python3.9 + cuda11.6
+    "torch==1.13.1+cu116; python_version=='3.9'",
+    "torchvision==0.14.1+cu116; python_version=='3.9'",
+    "torchaudio==0.13.1; python_version=='3.9'",
+]
+geography = ["Cartopy", "netCDF4", "xarray", "cfgrib", "eccodes", "ecmwflibs", "f90nml", "wrf-python"]
+web = ["flask[async]", "fastapi"]
 
 [project.scripts]
+
+[tool.rye]
+dev-dependencies = [
+    "pytest>=8.1.1",
+    "hatch>=1.9.4",
+    "build>=1.1.1",
+    "ruff>=0.3.4",
+    "black>=24.3.0",
+    "isort>=5.13.2",
+    "wheel>=0.43.0",
+    "setuptools>=69.2.0",
+]
 
 [tool.setuptools]
 include-package-data = true
@@ -70,3 +90,10 @@ ignore-init-module-imports = true
 
 [tool.ruff.pydocstyle]
 convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
+docstring-code-line-length = 120
+skip-magic-trailing-comma = true
