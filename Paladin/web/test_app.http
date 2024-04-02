@@ -1,0 +1,7 @@
+GET http://127.0.0.1:8000
+
+### docs
+GET http://127.0.0.1:8000/docs
+
+### redoc
+GET http://127.0.0.1:8000/redoc
