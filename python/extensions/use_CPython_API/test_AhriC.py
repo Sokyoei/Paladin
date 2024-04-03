@@ -1,3 +1,0 @@
-import AhriC
-
-AhriC.DearAhri()
