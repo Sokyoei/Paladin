@@ -1,0 +1,2 @@
+class PaladinError(Exception):
+    pass

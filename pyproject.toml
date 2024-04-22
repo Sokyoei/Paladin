@@ -14,7 +14,15 @@ version = "0.0.1"
 authors = [{ name = "Sokyoei" }]
 license = { text = "MIT" }
 readme = "README.md"
-dependencies = ["numpy>=1.26.4", "scipy>=1.12.0", "pandas>=2.2.1", "matplotlib>=3.8.3"]
+dependencies = [
+    "numpy>=1.26.3",
+    "scipy>=1.13.0",
+    "pandas>=2.2.1",
+    "matplotlib>=3.8.4",
+    "fastapi[all]>=0.110.1",
+    "sqlalchemy[aiomysql]>=2.0.29",
+    "redis>=5.0.3",
+]
 requires-python = ">= 3.8"
 
 [project.urls]
@@ -44,13 +52,28 @@ cli = ["click"]
 dev-dependencies = [
     "pytest>=8.1.1",
     "hatch>=1.9.4",
-    "build>=1.1.1",
-    "ruff>=0.3.4",
+    "build>=1.2.1",
+    "ruff>=0.3.5",
     "black>=24.3.0",
     "isort>=5.13.2",
     "wheel>=0.43.0",
     "setuptools>=69.2.0",
 ]
+
+[[tool.rye.sources]]
+name = "default"
+url = "https://pypi.org/simple/"
+
+[[tool.rye.sources]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cpu"
+
+[[tool.rye.sources]]
+name = "nvidia"
+url = "https://pypi.nvidia.cn/"
+
+[tool.rye.workspace]
+members = ["Paladin"]
 
 [tool.setuptools]
 include-package-data = true

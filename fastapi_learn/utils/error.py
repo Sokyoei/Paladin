@@ -1,0 +1,2 @@
+class PaladinFastAPILearnError(Exception):
+    pass

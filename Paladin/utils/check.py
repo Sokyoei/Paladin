@@ -18,3 +18,8 @@ def check_path(path: Union[Path, str]):
             print("path not exists")
         else:
             return path
+
+
+def check_path_and_mkdir(path: Path):
+    if not path.exists():
+        path.mkdir(parents=True)
