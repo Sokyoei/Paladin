@@ -56,9 +56,14 @@ def download_files(days) -> None:
             with open(filename, "w", encoding="utf8") as f:
                 f.write(req.text)
             req.close()
-            print(f"success")
+            print("success")
         except ReadTimeout:
-            print(f"fail")
+            print("fail")
+
+
+"""
+vless://2cd6ed0f-636e-4e6c-9449-5a263d7a0fa5@31.22.116.155:443?encryption=none&security=tls&sni=cfed.tgzdyz2.top&type=ws&host=cfed.tgzdyz2.top&path=tg%40zdyz2#GB_%E5%88%86%E4%BA%AB%E6%97%A5%E8%AE%B0
+"""
 
 
 if __name__ == '__main__':

@@ -23,16 +23,12 @@ def outer(x):
     """
     Examples:
     >>> inn = outer(10)
-    ... inn(1)
+
+    >>> inn(1)
     11
 
-    >>> print(inn.__closure__)  # __closure__ 记录着自由变量的地址
-
-    >>> print(inn(2))  # 13 闭包变量 x 是同一个
+    >>> inn(2)
     13
-
-    >>> print(inn.__closure__)
-
     """
 
     def inner(y):

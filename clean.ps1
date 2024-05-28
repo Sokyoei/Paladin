@@ -17,7 +17,7 @@ foreach ($path in $root_cache_paths) {
 $recurse_cache_paths = @(
     "__pycache__"
     ".pytest_cache"
-    ".\.ipynb_checkpoints"
+    ".ipynb_checkpoints"
     "build"
     "target"
     "*.pyd"
