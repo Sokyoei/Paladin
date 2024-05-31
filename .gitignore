@@ -5,8 +5,11 @@
 # ignore package dir
 /whl/
 
-# ruff
+# ignore ruff
 .ruff_cache/
+
+# ignore gradio
+flagged/
 
 ########################################################################################################################
 # Python
