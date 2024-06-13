@@ -1,4 +1,4 @@
-import streamlit as st
+import streamlit as st  # noqa: I001
 
 from utils import set_header, set_subheader
 
@@ -30,10 +30,7 @@ def images():
 
 
 def main():
-    page_functions = {
-        "基础": base,
-        "图像": images,
-    }
+    page_functions = {"基础": base, "图像": images}
     page = st.sidebar.selectbox("例子", page_functions.keys())
     page_functions[page]()
 

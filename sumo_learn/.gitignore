@@ -1,0 +1,7 @@
+# ignore SUMO generate file
+*.net.xml
+*.rou.xml
+*.trips.xml
+*.typ.xml
+*.sumo.cfg
+*.sumocfg
