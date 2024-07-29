@@ -4,6 +4,8 @@
         ".editorconfig": "editorconfig",
         "*.cppm": "cpp",
         "*.cuf": "FortranFreeForm",
+        ".clang-format": "yaml",
+        ".clang-tidy": "yaml",
         "stdio.h": "c",
         "string.h": "c",
         "python.h": "c",

@@ -10,11 +10,11 @@ class Logger(object):
 
     def __init__(self) -> None:
         self.logger = logging.getLogger()
-        self.formater = logging.Formatter("[%(asctime)s][%(filename)s][line:%(lineno)d][%(levelname)s]: %(message)s")
+        self.formatter = logging.Formatter("[%(asctime)s][%(filename)s][line:%(lineno)d][%(levelname)s]: %(message)s")
 
         # 时间轮换
         th = logging.handlers.TimedRotatingFileHandler("Paladin.log")
-        th.setFormatter(self.formater)
+        th.setFormatter(self.formatter)
         self.logger.addHandler(th)
 
 

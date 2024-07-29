@@ -1,0 +1,18 @@
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pip
+  - python
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - xarray
+  - cfgrib
+  - eccodes
+  - netCDF4
+  - wrf-python
+  - cartopy
+  - pip:
+      - f90nml

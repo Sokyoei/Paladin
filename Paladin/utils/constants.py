@@ -3,3 +3,5 @@
 """
 
 DEBUG = 1  # 调试
+
+AUTHOR = "Sokyoei"

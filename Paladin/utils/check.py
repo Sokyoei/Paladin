@@ -2,22 +2,19 @@
 检查
 """
 
+from __future__ import annotations
+
 import os
 from pathlib import Path
-from typing import Union
 
 
-def check_path(path: Union[Path, str]):
+def check_path(path: str | os.PathLike) -> bool:
     if isinstance(path, Path):
-        if not path.exists():
-            print("path not exists")
-        else:
-            return path
+        return path.exists()
+    elif isinstance(path, str):
+        return os.path.exists(path)
     else:
-        if not os.path.exists(path):
-            print("path not exists")
-        else:
-            return path
+        raise NotImplementedError(f"{type(path)} are not supported.")
 
 
 def check_path_and_mkdir(path: Path):

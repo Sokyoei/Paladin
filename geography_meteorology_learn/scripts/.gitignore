@@ -1,0 +1,6 @@
+# ignore download file
+*.grib
+*.nc
+
+# ignore plot file
+*.jpg

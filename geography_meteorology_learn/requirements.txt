@@ -1,0 +1,24 @@
+numpy
+scipy
+pandas
+
+# plot
+matplotlib
+Cartopy
+metpy
+
+# download data
+cdsapi  # ERA5
+
+# read data
+wrf-python
+xarray
+netCDF4
+cfgrib
+eccodes
+ecmwflibs  # eccodes binary library
+# source compile for https://github.com/NOAA-EMC/NCEPLIBS-bufr
+# py-necpbufr
+
+# Fortran namelist
+f90nml

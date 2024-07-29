@@ -1,12 +1,12 @@
 [build-system]
-requires = ["setuptools", "wheel"]
-build-backend = "setuptools.build_meta"
+# requires = ["setuptools", "wheel"]
+# build-backend = "setuptools.build_meta"
 
 # On Win11 conda virtualenv, `virtualenv` package has a BUG, not find ssl module(copy Library\bin libcryoto-* and
 # libssl-* into DLLs can resolve), hatch require it, waiting to fix.
 
-# requires = ["hatchling"]
-# build-backend = "hatchling.build"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "Paladin"
@@ -16,12 +16,14 @@ license = { text = "MIT" }
 readme = "README.md"
 dependencies = [
     "numpy>=1.26.3",
-    "scipy>=1.13.0",
-    "pandas>=2.2.1",
-    "matplotlib>=3.8.4",
-    "fastapi[all]>=0.110.1",
-    "sqlalchemy[aiomysql]>=2.0.29",
-    "redis>=5.0.3",
+    "scipy>=1.13.1",
+    "pandas>=2.2.2",
+    "matplotlib>=3.9.0",
+    "fastapi[all]>=0.111.0",
+    "sqlalchemy[aiomysql]>=2.0.30",
+    "redis>=5.0.5",
+    "streamlit>=1.35.0",
+    "django>=5.0.6",
 ]
 requires-python = ">= 3.8"
 
@@ -29,8 +31,9 @@ requires-python = ">= 3.8"
 Repository = "https://github.com/Sokyoei/Paladin"
 
 [project.optional-dependencies]
-dev = ["isort", "ruff", "autopep8"]
-utils = ["pipdeptree", "pip_search"]
+# Sokyoei know and learn library
+dev = ["isort", "ruff", "autopep8", "black", "pipdeptree", "pip_search"]
+utils = ["python-dateutil"]
 test = ["pytest", "tox", "coverage"]
 build = ["setuptools", "wheel"]
 ai = [
@@ -39,26 +42,20 @@ ai = [
     "torchvision==0.14.1+cu116; python_version=='3.9'",
     "torchaudio==0.13.1; python_version=='3.9'",
 ]
-geography = ["Cartopy", "netCDF4", "xarray", "cfgrib", "eccodes", "ecmwflibs", "f90nml", "wrf-python"]
-web = ["flask[async]", "fastapi"]
+geography = ["Cartopy", "netCDF4", "xarray", "cfgrib", "eccodes", "ecmwflibs", "f90nml", "wrf-python", "cdsapi"]
+sumo = ["eclipse-sumo", "libsumo", "libtraci", "sumolib", "traci"]
+web = ["flask[async]", "fastapi[all]"]
+webapp = ["streamlit", "gradio"]
 gui = ["PyQt5"]
 cli = ["click"]
+llm = []
 
 [project.scripts]
 
 [project.gui-scripts]
 
 [tool.rye]
-dev-dependencies = [
-    "pytest>=8.1.1",
-    "hatch>=1.9.4",
-    "build>=1.2.1",
-    "ruff>=0.3.5",
-    "black>=24.3.0",
-    "isort>=5.13.2",
-    "wheel>=0.43.0",
-    "setuptools>=69.2.0",
-]
+dev-dependencies = []
 
 [[tool.rye.sources]]
 name = "default"
