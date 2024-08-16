@@ -15,8 +15,3 @@ def check_path(path: str | os.PathLike) -> bool:
         return os.path.exists(path)
     else:
         raise NotImplementedError(f"{type(path)} are not supported.")
-
-
-def check_path_and_mkdir(path: Path):
-    if not path.exists():
-        path.mkdir(parents=True)

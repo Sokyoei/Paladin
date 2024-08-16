@@ -2,8 +2,10 @@
 配置
 """
 
-LOG_DIR = "./logs"
+from Paladin import PALADIN_ROOT
 
-__all__ = [
-    "LOG_DIR",
-]
+LOG_DIR = PALADIN_ROOT / "logs"
+if not LOG_DIR.exists():
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+__all__ = ["LOG_DIR"]

@@ -1,6 +1,8 @@
 # ignore download file
 *.grib
 *.nc
+gdas.t*z.prepbufr.nr
+gfs.t*z.pgrb2.*p*.f*
 
 # ignore plot file
 *.jpg

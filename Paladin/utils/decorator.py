@@ -1,5 +1,11 @@
+from __future__ import annotations
+
+import os
 import time
 from functools import wraps
+from typing import Optional
+
+from Paladin.utils import download_file
 
 
 def timer(func):
@@ -51,5 +57,24 @@ def async_timer(func):
         print(f"{func.__name__}: {t2 - t1}s")
 
         return ret
+
+    return wrapper
+
+
+def download(url: str, dst_path: Optional[str | os.PathLike] = None, check_exists: bool = True):
+    """下载文件装饰器
+
+    See also:
+        .download.download_file()
+    """
+
+    def wrapper(func):
+        @wraps(func)
+        def inner(*args, **kwargs):
+            download_file(url, dst_path, check_exists)
+            ret = func(*args, **kwargs)
+            return ret
+
+        return inner
 
     return wrapper
