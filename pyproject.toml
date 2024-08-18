@@ -24,6 +24,8 @@ dependencies = [
     "redis>=5.0.5",
     "streamlit>=1.35.0",
     "django>=5.0.6",
+    "PyYAML",
+    "loguru",
 ]
 requires-python = ">= 3.8"
 

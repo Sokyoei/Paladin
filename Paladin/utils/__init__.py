@@ -5,6 +5,12 @@ from .download import download_file
 from .logger import log
 from .mqtt_utils import MQTTManager, MQTTType
 
+try:
+    from .loguru_utils import init_logging
+except ImportError:
+    from .logger_utils import init_logging
+
+
 __all__ = [
     "DEBUG",
     "log",
@@ -15,4 +21,5 @@ __all__ = [
     "MQTTManager",
     "MQTTType",
     "download_file",
+    "init_logging",
 ]

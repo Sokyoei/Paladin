@@ -1,0 +1,29 @@
+version: 1
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: default
+    stream: ext://sys.stdout
+  file:
+    class: logging.handlers.TimedRotatingFileHandler
+    level: INFO
+    formatter: default
+    filename: ../logs/Paladin.log
+    encoding: utf8
+
+formatters:
+  default:
+    format: "[%(asctime)s][%(filename)s][line:%(lineno)d][%(levelname)s]: %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+
+# filters:
+#   console_filter:
+#     (): Paladin.utils.logger_utils.PaladinFilter
+
+root:
+  level: INFO
+  handlers:
+    - console
+    - file

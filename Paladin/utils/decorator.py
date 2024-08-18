@@ -5,7 +5,7 @@ import time
 from functools import wraps
 from typing import Optional
 
-from Paladin.utils import download_file
+from .download import download_file
 
 
 def timer(func):
