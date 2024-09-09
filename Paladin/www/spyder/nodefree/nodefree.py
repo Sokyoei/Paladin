@@ -6,7 +6,7 @@ import datetime
 from typing import List
 
 import requests
-from requests.exceptions import ReadTimeout
+from requests.exceptions import ConnectionError, ReadTimeout
 
 from Paladin.www import USER_AGENT
 
@@ -25,19 +25,23 @@ def _get_url(days: int = 1) -> List[List[str]]:
     for day in range(days):
         date = today - datetime.timedelta(days=day)
         yyyy = f"{date.year:0>4}"
-        m, mm = f"{date.month}", f"{date.month:0>2}"
+        m = f"{date.month}"
+        mm = f"{date.month:0>2}"
         dd = f"{date.day:0>2}"
         yyyymmdd = f"{yyyy}{mm}{dd}"
 
         # https://nodefree.org
-        # nodefree = f"https://nodefree.org/dy/{date.year:0>4}/{date.month:0>2}/{yyyymmdd}.txt"
-        # urls.append([nodefree, f"nodefree_{yyyymmdd}.txt"])
+        nodefree = f"https://nodefree.org/dy/{yyyy}/{mm}/{yyyymmdd}.txt"
+        urls.append([nodefree, f"nodefree_{yyyymmdd}.txt"])
+
         # https://nodeclash.github.io/free-nodes/
         for i in range(5):
-            nodeclash = f"https://nodeclash.github.io/uploads/{date.year:0>4}/{date.month:0>2}/{i}-{yyyymmdd}.txt"
+            # nodeclash = f"https://nodeclash.github.io/uploads/{date.year:0>4}/{date.month:0>2}/{i}-{yyyymmdd}.txt"
+            nodeclash = f"https://www.freeclashnode.com/uploads/{yyyy}/{mm}/{i}-{yyyymmdd}.txt"
             urls.append([nodeclash, f"nodeclash_{i}_{yyyymmdd}.txt"])
+
         # https://tglaoshiji.github.io/clashnodev2raynode/
-        tglaoshiji = f"https://tglaoshiji.github.io/nodeshare/{date.year:0>4}/{date.month}/{yyyymmdd}.txt"
+        tglaoshiji = f"https://tglaoshiji.github.io/nodeshare/{yyyy}/{m}/{yyyymmdd}.txt"
         urls.append([tglaoshiji, f"tglaoshiji_{yyyymmdd}.txt"])
 
     return urls
@@ -57,15 +61,18 @@ def download_files(days) -> None:
                 f.write(req.text)
             req.close()
             print("success")
-        except ReadTimeout:
+        except (ReadTimeout, ConnectionError):
             print("fail")
+
+
+def main():
+    download_files(days=3)
+    print("done.")
 
 
 """
 vless://2cd6ed0f-636e-4e6c-9449-5a263d7a0fa5@31.22.116.155:443?encryption=none&security=tls&sni=cfed.tgzdyz2.top&type=ws&host=cfed.tgzdyz2.top&path=tg%40zdyz2#GB_%E5%88%86%E4%BA%AB%E6%97%A5%E8%AE%B0
 """
 
-
 if __name__ == '__main__':
-    download_files(days=3)
-    print("done.")
+    main()

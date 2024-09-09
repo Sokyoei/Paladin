@@ -3,7 +3,7 @@ from .constants import DEBUG
 from .decorator import async_timer, download, timer
 from .download import download_file
 from .logger import log
-from .mqtt_utils import MQTTManager, MQTTType
+from .mqtt_utils import MQTTClient
 
 try:
     from .loguru_utils import init_logging
@@ -18,8 +18,7 @@ __all__ = [
     "download",
     "async_timer",
     "timer",
-    "MQTTManager",
-    "MQTTType",
+    "MQTTClient",
     "download_file",
     "init_logging",
 ]
