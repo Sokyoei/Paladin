@@ -8,7 +8,7 @@ from Paladin.config import LOG_DIR
 def init_logging():
     FORMATTER = (
         "[<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green>][<cyan>{file}</cyan>][line:<cyan>{line}</cyan>]"
-        "[<level>{level: <8}</level>]: <level>{message}</level>"
+        "[<level>{level}</level>]: <level>{message}</level>"
     )
 
     logger.remove(handler_id=None)
