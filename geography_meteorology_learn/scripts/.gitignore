@@ -1,8 +1,15 @@
 # ignore download file
 *.grib
 *.nc
-gdas.t*z.prepbufr.nr
+
+# ignore GFS GRIB2 data(rotate)
 gfs.t*z.pgrb2.*p*.f*
+
+# ignore GDAS PrepBUFR data(rotate)
+gdas.t*z.prepbufr.nr
+
+# ignore NCAR ds337.0 data(history)
+prepbufr.*.nr.tar.gz
 
 # ignore plot file
 *.jpg

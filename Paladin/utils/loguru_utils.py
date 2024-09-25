@@ -4,13 +4,13 @@ from loguru import logger
 
 from Paladin.config import LOG_DIR
 
+FORMATTER = (
+    "[<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green>][<cyan>{file.path}:{line}</cyan>]"
+    "[<level>{level}</level>]: <level>{message}</level>"
+)
+
 
 def init_logging():
-    FORMATTER = (
-        "[<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green>][<cyan>{file}</cyan>][line:<cyan>{line}</cyan>]"
-        "[<level>{level}</level>]: <level>{message}</level>"
-    )
-
     logger.remove(handler_id=None)
     logger.add(sys.stderr, format=FORMATTER, colorize=True)
     logger.add(
