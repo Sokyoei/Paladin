@@ -1,0 +1,38 @@
+# conda build config file
+
+# {% set version = "1.1.0" %}
+
+package:
+  name: paladin
+  # version: { { version } }
+  version: 0.0.1
+
+source:
+  path: Paladin
+  # url: https://pypi.io/packages/source/p/Paladin/Paladin-{{ version }}.tar.gz
+  # sha256: f3832918bc3c66617f92e35f5d70729187676313caa60c187eb0f28b8fe5e3b5
+
+build:
+  noarch: python
+  number: 0
+  script: python -m pip install --no-deps --ignore-installed .
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+
+test:
+  imports:
+    - Paladin
+
+about:
+  home: https://github.com/Sokyoei/Paladin
+  license: MIT
+  summary: Sokyoei's Python utils project
+  description: Sokyoei's Python utils project
+  dev_url: https://github.com/Sokyoei/Paladin
+  doc_url: https://pypi.python.org/pypi/Paladin
+  doc_source_url: https://github.com/Sokyoei/Paladin/blob/master/README.md

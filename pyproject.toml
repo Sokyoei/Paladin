@@ -77,11 +77,23 @@ members = ["Paladin"]
 [tool.setuptools]
 include-package-data = true
 
+[tool.hatch.metadata]
+allow-direct-references = true
+
 [tool.hatch.build.targets.sdist]
+ignore-vcs = true
+packages = ["./data", "./docs", "./python", "./tests"]
+include = []
 exclude = ["/.vscode"]
 
 [tool.hatch.build.targets.wheel]
+ignore-vcs = true
 packages = ["./data", "./docs", "./python", "./tests"]
+include = []
+exclude = []
+
+[tool.hatch.build.targets.wheel.hooks.custom]
+path = "hatch_build.py"
 
 [tool.isort]
 line_length = 120

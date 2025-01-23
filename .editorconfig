@@ -18,5 +18,5 @@ ij_any_line_comment_at_first_column = false
 ij_any_line_comment_add_space = true
 ij_any_block_comment_add_space = true
 
-[*.{yml,yaml}]
+[*.{yml,yaml,condarc}]
 indent_size = 2
