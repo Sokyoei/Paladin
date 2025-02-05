@@ -5,7 +5,9 @@ if sys.version_info >= (3, 11):
 
 import tomli_w
 
-with open("../../data/Ahri/Ahri.toml", "rb") as Ahri:
+from Paladin import SOKYOEI_DATA_DIR
+
+with open(SOKYOEI_DATA_DIR / "Ahri/Ahri.toml", "rb") as Ahri:
     data = tomllib.load(Ahri)
     print(data)
 

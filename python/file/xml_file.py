@@ -1,7 +1,9 @@
 from xml.dom import minidom
 from xml.etree import ElementTree as ET
 
-xml_file_path = r"../../data/Ahri/Ahri.xml"
+from Paladin import SOKYOEI_DATA_DIR
+
+xml_file_path = str(SOKYOEI_DATA_DIR / "Ahri/Ahri.xml")
 
 ########################################################################################################################
 # xml.dom

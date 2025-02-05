@@ -1,7 +1,9 @@
 import yaml
 
+from Paladin import SOKYOEI_DATA_DIR
+
 # yaml -> dict
-with open("../../data/Ahri/Ahri.yaml", encoding="utf8") as Ahri:
+with open(SOKYOEI_DATA_DIR / "Ahri/Ahri.yaml", encoding="utf8") as Ahri:
     data = yaml.load(Ahri, Loader=yaml.FullLoader)
     print(data)
 

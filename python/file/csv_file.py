@@ -1,9 +1,11 @@
-import csv
+import csv  # noqa: F401
 
 import numpy as np
 import pandas as pd
 
-csv_file_path = r"../../data/原神/原神.csv"
+from Paladin import SOKYOEI_DATA_DIR
+
+csv_file_path = SOKYOEI_DATA_DIR / "原神/原神.csv"
 
 from_pd = pd.read_csv(csv_file_path, encoding="utf8")
 print(from_pd)
