@@ -9,7 +9,7 @@ client_id = "mqtt_subscribe"
 def main():
     client = MQTTClient(broker, port, client_id)
     client.subscribe(topic)
-    client.client.loop_forever()
+    client.client.loop_forever(retry_first_connection=True)
 
 
 if __name__ == '__main__':

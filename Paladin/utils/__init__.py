@@ -13,12 +13,12 @@ except ImportError:
 
 __all__ = [
     "DEBUG",
-    "log",
+    "MQTTClient",
+    "async_timer",
     "check_path",
     "download",
-    "async_timer",
-    "timer",
-    "MQTTClient",
     "download_file",
     "init_logging",
+    "log",
+    "timer",
 ]

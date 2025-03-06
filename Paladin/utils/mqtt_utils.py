@@ -47,13 +47,14 @@ class MQTTClient(object):
             if reason_code == 0:
                 print("Connected to MQTT Broker!")
             else:
-                print(f"Failed to connect, return code {reason_code}")
+                print(f"Failed to connect, return code {mqtt.error_string(reason_code)}")
 
         client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2, self.client_id)
         if self.username and self.password:
             client.username_pw_set(self.username, self.password)
         client.on_connect = on_connect
-        client.connect(self.broker, self.port)
+        client.reconnect_delay_set()  # 设置重新连接
+        client.connect_async(self.broker, self.port)
         return client
 
     def publish(self, topic: str, msg: str):
@@ -62,7 +63,7 @@ class MQTTClient(object):
         if result.rc == 0:
             print(f"Send `{msg}` to topic `{topic}`")
         else:
-            print(f"Failed to send message to topic {topic}, reason code: {result.rc}")
+            print(f"Failed to send message to topic {topic}, reason code: {mqtt.error_string(result.rc)}")
 
     def subscribe(self, topic: str):
         """订阅消息"""
