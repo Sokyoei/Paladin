@@ -126,7 +126,7 @@ ignore = [
     "E501",   # line too long
     "RUF003", # ambiguous-unicode-character-comment
     "RUF012", # mutable-class-default
-    "F841",   # unused-variable
+    # "F841",   # unused-variable
 ]
 ignore-init-module-imports = true
 

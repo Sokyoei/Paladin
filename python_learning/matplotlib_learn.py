@@ -1,4 +1,5 @@
 import numpy as np
+from loguru import logger
 from matplotlib import pyplot as plt
 from matplotlib.animation import FuncAnimation
 from matplotlib.axes import Axes
@@ -16,6 +17,7 @@ def main():
         line1.set_ydata(np.sin(x + n / 10.0))
 
     ani = FuncAnimation(fig, update, interval=50, blit=False, repeat=False)
+    logger.debug(ani)
     plt.show()
 
 
