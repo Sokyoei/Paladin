@@ -1,14 +1,15 @@
 from Paladin.utils import MQTTClient
+from Paladin.utils.mqtt_utils import ClientMode
 
-broker = "broker.emqx.io"
-port = 1883
-topic = "/python/mqtt"
-client_id = "mqtt_subscribe"
+BROKER = "broker.emqx.io"
+PORT = 1883
+TOPIC = "/python/mqtt"
+CLIENT_ID = "mqtt_subscribe"
 
 
 def main():
-    client = MQTTClient(broker, port, client_id)
-    client.subscribe(topic)
+    client = MQTTClient(BROKER, PORT, ClientMode.SUBSCRIBE, CLIENT_ID)
+    client.subscribe(TOPIC)
     client.client.loop_forever(retry_first_connection=True)
 
 

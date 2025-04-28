@@ -1,5 +1,5 @@
 """
-get v2ray nodes
+Get v2ray and clash nodes
 """
 
 import datetime
@@ -12,7 +12,7 @@ from Paladin.www import USER_AGENT
 
 
 def _get_url(days: int = 1) -> List[List[str]]:
-    """get today nodefree.org urls.
+    """get num days nodefree urls.
 
     Args:
         days (int): get nearset `n` days.
@@ -30,9 +30,14 @@ def _get_url(days: int = 1) -> List[List[str]]:
         dd = f"{date.day:0>2}"
         yyyymmdd = f"{yyyy}{mm}{dd}"
 
+        ################################################################################################################
         # https://nodefree.org
-        nodefree = f"https://nodefree.org/dy/{yyyy}/{mm}/{yyyymmdd}.txt"
-        urls.append([nodefree, f"nodefree_{yyyymmdd}.txt"])
+        # nodefree = f"https://nodefree.org/dy/{yyyy}/{mm}/{yyyymmdd}.txt"
+        # urls.append([nodefree, f"nodefree_{yyyymmdd}.txt"])
+        nodefree_v2ray = f"https://nodefree.githubrowcontent.com/{yyyy}/{mm}/{yyyymmdd}.txt"
+        urls.append([nodefree_v2ray, f"nodefree_{yyyymmdd}.txt"])
+        nodefree_clash = f"https://nodefree.githubrowcontent.com/{yyyy}/{mm}/{yyyymmdd}.yaml"
+        urls.append([nodefree_clash, f"nodefree_{yyyymmdd}.yaml"])
 
         # https://nodeclash.github.io/free-nodes/
         for i in range(5):
@@ -41,14 +46,23 @@ def _get_url(days: int = 1) -> List[List[str]]:
             urls.append([nodeclash, f"nodeclash_{i}_{yyyymmdd}.txt"])
 
         # https://tglaoshiji.github.io/clashnodev2raynode/
-        tglaoshiji = f"https://tglaoshiji.github.io/nodeshare/{yyyy}/{m}/{yyyymmdd}.txt"
-        urls.append([tglaoshiji, f"tglaoshiji_{yyyymmdd}.txt"])
+        # tglaoshiji = f"https://tglaoshiji.github.io/nodeshare/{yyyy}/{m}/{yyyymmdd}.txt"
+        # urls.append([tglaoshiji, f"tglaoshiji_{yyyymmdd}.txt"])
+        tglaoshiji_clash = f"https://a.nodeshare.xyz/uploads/{yyyy}/{m}/{yyyymmdd}.yaml"
+        urls.append([tglaoshiji_clash, f"tglaoshiji_{yyyymmdd}.yaml"])
+
+        # https://clashfreenode.com/
+        clashfreenode_v2ray = f"https://clashfreenode.com/feed/v2ray-{yyyymmdd}.txt"
+        urls.append([clashfreenode_v2ray, f"v2ray-{yyyymmdd}.txt"])
+        clashfreenode_clash = f"https://clashfreenode.com/feed/clash-{yyyymmdd}.yaml"
+        urls.append([clashfreenode_clash, f"v2ray-{yyyymmdd}.yaml"])
+        ################################################################################################################
 
     return urls
 
 
-def download_files(days) -> None:
-    """download nodefree.org `v2ray` and `Clash` file.
+def download_files(days: int) -> None:
+    """download nodefree `v2ray` and `clash` file.
 
     Args:
         days (int): see get_url().
@@ -72,6 +86,7 @@ def main():
 
 """
 vless://2cd6ed0f-636e-4e6c-9449-5a263d7a0fa5@31.22.116.155:443?encryption=none&security=tls&sni=cfed.tgzdyz2.top&type=ws&host=cfed.tgzdyz2.top&path=tg%40zdyz2#GB_%E5%88%86%E4%BA%AB%E6%97%A5%E8%AE%B0
+vmess://ew0KICAidiI6ICIyIiwNCiAgInBzIjogIjN8ZCoqKioqKioqKmcuY29tXzIgIzEiLA0KICAiYWRkIjogIjEwNC4xOS41MS4yMzIiLA0KICAicG9ydCI6ICIyMDg2IiwNCiAgImlkIjogIjI5ZWViYjYwLWIyN2ItNGE5ZC1iYmE1LTk0Nzc2M2Q5MjA1ZSIsDQogICJhaWQiOiAiMCIsDQogICJzY3kiOiAiYXV0byIsDQogICJuZXQiOiAid3MiLA0KICAidHlwZSI6ICJub25lIiwNCiAgImhvc3QiOiAiaXAwMDYuMzE5Njc3Mi54eXoiLA0KICAicGF0aCI6ICJnaXRodWIuY29tL0FsdmluOTk5OSIsDQogICJ0bHMiOiAiIiwNCiAgInNuaSI6ICJpcDAwNi4zMTk2NzcyLnh5eiIsDQogICJhbHBuIjogIiIsDQogICJmcCI6ICIiDQp9
 """
 
 if __name__ == '__main__':

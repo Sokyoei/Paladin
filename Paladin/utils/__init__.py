@@ -3,7 +3,7 @@ from .constants import DEBUG
 from .decorator import async_timer, download, timer
 from .download import download_file
 from .logger import log
-from .mqtt_utils import MQTTClient
+from .mqtt_utils import ClientMode, MQTTClient
 
 try:
     from .loguru_utils import init_logging
@@ -13,6 +13,7 @@ except ImportError:
 
 __all__ = [
     "DEBUG",
+    "ClientMode",
     "MQTTClient",
     "async_timer",
     "check_path",

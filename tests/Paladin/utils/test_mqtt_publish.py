@@ -1,18 +1,19 @@
 import time
 
 from Paladin.utils import MQTTClient
+from Paladin.utils.mqtt_utils import ClientMode
 
-broker = "broker.emqx.io"
-port = 1883
-topic = "/python/mqtt"
-client_id = "mqtt_publish"
+BROKER = "broker.emqx.io"
+PORT = 1883
+TOPIC = "/python/mqtt"
+CLIENT_ID = "mqtt_publish"
 
 
 def main():
     n = 0
-    client = MQTTClient(broker, port, client_id)
+    client = MQTTClient(BROKER, PORT, ClientMode.PUBLISH, CLIENT_ID)
     while True:
-        client.publish(topic, str(n))
+        client.publish(TOPIC, str(n))
         time.sleep(1)
         n += 1
 
