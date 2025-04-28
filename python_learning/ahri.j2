@@ -1,0 +1,9 @@
+{# for if 语句 #}
+{% for fox in foxes -%}
+    {# `-` 用来删除空白行 #}
+    {% if fox.age > 16 %}
+        elder sister: I'm  {{ fox.name }}, {{ fox.age }} year old.
+    {%- else %}
+        younger sister: I'm {{ fox.name }}, {{ fox.age }} year old.
+    {%- endif %}
+{%- endfor %}
