@@ -6,4 +6,4 @@ from .user import User
 Base = declarative_base()
 
 
-__all__ = ["Item", "User", "Base"]
+__all__ = ["Base", "Item", "User"]

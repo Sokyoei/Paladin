@@ -3,25 +3,30 @@ Get v2ray and clash nodes
 """
 
 import datetime
-from typing import List
+from typing import Dict
 
 import requests
 from requests.exceptions import ConnectionError, ReadTimeout
 
 from Paladin.www import USER_AGENT
 
+V2RAY = False
+CLASH = True
+SINGBOX = False
 
-def _get_url(days: int = 1) -> List[List[str]]:
+
+def _get_url(days: int = 1) -> Dict[str, str]:  # noqa: C901
     """get num days nodefree urls.
 
     Args:
         days (int): get nearset `n` days.
 
     Returns:
-        list[list[str]]: [url, filename].
+        Dict[str, str]: url: filename.
     """
     today = datetime.date.today()
-    urls = []
+    # urls = []
+    urls: Dict[str, str] = {}
     for day in range(days):
         date = today - datetime.timedelta(days=day)
         yyyy = f"{date.year:0>4}"
@@ -31,31 +36,42 @@ def _get_url(days: int = 1) -> List[List[str]]:
         yyyymmdd = f"{yyyy}{mm}{dd}"
 
         ################################################################################################################
-        # https://nodefree.org
-        # nodefree = f"https://nodefree.org/dy/{yyyy}/{mm}/{yyyymmdd}.txt"
-        # urls.append([nodefree, f"nodefree_{yyyymmdd}.txt"])
-        nodefree_v2ray = f"https://nodefree.githubrowcontent.com/{yyyy}/{mm}/{yyyymmdd}.txt"
-        urls.append([nodefree_v2ray, f"nodefree_{yyyymmdd}.txt"])
-        nodefree_clash = f"https://nodefree.githubrowcontent.com/{yyyy}/{mm}/{yyyymmdd}.yaml"
-        urls.append([nodefree_clash, f"nodefree_{yyyymmdd}.yaml"])
+        # fmt: off
+
+        # https://nodefree.org/
+        if V2RAY:
+            urls[f"https://nodefree.githubrowcontent.com/{yyyy}/{mm}/{yyyymmdd}.txt"] = f"nodefree_org_{yyyymmdd}.txt"
+        if CLASH:
+            urls[f"https://nodefree.githubrowcontent.com/{yyyy}/{mm}/{yyyymmdd}.yaml"] = f"nodefree_org_{yyyymmdd}.yaml"
 
         # https://nodeclash.github.io/free-nodes/
         for i in range(5):
-            # nodeclash = f"https://nodeclash.github.io/uploads/{date.year:0>4}/{date.month:0>2}/{i}-{yyyymmdd}.txt"
-            nodeclash = f"https://www.freeclashnode.com/uploads/{yyyy}/{mm}/{i}-{yyyymmdd}.txt"
-            urls.append([nodeclash, f"nodeclash_{i}_{yyyymmdd}.txt"])
+            if V2RAY:
+                urls[f"https://node.freeclashnode.com/uploads/{yyyy}/{mm}/{i}-{yyyymmdd}.txt"] = f"nodeclash_{i}_{yyyymmdd}.txt"
+            if CLASH:
+                urls[f"https://node.freeclashnode.com/uploads/{yyyy}/{mm}/{i}-{yyyymmdd}.yaml"] = f"nodeclash_{i}_{yyyymmdd}.yaml"
 
         # https://tglaoshiji.github.io/clashnodev2raynode/
-        # tglaoshiji = f"https://tglaoshiji.github.io/nodeshare/{yyyy}/{m}/{yyyymmdd}.txt"
-        # urls.append([tglaoshiji, f"tglaoshiji_{yyyymmdd}.txt"])
-        tglaoshiji_clash = f"https://a.nodeshare.xyz/uploads/{yyyy}/{m}/{yyyymmdd}.yaml"
-        urls.append([tglaoshiji_clash, f"tglaoshiji_{yyyymmdd}.yaml"])
+        if V2RAY:
+            urls[f"https://a.nodeshare.xyz/uploads/{yyyy}/{m}/{yyyymmdd}.txt"] = f"tglaoshiji_{yyyymmdd}.txt"
+        if CLASH:
+            urls[f"https://a.nodeshare.xyz/uploads/{yyyy}/{m}/{yyyymmdd}.yaml"] = f"tglaoshiji_{yyyymmdd}.yaml"
 
         # https://clashfreenode.com/
-        clashfreenode_v2ray = f"https://clashfreenode.com/feed/v2ray-{yyyymmdd}.txt"
-        urls.append([clashfreenode_v2ray, f"v2ray-{yyyymmdd}.txt"])
-        clashfreenode_clash = f"https://clashfreenode.com/feed/clash-{yyyymmdd}.yaml"
-        urls.append([clashfreenode_clash, f"v2ray-{yyyymmdd}.yaml"])
+        if V2RAY:
+            urls[f"https://clashfreenode.com/feed/v2ray-{yyyymmdd}.txt"] = f"clashfreenode_{yyyymmdd}.txt"
+        if CLASH:
+            urls[f"https://clashfreenode.com/feed/clash-{yyyymmdd}.yaml"] = f"clashfreenode_{yyyymmdd}.yaml"
+
+
+        # https://nodefree.cc/
+        for i in range(5):
+            if V2RAY:
+                urls[f"https://node.nodefree.cc/uploads/{yyyy}/{mm}/{i}-{yyyymmdd}.txt"] = f"nodefree_cc_{i}_{yyyymmdd}.txt"
+            if CLASH:
+                urls[f"https://node.nodefree.cc/uploads/{yyyy}/{mm}/{i}-{yyyymmdd}.yaml"] = f"nodefree_cc_{i}_{yyyymmdd}.yaml"
+
+        # fmt: on
         ################################################################################################################
 
     return urls
@@ -67,7 +83,7 @@ def download_files(days: int) -> None:
     Args:
         days (int): see get_url().
     """
-    for url, filename in _get_url(days):
+    for url, filename in _get_url(days).items():
         try:
             print(f"start downloading {url} ...")
             req = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=10)

@@ -4,24 +4,24 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+from loguru import logger
 
 from fastapi_learn.api import item_router, user_router
 from fastapi_learn.config import Database
-from Paladin.utils import log
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    log.info("start fastapi")
+    logger.info("start fastapi")
     app.include_router(item_router)
     app.include_router(user_router)
     app.mount("/static", StaticFiles(directory="static"), name="static")
-    db = Database().get_db_connection()
+    db = Database().get_db_connection()  # noqa: F841
     # async_redis_config = AsyncRedisConfig()
     # await async_redis_config.start()
     yield
     # await async_redis_config.close()
-    log.info("close fastapi")
+    logger.info("close fastapi")
 
 
 app = FastAPI(lifespan=lifespan)

@@ -1,7 +1,6 @@
+from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-
-from Paladin.utils import log
 
 DATABASE_URL = "mysql+aiomysql://root:ahri@localhost:3306/paladin?charset=utf8mb4"
 
@@ -19,7 +18,7 @@ class Database(object):
                 self.connection_is_active = True
                 yield self.engine
             except Exception as e:
-                log.error(e)
+                logger.error(e)
         yield self.engine
 
     async def get_db_session(self, engine) -> AsyncSession:
