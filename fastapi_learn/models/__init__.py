@@ -1,9 +1,5 @@
-from sqlalchemy.ext.declarative import declarative_base
-
+from .genshin_role import GenshinRole
 from .item import Item
 from .user import User
 
-Base = declarative_base()
-
-
-__all__ = ["Base", "Item", "User"]
+__all__ = ["GenshinRole", "Item", "User"]

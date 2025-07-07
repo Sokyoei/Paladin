@@ -1,12 +1,12 @@
 from sqlalchemy.orm import Session
 
 from fastapi_learn.models import User
-from fastapi_learn.schema import User as SUser
+from fastapi_learn.schema import User as UserSchema
 
 
 class UserCRUD(object):
 
-    def create_user(db: Session, user: SUser):
+    def create_user(db: Session, user: UserSchema):
         db_user = User(user.name)
         db.add(db_user)
         db.commit()

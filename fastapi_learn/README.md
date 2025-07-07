@@ -8,7 +8,7 @@ fastapi_learn
 ├──config   配置
 ├──crud     实现增删改查
 ├──models   数据模型
-├──schema
+├──schema   数据校验
 ├──sql      SQL 语句
 ├──utils    实用工具
 └──main.py  程序入口

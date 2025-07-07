@@ -1,8 +1,6 @@
-from typing import Union
-
 from fastapi import APIRouter, Path, Query
 
-from fastapi_learn.models import Item
+# from fastapi_learn.schema import Item
 
 router = APIRouter()
 
@@ -13,12 +11,10 @@ async def read_root():
 
 
 @router.get("/items/{item_id}")
-async def read_item(
-    item_id: int = Path(..., title="ID", ge=0, le=1000), q: Union[str, None] = Query(None, max_length=50)
-):
+async def read_item(item_id: int = Path(..., title="ID", ge=0, le=1000), q: str | None = Query(None, max_length=50)):
     return {"item_id": item_id, "q": q}
 
 
-@router.put("/items/{item_id}")
-async def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id}
+# @router.put("/items/{item_id}")
+# async def update_item(item_id: int, item: Item):
+#     return {"item_name": item.name, "item_id": item_id}

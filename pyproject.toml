@@ -15,15 +15,12 @@ authors = [{ name = "Sokyoei" }]
 license = { text = "MIT" }
 readme = "README.md"
 dependencies = [
-    "numpy>=1.26.3",
-    "scipy>=1.13.1",
-    "pandas>=2.2.2",
-    "matplotlib>=3.9.0",
-    "fastapi[all]>=0.111.0",
-    "sqlalchemy[aiomysql]>=2.0.30",
-    "redis>=5.0.5",
-    "streamlit>=1.35.0",
-    "django>=5.0.6",
+    # data analysis
+    "numpy",
+    "scipy",
+    "pandas",
+    "matplotlib",
+    "streamlit",
     "PyYAML",
     "loguru",
 ]
@@ -37,7 +34,7 @@ Repository = "https://github.com/Sokyoei/Paladin"
 dev = ["isort", "ruff", "autopep8", "black", "pipdeptree", "pip_search"]
 utils = ["python-dateutil"]
 test = ["pytest", "tox", "coverage"]
-build = ["setuptools", "wheel"]
+build = ["setuptools", "wheel", "hatch"]
 ai = [
     # python3.9 + cuda11.6
     "torch==1.13.1+cu116; python_version=='3.9'",
@@ -51,6 +48,8 @@ webapp = ["streamlit", "gradio"]
 gui = ["PyQt5"]
 cli = ["click"]
 llm = []
+fastapi_learn = ["fastapi[all]", "sqlalchemy[aiomysql]", "redis"]
+django_learn = ["django"]
 
 [project.scripts]
 
@@ -124,6 +123,7 @@ select = [
 ]
 ignore = [
     "E501",   # line too long
+    "RUF002", # ambiguous-unicode-character-docstring
     "RUF003", # ambiguous-unicode-character-comment
     "RUF012", # mutable-class-default
     # "F841",   # unused-variable
