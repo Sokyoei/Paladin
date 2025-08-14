@@ -3,7 +3,7 @@ from pathlib import Path
 
 from loguru import logger
 
-from Paladin.config import LOG_DIR
+from Ahri.Paladin.config import LOG_DIR
 
 FORMATTER = (
     "[<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green>][<cyan>{file.path}:{line}</cyan>]"

@@ -7,7 +7,7 @@ from typing import Optional
 import requests
 from tqdm import tqdm
 
-from Paladin.www import USER_AGENT
+from Ahri.Paladin.www import USER_AGENT
 
 
 def download_file(url: str, dst_path: Optional[str | os.PathLike] = None, check_exists: bool = True):

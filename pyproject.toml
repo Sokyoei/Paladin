@@ -1,3 +1,5 @@
+# This file is Sokyoei's personal configuration for Python project.
+
 [build-system]
 # requires = ["setuptools", "wheel"]
 # build-backend = "setuptools.build_meta"
@@ -16,13 +18,12 @@ license = { text = "MIT" }
 readme = "README.md"
 dependencies = [
     # data analysis
-    "numpy",
-    "scipy",
-    "pandas",
-    "matplotlib",
-    "streamlit",
-    "PyYAML",
-    "loguru",
+    "numpy",      # https://github.com/numpy/numpy
+    "scipy",      # https://github.com/scipy/scipy
+    "pandas",     # https://github.com/pandas-dev/pandas
+    "matplotlib", # https://github.com/matplotlib/matplotlib
+    "PyYAML",     # https://github.com/yaml/pyyaml
+    "loguru",     # https://github.com/Delgan/loguru
 ]
 requires-python = ">= 3.8"
 
@@ -31,18 +32,52 @@ Repository = "https://github.com/Sokyoei/Paladin"
 
 [project.optional-dependencies]
 # Sokyoei know and learn library
-dev = ["isort", "ruff", "autopep8", "black", "pipdeptree", "pip_search"]
-utils = ["python-dateutil"]
+dev = [
+    "ruff",       # https://github.com/astral-sh/ruff
+    "black",      # https://github.com/psf/black
+    "isort",      # https://github.com/PyCQA/isort
+    "pipdeptree", # https://github.com/tox-dev/pipdeptree
+    "viztracer",  # https://github.com/gaogaotiantian/viztracer
+    # "pip_search", # https://github.com/victorgarric/pip_search
+    # "autopep8",   # https://github.com/hhatto/autopep8
+]
+utils = [
+    "python-dateutil", # https://github.com/dateutil/dateutil
+]
 test = ["pytest", "tox", "coverage"]
-build = ["setuptools", "wheel", "hatch"]
+build = [
+    "setuptools",
+    "wheel",
+    "hatch",      # https://github.com/pypa/hatch
+]
 ai = [
     # python3.9 + cuda11.6
     "torch==1.13.1+cu116; python_version=='3.9'",
     "torchvision==0.14.1+cu116; python_version=='3.9'",
     "torchaudio==0.13.1; python_version=='3.9'",
 ]
-geography = ["Cartopy", "netCDF4", "xarray", "cfgrib", "eccodes", "ecmwflibs", "f90nml", "wrf-python", "cdsapi"]
-sumo = ["eclipse-sumo", "libsumo", "libtraci", "sumolib", "traci"]
+geography = [
+    "wrf-python", # https://github.com/NCAR/wrf-python
+    "eccodes",    # https://github.com/ecmwf/eccodes-python
+    "ecmwflibs",  # https://github.com/ecmwf/ecmwflibs
+    "f90nml",     # https://github.com/marshallward/f90nml
+    "cdsapi",     # https://github.com/ecmwf/cdsapi
+    "netCDF4",    # https://github.com/Unidata/netcdf4-python
+    "xarray",     # https://github.com/pydata/xarray
+    "cfgrib",     # https://github.com/ecmwf/cfgrib
+    "Cartopy",    # https://github.com/SciTools/cartopy
+    "geopandas",  # https://github.com/geopandas/geopandas
+    "pyshp",      # https://github.com/GeospatialPython/pyshp
+    "pyproj",     # https://github.com/pyproj4/pyproj
+]
+sumo = [
+    # https://github.com/eclipse-sumo/sumo
+    "eclipse-sumo",
+    "libsumo",
+    "libtraci",
+    "sumolib",
+    "traci",
+]
 web = ["flask[async]", "fastapi[all]"]
 webapp = ["streamlit", "gradio"]
 gui = ["PyQt5"]

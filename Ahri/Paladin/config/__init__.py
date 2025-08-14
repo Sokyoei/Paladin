@@ -2,7 +2,7 @@
 配置
 """
 
-from Paladin import PALADIN_ROOT
+from Ahri.Paladin import PALADIN_ROOT
 
 LOG_DIR = PALADIN_ROOT / "logs"
 if not LOG_DIR.exists():

@@ -1,6 +1,6 @@
 from loguru import logger
 
-from Paladin.utils import init_logging
+from Ahri.Paladin.utils import init_logging
 
 
 def main():

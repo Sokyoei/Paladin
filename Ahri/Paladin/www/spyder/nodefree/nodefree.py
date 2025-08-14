@@ -8,7 +8,7 @@ from typing import Dict
 import requests
 from requests.exceptions import ConnectionError, ReadTimeout
 
-from Paladin.www import USER_AGENT
+from Ahri.Paladin.www import USER_AGENT
 
 V2RAY = False
 CLASH = True

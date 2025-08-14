@@ -1,6 +1,6 @@
 import yaml
 
-from Paladin import SOKYOEI_DATA_DIR
+from Ahri.Paladin import SOKYOEI_DATA_DIR
 
 # yaml -> dict
 with open(SOKYOEI_DATA_DIR / "Ahri/Ahri.yaml", encoding="utf8") as Ahri:

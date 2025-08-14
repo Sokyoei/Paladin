@@ -3,7 +3,7 @@ import csv  # noqa: F401
 import numpy as np
 import pandas as pd
 
-from Paladin import SOKYOEI_DATA_DIR
+from Ahri.Paladin import SOKYOEI_DATA_DIR
 
 csv_file_path = SOKYOEI_DATA_DIR / "原神/原神.csv"
 

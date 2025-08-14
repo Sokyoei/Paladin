@@ -5,7 +5,7 @@ Python 3.5: async/await
 import asyncio
 import sys
 
-from Paladin.utils import async_timer
+from Ahri.Paladin.utils import async_timer
 
 if sys.version_info >= (3, 5):
 

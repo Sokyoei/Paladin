@@ -1,6 +1,6 @@
 import json
 
-from Paladin import SOKYOEI_DATA_DIR
+from Ahri.Paladin import SOKYOEI_DATA_DIR
 
 # json -> dict
 with open(SOKYOEI_DATA_DIR / "Ahri/Ahri.json", "r", encoding="utf8") as Ahri:

@@ -10,10 +10,10 @@ from pathlib import Path
 
 import yaml
 
-from Paladin import PALADIN_ROOT
+from Ahri.Paladin import PALADIN_ROOT
 
 
-def init_logging(config_path: Path = PALADIN_ROOT / "Paladin/utils/logger.yaml"):
+def init_logging(config_path: Path = PALADIN_ROOT / "Ahri/Paladin/utils/logger.yaml"):
     with open(config_path) as f:
         config = yaml.load(f.read(), yaml.FullLoader)
         logging.config.dictConfig(config)

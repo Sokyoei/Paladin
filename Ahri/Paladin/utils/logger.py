@@ -5,7 +5,7 @@
 import logging
 import logging.handlers
 
-from Paladin.config import LOG_DIR
+from Ahri.Paladin.config import LOG_DIR
 
 
 class Logger(object):

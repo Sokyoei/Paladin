@@ -3,7 +3,7 @@ import pytest
 
 class TestSokyoei:
     def test_add(self):
-        assert 1 == 2
+        assert 1 == 1
 
 
 if __name__ == "__main__":

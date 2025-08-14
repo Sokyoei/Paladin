@@ -1,7 +1,7 @@
 import time
 
-from Paladin.utils import MQTTClient
-from Paladin.utils.mqtt_utils import ClientMode
+from Ahri.Paladin.utils import MQTTClient
+from Ahri.Paladin.utils.mqtt_utils import ClientMode
 
 BROKER = "broker.emqx.io"
 PORT = 1883

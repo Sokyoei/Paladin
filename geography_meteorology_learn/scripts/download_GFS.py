@@ -4,7 +4,7 @@ download GFS/GDAS prepBUFR datasets
 
 from typing import Literal
 
-from Paladin.utils import download_file
+from Ahri.Paladin.utils import download_file
 
 
 def download_gfs(
