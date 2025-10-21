@@ -10,7 +10,7 @@ handlers:
     class: logging.handlers.TimedRotatingFileHandler
     level: INFO
     formatter: default
-    filename: ../logs/Paladin.log
+    filename: ../../logs/Paladin.log
     encoding: utf8
 
 formatters:

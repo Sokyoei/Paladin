@@ -1,5 +1,5 @@
 """
-Get v2ray and clash nodes
+Get v2ray clash and singbox nodes
 """
 
 import datetime
@@ -63,7 +63,6 @@ def _get_url(days: int = 1) -> Dict[str, str]:  # noqa: C901
         if CLASH:
             urls[f"https://clashfreenode.com/feed/clash-{yyyymmdd}.yaml"] = f"clashfreenode_{yyyymmdd}.yaml"
 
-
         # https://nodefree.cc/
         for i in range(5):
             if V2RAY:
@@ -81,7 +80,7 @@ def download_files(days: int) -> None:
     """download nodefree `v2ray` and `clash` file.
 
     Args:
-        days (int): see get_url().
+        days (int): see _get_url().
     """
     for url, filename in _get_url(days).items():
         try:
