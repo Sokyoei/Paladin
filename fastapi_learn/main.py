@@ -1,11 +1,35 @@
+import json
+import time
 from contextlib import asynccontextmanager
 
 import uvicorn
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
+from fastapi.responses import StreamingResponse
 from fastapi.templating import Jinja2Templates
 from loguru import logger
 
 from fastapi_learn.api import all_routers
+
+apirouter = APIRouter()
+
+
+@apirouter.get("/")
+async def index():
+    return {"hello": "world"}
+
+
+@apirouter.get("/sse")
+async def sse():
+    async def generate():
+        n = 1
+        while True:
+            data = {"value": n}
+            yield f"data: {json.dumps(data)}\n\n"
+            time.sleep(1)
+            print(f"send data: {data}")
+            n += 1
+
+    return StreamingResponse(generate(), media_type="text/event-stream")
 
 
 @asynccontextmanager
