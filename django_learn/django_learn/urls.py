@@ -15,9 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+# ruff: noqa: I001
+
 from django.contrib import admin
 from django.urls import path
 
 from app import views
 
-urlpatterns = [path('admin/', admin.site.urls), path('index', views.index)]
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    # deafult view
+    path('', views.index),
+    # sse view
+    path('sse', views.sse_view),
+]
