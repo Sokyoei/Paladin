@@ -28,7 +28,11 @@ templates = Jinja2Templates(directory="templates")
 
 
 def main():
-    uvicorn.run(app="main:app", reload=True)
+    uvicorn.run(
+        app="main:app",
+        reload=True,
+        # workers=4,  # 多线程与 debug(reload=True) 冲突
+    )
 
 
 if __name__ == "__main__":
