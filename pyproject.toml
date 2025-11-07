@@ -90,24 +90,6 @@ django_learn = ["django"]
 
 [project.gui-scripts]
 
-[tool.rye]
-dev-dependencies = []
-
-[[tool.rye.sources]]
-name = "default"
-url = "https://pypi.org/simple/"
-
-[[tool.rye.sources]]
-name = "pytorch"
-url = "https://download.pytorch.org/whl/cpu"
-
-[[tool.rye.sources]]
-name = "nvidia"
-url = "https://pypi.nvidia.cn/"
-
-[tool.rye.workspace]
-members = ["Paladin"]
-
 [tool.setuptools]
 include-package-data = true
 

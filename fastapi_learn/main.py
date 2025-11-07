@@ -36,6 +36,7 @@ async def sse():
 async def lifespan(app: FastAPI):
     logger.info("start fastapi")
 
+    app.include_router(apirouter)
     for router in all_routers:
         app.include_router(router)
 
