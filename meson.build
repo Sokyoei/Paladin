@@ -1,3 +1,3 @@
 project('Paladin', 'c', license: 'MIT')
 
-subdir('Paladin')
+subdir('Ahri.Paladin')
