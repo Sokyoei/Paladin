@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from fastapi_learn.config import get_db
 from fastapi_learn.crud import UserCRUD
-from fastapi_learn.schema import User
+from fastapi_learn.schemas import User
 
 router = APIRouter(tags=["用户"])
 

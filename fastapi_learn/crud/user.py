@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from fastapi_learn.models import User
-from fastapi_learn.schema import User as UserSchema
+from fastapi_learn.schemas import User as UserSchema
 
 
 class UserCRUD(object):

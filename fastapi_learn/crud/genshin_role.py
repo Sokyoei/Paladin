@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from fastapi_learn.models import GenshinRole
-from fastapi_learn.schema import GenshinRole as GenshinRoleSchema
+from fastapi_learn.schemas import GenshinRole as GenshinRoleSchema
 
 
 class GenshinRoleCRUD(object):
