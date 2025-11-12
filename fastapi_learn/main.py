@@ -3,16 +3,23 @@ import time
 from contextlib import asynccontextmanager
 
 import uvicorn
-from fastapi import APIRouter, FastAPI
+from fastapi import APIRouter, FastAPI, File, HTTPException, Request, UploadFile, WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
+from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from loguru import logger
 
 from fastapi_learn.api import all_routers
+from fastapi_learn.config import websocket_manager
+from fastapi_learn.schemas import Response
 
 apirouter = APIRouter()
 
 
+########################################################################################################################
+# router
+########################################################################################################################
 @apirouter.get("/")
 async def index():
     return {"hello": "world"}
@@ -32,15 +39,43 @@ async def sse():
     return StreamingResponse(generate(), media_type="text/event-stream")
 
 
+@apirouter.post("/upload")
+async def upload(file: UploadFile = File(...)):
+    with open("temp.data", "wb") as f:
+        contents = await file.read()
+        f.write(contents)
+    return Response.success()
+
+
+@apirouter.websocket("/ws/{client_id}")
+async def websocket_endpoint(websocket: WebSocket, client_id: str):
+    await websocket_manager.connect(websocket, client_id)
+
+    try:
+        while True:
+            data = await websocket.receive_text()
+            logger.info(f"Client {client_id} receive data: {data}")
+    except WebSocketDisconnect:
+        websocket_manager.disconnect(client_id)
+    except Exception as e:
+        logger.error(e)
+        websocket_manager.disconnect(client_id)
+
+
+########################################################################################################################
+# app
+########################################################################################################################
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info("start fastapi")
 
+    # router
     app.include_router(apirouter)
     for router in all_routers:
         app.include_router(router)
+    # mount
+    app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
-    # app.mount("/static", StaticFiles(directory="static"), name="static")
     # async_redis_config = AsyncRedisConfig()
     # await async_redis_config.start()
     yield
@@ -48,8 +83,31 @@ async def lifespan(app: FastAPI):
     logger.info("close fastapi")
 
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(lifespan=lifespan, debug=True)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # 生产请严格限制
+    allow_methods=["*"],
+    allow_headers=["*"],
+    allow_credentials=True,
+)
 templates = Jinja2Templates(directory="templates")
+
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    if isinstance(exc, HTTPException):
+        exc: HTTPException
+        if isinstance(exc.detail, str):
+            if 400 <= exc.status_code < 500:
+                return Response.fail(message=exc.detail)
+            else:
+                return Response.error(message=exc.detail)
+        if isinstance(exc.detail, Response):
+            return exc.detail
+
+    message = str(exc) if app.debug else ""
+    return Response.error(message)
 
 
 def main():

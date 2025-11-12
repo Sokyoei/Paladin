@@ -1,7 +1,7 @@
 import redis
 from redis import asyncio as aioredis
 
-REDIS_URL = "redis://localhost"
+from .config import REDIS_URL
 
 
 class RedisConfig(object):
