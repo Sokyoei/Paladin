@@ -11,7 +11,7 @@ from fastapi.templating import Jinja2Templates
 from loguru import logger
 
 from fastapi_learn.api import all_routers
-from fastapi_learn.config import websocket_manager
+from fastapi_learn.config import db_instance, websocket_manager
 from fastapi_learn.schemas import Response
 
 apirouter = APIRouter()
@@ -76,10 +76,9 @@ async def lifespan(app: FastAPI):
     # mount
     app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
-    # async_redis_config = AsyncRedisConfig()
-    # await async_redis_config.start()
+    await db_instance.init_db()
     yield
-    # await async_redis_config.close()
+    await db_instance.close_db()
     logger.info("close fastapi")
 
 
