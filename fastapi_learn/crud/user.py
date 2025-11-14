@@ -1,10 +1,10 @@
 from fastapi_learn.models import User
-from fastapi_learn.schemas import User as UserSchema
+from fastapi_learn.schemas import UserCreate, UserResponse, UserUpdate
 
-from .base import BaseCRUD
+from .base import BaseAsyncCRUD
 
 
-class UserCRUD(BaseCRUD[User, UserSchema]):
+class UserCRUD(BaseAsyncCRUD[User, UserCreate, UserUpdate, UserResponse]):
 
     model = User
-    schema = UserSchema
+    schema = UserCreate

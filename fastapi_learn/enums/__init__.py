@@ -1,3 +1,3 @@
-from .genshin_role import GenshinRoleAttribute, GenshinRoleLevel
+from .genshin_role import GenshinRoleElement, GenshinRoleQuality
 
-__all__ = ["GenshinRoleAttribute", "GenshinRoleLevel"]
+__all__ = ["GenshinRoleElement", "GenshinRoleQuality"]

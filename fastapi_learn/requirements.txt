@@ -2,3 +2,5 @@ fastapi[async]
 sqlalchemy[aiosqlite]
 # sqlalchemy[aiomysql]
 # sqlalchemy[postgresql-asyncpg]
+redis
+packaging

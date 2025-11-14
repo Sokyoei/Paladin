@@ -1,16 +1,18 @@
 import enum
 
 
-class GenshinRoleLevel(enum.IntEnum):
+class GenshinRoleQuality(enum.IntEnum):
     four = 4
     five = 5
 
 
-class GenshinRoleAttribute(enum.Enum):
-    wind = "风"
-    water = "水"
-    fire = "火"
-    ice = "冰"
-    thunder = "雷"
-    rock = "岩"
-    clay = "草"
+class GenshinRoleElement(enum.StrEnum):
+    # fmt: off
+    Anemo = "Anemo"         # 风
+    Geo = "Geo"             # 岩
+    Electro = "Electro"     # 雷
+    Dendro = "Dendro"       # 草
+    Hydro = "Hydro"         # 水
+    Pyro = "Pyro"           # 火
+    Cryo = "Cryo"           # 冰
+    # fmt: on

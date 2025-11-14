@@ -1,10 +1,10 @@
 from fastapi_learn.models import GenshinRole
-from fastapi_learn.schemas import GenshinRole as GenshinRoleSchema
+from fastapi_learn.schemas import GenshinRoleCreate, GenshinRoleResponse, GenshinRoleUpdate
 
-from .base import BaseCRUD
+from .base import BaseAsyncCRUD
 
 
-class GenshinRoleCRUD(BaseCRUD[GenshinRole, GenshinRoleSchema]):
+class GenshinRoleCRUD(BaseAsyncCRUD[GenshinRole, GenshinRoleCreate, GenshinRoleUpdate, GenshinRoleResponse]):
 
     model = GenshinRole
-    schema = GenshinRoleSchema
+    schema = GenshinRoleResponse
