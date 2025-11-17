@@ -43,6 +43,7 @@ dev = [
 ]
 utils = [
     "python-dateutil", # https://github.com/dateutil/dateutil
+    "packaging",       # https://github.com/pypa/packaging
 ]
 test = ["pytest", "tox", "coverage"]
 build = [
