@@ -7,4 +7,4 @@ from .base import BaseAsyncCRUD
 class UserCRUD(BaseAsyncCRUD[User, UserCreate, UserUpdate, UserResponse]):
 
     model = User
-    schema = UserCreate
+    schema = UserResponse

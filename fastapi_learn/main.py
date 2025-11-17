@@ -47,6 +47,11 @@ async def upload(file: UploadFile = File(...)):
     return Response.success()
 
 
+@apirouter.get("/websocket")
+def websocket_html(request: Request):
+    return templates.TemplateResponse("websocket.html", {"request": request})
+
+
 @apirouter.websocket("/ws/{client_id}")
 async def websocket_endpoint(websocket: WebSocket, client_id: str):
     await websocket_manager.connect(websocket, client_id)
@@ -54,7 +59,8 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
     try:
         while True:
             data = await websocket.receive_text()
-            logger.info(f"Client {client_id} receive data: {data}")
+            logger.info(f"Client `{client_id}` receive data: {data}")
+            await websocket_manager.send_message(data, websocket)
     except WebSocketDisconnect:
         websocket_manager.disconnect(client_id)
     except Exception as e:

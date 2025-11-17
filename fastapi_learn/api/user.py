@@ -8,7 +8,7 @@ from fastapi_learn.schemas import Response, UserCreate, UserResponse, UserUpdate
 user_router = APIRouter(prefix="/user", tags=["用户"])
 
 
-@user_router.put("/create", summary="新建用户", response_model=Response[UserResponse])
+@user_router.post("/create", summary="新建用户", response_model=Response[UserResponse])
 async def create_user(user: UserCreate, db: Session = Depends(get_db)):
     new_user = await UserCRUD.create(db, user)
     return Response.success(new_user)
@@ -20,7 +20,7 @@ async def delete_user(user_id: int, db: Session = Depends(get_db)):
     return Response.success(result)
 
 
-@user_router.post("/update", summary="更新用户信息", response_model=Response[UserResponse])
+@user_router.patch("/update", summary="更新用户信息", response_model=Response[UserResponse])
 async def update_user(user: UserUpdate, db: Session = Depends(get_db)):
     updated_user = await UserCRUD.update(db, user.id, user)
     return Response.success(updated_user)

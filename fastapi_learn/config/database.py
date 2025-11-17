@@ -8,7 +8,7 @@ from fastapi_learn.models import Base
 from .config import SQLALCHEMY_DATABASE_URL
 
 
-class Database:
+class Database(object):
     __instance: Optional["Database"] = None
     __engine = None
     __async_sessionmaker: Optional[async_sessionmaker[AsyncSession]] = None

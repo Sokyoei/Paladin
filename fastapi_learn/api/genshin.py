@@ -10,7 +10,7 @@ from fastapi_learn.schemas import GenshinRoleCreate, GenshinRoleResponse, Genshi
 genshin_router = APIRouter(prefix="/genshin_role", tags=["原神角色"])
 
 
-@genshin_router.put("/create", summary="新建角色", response_model=Response[GenshinRoleResponse])
+@genshin_router.post("/create", summary="新建角色", response_model=Response[GenshinRoleResponse])
 async def create_genshin_role(role: GenshinRoleCreate, db: Session = Depends(get_db)):
     new_role = await GenshinRoleCRUD.create(db, role)
     return Response.success(new_role)
@@ -22,7 +22,7 @@ async def delete_genshin_role(role_id: uuid.UUID, db: Session = Depends(get_db))
     return Response.success(result)
 
 
-@genshin_router.post("/update", summary="更新角色", response_model=Response[GenshinRoleResponse])
+@genshin_router.patch("/update", summary="更新角色", response_model=Response[GenshinRoleResponse])
 async def update_genshin_role(role: GenshinRoleUpdate, db: Session = Depends(get_db)):
     updated_role = await GenshinRoleCRUD.update(db, role.id, role)
     return Response.success(updated_role)
