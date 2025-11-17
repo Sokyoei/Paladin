@@ -1,5 +1,5 @@
 from .base import Response
-from .genshin_role import GenshinRoleCreate, GenshinRoleResponse, GenshinRoleUpdate
+from .genshin import GenshinRoleCreate, GenshinRoleResponse, GenshinRoleUpdate
 from .user import UserCreate, UserResponse, UserUpdate
 
 __all__ = [

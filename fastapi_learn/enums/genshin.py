@@ -6,7 +6,7 @@ class GenshinRoleQuality(enum.IntEnum):
     five = 5
 
 
-class GenshinRoleElement(enum.StrEnum):
+class GenshinElement(enum.StrEnum):
     # fmt: off
     Anemo = "Anemo"         # 风
     Geo = "Geo"             # 岩

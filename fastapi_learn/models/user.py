@@ -10,7 +10,7 @@ from .base import Base
 if version.parse(sqlalchemy.__version__) >= version.parse("1.4"):
 
     class User(Base):
-        __tablename__ = "users"
+        __tablename__ = "user"
         id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4())
         uid: Mapped[int] = mapped_column(Integer)
         name: Mapped[str] = mapped_column(String(255))
@@ -21,7 +21,7 @@ if version.parse(sqlalchemy.__version__) >= version.parse("1.4"):
 else:
 
     class User(Base):
-        __tablename__ = "users"
+        __tablename__ = "user"
         id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4())
         uid = Column(Integer)
         name = Column(String(255))

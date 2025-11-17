@@ -4,7 +4,7 @@ from typing import Annotated, Optional
 
 from pydantic import BaseModel, Field
 
-from fastapi_learn.enums import GenshinRoleElement, GenshinRoleQuality
+from fastapi_learn.enums import GenshinElement, GenshinRoleQuality
 
 GenshineRole_id = Annotated[uuid.UUID, Field(description="角色 UUID")]
 GenshineRole_name = Annotated[str, Field(description="角色名称", max_length=255)]
@@ -12,7 +12,7 @@ GenshineRole_title = Annotated[str, Field(description="角色称号", max_length
 GenshineRole_quality = Annotated[GenshinRoleQuality, Field(description="角色星级")]
 GenshineRole_birthday = Annotated[date, Field(description="出生日期")]
 GenshineRole_release_version = Annotated[str, Field(description="上线版本", max_length=200)]
-GenshineRole_element = Annotated[GenshinRoleElement, Field(description="元素(风/水/火/冰/雷/岩/草)")]
+GenshineRole_element = Annotated[GenshinElement, Field(description="元素(风/水/火/冰/雷/岩/草)")]
 GenshineRole_constellation = Annotated[str, Field(description="命之座", max_length=200)]
 GenshineRole_affiliation = Annotated[str, Field(description="所属势力", max_length=200)]
 GenshineRole_special_dish = Annotated[str, Field(description="特色菜", max_length=200)]

@@ -1,9 +1,9 @@
-from .genshin_role import genshin_role_router
+from .genshin import genshin_router
 from .user import user_router as user_router
 
 all_routers = [
     # add your routers here
-    genshin_role_router,
+    genshin_router,
     user_router,
 ]
 
