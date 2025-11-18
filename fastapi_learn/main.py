@@ -1,6 +1,7 @@
 import json
 import time
 from contextlib import asynccontextmanager
+from typing import cast
 
 import uvicorn
 from fastapi import APIRouter, FastAPI, File, HTTPException, Request, UploadFile, WebSocket, WebSocketDisconnect
@@ -49,6 +50,7 @@ async def upload(file: UploadFile = File(...)):
 
 @apirouter.get("/websocket")
 def websocket_html(request: Request):
+    templates = cast(Jinja2Templates, app.state.templates)
     return templates.TemplateResponse("websocket.html", {"request": request})
 
 
@@ -60,7 +62,7 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
         while True:
             data = await websocket.receive_text()
             logger.info(f"Client `{client_id}` receive data: {data}")
-            await websocket_manager.send_message(data, websocket)
+            await websocket_manager.send_message(data, client_id)
     except WebSocketDisconnect:
         websocket_manager.disconnect(client_id)
     except Exception as e:
@@ -81,14 +83,18 @@ async def lifespan(app: FastAPI):
         app.include_router(router)
     # mount
     app.mount("/assets", StaticFiles(directory="assets"), name="assets")
+    # template
+    app.state.templates = Jinja2Templates(directory="templates")
 
     await db_instance.init_db()
     yield
     await db_instance.close_db()
+
     logger.info("close fastapi")
 
 
 app = FastAPI(lifespan=lifespan, debug=True)
+# add middleware when app is started
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # 生产请严格限制
@@ -96,7 +102,6 @@ app.add_middleware(
     allow_headers=["*"],
     allow_credentials=True,
 )
-templates = Jinja2Templates(directory="templates")
 
 
 @app.exception_handler(Exception)

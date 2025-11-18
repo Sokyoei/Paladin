@@ -19,10 +19,10 @@ class WebSocketManager(object):
             del self.active_connections[client_id]
             logger.info(f"Client {client_id} disconnected, current active connections: {len(self.active_connections)}")
 
-    async def send_message(self, message: str, websocket: WebSocket):
-        if websocket in self.active_connections.values():
-            logger.info(f"Send `{message}` to client `{websocket}`")
-            await websocket.send_text(message)
+    async def send_message(self, message: str, client_id: str):
+        if client_id in self.active_connections.keys():
+            logger.info(f"Send `{message}` to client `{client_id}`")
+            await self.active_connections[client_id].send_text(message)
 
     async def broadcast(self, message: str, sender_id: str | None = None):
         active_connections = self.active_connections.copy()
