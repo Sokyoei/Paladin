@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from typing import cast
 
 import uvicorn
-from fastapi import APIRouter, FastAPI, File, HTTPException, Request, UploadFile, WebSocket, WebSocketDisconnect
+from fastapi import APIRouter, FastAPI, File, Form, HTTPException, Request, UploadFile, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -68,6 +68,14 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
     except Exception as e:
         logger.error(e)
         websocket_manager.disconnect(client_id)
+
+
+@apirouter.get("/form")
+@apirouter.post("/form")
+async def form_html(request: Request, username: str = Form(None), message: str = Form(None)):
+    templates = cast(Jinja2Templates, app.state.templates)
+    result = {"username": username, "message": message} if username and message else {}
+    return templates.TemplateResponse("form.html", {"request": request, "result": result})
 
 
 ########################################################################################################################

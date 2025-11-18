@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Test</title>
+</head>
+
+<body>
+    <h1>Form 表单界面</h1>
+    <form method="post" action="/form">
+        <label for="username">用户名：</label>
+        <input type="text" id="username" name="username" required placeholder="请输入你的用户名"
+            title="用于登录或标识的名称，不可为空"><br><br>
+        <label for="message">留言：</label>
+        <input type="text" id="message" name="message" required placeholder="请输入你的留言内容" title="请填写你的留言，不可为空"><br><br>
+        <input type="submit" value="提交表单">
+    </form>
+
+    {% if result %}
+    <div>
+        <h2>提交结果：</h2>
+        <p>用户名：{{ result.username }}</p>
+        <p>留言：{{ result.message }}</p>
+    </div>
+    {% endif %}
+</body>
+
+</html>
