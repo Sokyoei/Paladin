@@ -1,6 +1,6 @@
 import uuid
 from datetime import date
-from typing import Annotated, Optional
+from typing import Annotated
 
 from pydantic import BaseModel, Field
 
@@ -35,13 +35,12 @@ class GenshinRoleResponse(GenshinRoleCreate):
 
 
 class GenshinRoleUpdate(BaseModel):
-    id: GenshineRole_id
-    name: Optional[GenshineRole_name]
-    title: Optional[GenshineRole_title]
-    quality: Optional[GenshineRole_quality]
-    birthday: Optional[GenshineRole_birthday]
-    release_version: Optional[GenshineRole_release_version]
-    element: Optional[GenshineRole_element]
-    constellation: Optional[GenshineRole_constellation]
-    affiliation: Optional[GenshineRole_affiliation]
-    special_dish: Optional[GenshineRole_special_dish]
+    name: GenshineRole_name | None
+    title: GenshineRole_title | None
+    quality: GenshineRole_quality | None
+    birthday: GenshineRole_birthday | None
+    release_version: GenshineRole_release_version | None
+    element: GenshineRole_element | None
+    constellation: GenshineRole_constellation | None
+    affiliation: GenshineRole_affiliation | None
+    special_dish: GenshineRole_special_dish | None
