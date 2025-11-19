@@ -59,15 +59,14 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
     await websocket_manager.connect(websocket, client_id)
 
     try:
-        while True:
-            data = await websocket.receive_text()
+        async for data in websocket.iter_text():
             logger.info(f"Client `{client_id}` receive data: {data}")
             await websocket_manager.send_message(data, client_id)
     except WebSocketDisconnect:
-        websocket_manager.disconnect(client_id)
+        await websocket_manager.disconnect(client_id)
     except Exception as e:
         logger.error(e)
-        websocket_manager.disconnect(client_id)
+        await websocket_manager.disconnect(client_id)
 
 
 @apirouter.get("/form")
