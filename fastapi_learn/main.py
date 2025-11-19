@@ -71,9 +71,13 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 
 @apirouter.get("/form")
 @apirouter.post("/form")
-async def form_html(request: Request, username: str = Form(None), message: str = Form(None)):
+async def form_html(
+    request: Request,
+    username: str | None = Form(None, description="用户名"),
+    message: str | None = Form(None, description="消息"),
+):
     templates = cast(Jinja2Templates, app.state.templates)
-    result = {"username": username, "message": message} if username and message else {}
+    result = {"username": username, "message": message} if request.method == "POST" and (username and message) else {}
     return templates.TemplateResponse("form.html", {"request": request, "result": result})
 
 
