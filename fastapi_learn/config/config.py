@@ -3,3 +3,5 @@
 SQLALCHEMY_DATABASE_URL = "sqlite+aiosqlite:///./paladin.sqlite3"
 
 REDIS_URL = "redis://localhost"
+
+FIRST_UID = 100000

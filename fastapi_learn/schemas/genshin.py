@@ -35,12 +35,12 @@ class GenshinRoleResponse(GenshinRoleCreate):
 
 
 class GenshinRoleUpdate(BaseModel):
-    name: GenshineRole_name | None
-    title: GenshineRole_title | None
-    quality: GenshineRole_quality | None
-    birthday: GenshineRole_birthday | None
-    release_version: GenshineRole_release_version | None
-    element: GenshineRole_element | None
-    constellation: GenshineRole_constellation | None
-    affiliation: GenshineRole_affiliation | None
-    special_dish: GenshineRole_special_dish | None
+    name: GenshineRole_name | None = None
+    title: GenshineRole_title | None = None
+    quality: GenshineRole_quality | None = None
+    birthday: GenshineRole_birthday | None = None
+    release_version: GenshineRole_release_version | None = None
+    element: GenshineRole_element | None = None
+    constellation: GenshineRole_constellation | None = None
+    affiliation: GenshineRole_affiliation | None = None
+    special_dish: GenshineRole_special_dish | None = None

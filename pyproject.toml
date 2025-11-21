@@ -85,7 +85,7 @@ gui = ["PyQt5"]
 cli = ["click"]
 llm = []
 fastapi_learn = ["fastapi[all]", "sqlalchemy[aiomysql]", "redis"]
-django_learn = ["django"]
+django_learn = ["django", "django-ninja", "djangorestframework"]
 
 [project.scripts]
 

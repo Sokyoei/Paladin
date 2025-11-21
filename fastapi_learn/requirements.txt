@@ -1,6 +1,18 @@
 fastapi[async]
+
+# fastapi community extensions
+fastapi-users[sqlalchemy, oauth]
+sqladmin[full]
+
+# database
 sqlalchemy[aiosqlite]
 # sqlalchemy[aiomysql]
 # sqlalchemy[postgresql-asyncpg]
 redis
+
+# version
 packaging
+
+# jwt
+python-jose[cryptography]
+passlib
