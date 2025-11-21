@@ -1,5 +1,3 @@
-from typing import overload
-
 from sqlalchemy import exists, select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -16,7 +14,6 @@ class UserCRUD(BaseAsyncCRUD[User, UserCreate, UserUpdate, UserResponse]):
     model = User
     schema = UserResponse
 
-    @overload
     @classmethod
     async def create(cls, db: AsyncSession, data: UserCreate) -> UserResponse:
         new_uid = await cls.__generate_uid(db)

@@ -56,6 +56,16 @@ class Database(object):
             finally:
                 await session.close()
 
+    async def get_manual_db_session(self) -> AsyncGenerator[AsyncSession, None]:
+        if not self.__async_sessionmaker:
+            raise RuntimeError("数据库会话工厂未初始化")
+
+        async with self.__async_sessionmaker() as session:
+            try:
+                yield session
+            finally:
+                await session.close()
+
     async def init_db(self):
         """初始化数据库"""
         async with self.engine.begin() as conn:
@@ -73,4 +83,9 @@ db_instance = Database()
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
     async for session in db_instance.get_db_session():
+        yield session
+
+
+async def get_manual_db() -> AsyncGenerator[AsyncSession, None]:
+    async for session in db_instance.get_manual_db_session():
         yield session
