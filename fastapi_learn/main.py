@@ -25,8 +25,7 @@ from loguru import logger
 
 from fastapi_learn.api import all_routers
 from fastapi_learn.config import db_instance, websocket_manager
-from fastapi_learn.schemas import ApiResponse
-from fastapi_learn.utils import register_exception_handlers
+from fastapi_learn.utils import ApiResponse, register_exception_handlers
 
 apirouter = APIRouter()
 

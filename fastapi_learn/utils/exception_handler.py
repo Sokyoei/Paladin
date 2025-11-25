@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, Request
 
-from fastapi_learn.schemas import ApiResponse
+from . import ApiResponse
 
 
 def register_exception_handlers(app: FastAPI):

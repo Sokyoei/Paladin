@@ -6,7 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from fastapi_learn.config import get_db
 from fastapi_learn.crud import UserCRUD
-from fastapi_learn.schemas import ApiResponse, UserCreate, UserResponse, UserUpdate
+from fastapi_learn.schemas import UserCreate, UserResponse, UserUpdate
+from fastapi_learn.utils import ApiResponse
 
 user_router = APIRouter(prefix="/users", tags=["用户"])
 

@@ -6,7 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from fastapi_learn.config import get_db
 from fastapi_learn.crud import GenshinRoleCRUD
-from fastapi_learn.schemas import ApiResponse, GenshinRoleCreate, GenshinRoleResponse, GenshinRoleUpdate
+from fastapi_learn.schemas import GenshinRoleCreate, GenshinRoleResponse, GenshinRoleUpdate
+from fastapi_learn.utils import ApiResponse
 
 genshin_role_router = APIRouter(prefix="/genshin/roles", tags=["原神角色"])
 
