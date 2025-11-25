@@ -1,10 +1,22 @@
 import json
 import time
 from contextlib import asynccontextmanager
-from typing import cast
+from typing import Annotated, cast
 
 import uvicorn
-from fastapi import APIRouter, FastAPI, File, Form, HTTPException, Request, UploadFile, WebSocket, WebSocketDisconnect
+from fastapi import (
+    APIRouter,
+    Cookie,
+    FastAPI,
+    File,
+    Form,
+    Header,
+    Request,
+    Response,
+    UploadFile,
+    WebSocket,
+    WebSocketDisconnect,
+)
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
@@ -13,7 +25,8 @@ from loguru import logger
 
 from fastapi_learn.api import all_routers
 from fastapi_learn.config import db_instance, websocket_manager
-from fastapi_learn.schemas import Response
+from fastapi_learn.schemas import ApiResponse
+from fastapi_learn.utils import register_exception_handlers
 
 apirouter = APIRouter()
 
@@ -45,7 +58,7 @@ async def upload(file: UploadFile = File(...)):
     with open("temp.data", "wb") as f:
         contents = await file.read()
         f.write(contents)
-    return Response.success()
+    return ApiResponse.success()
 
 
 @apirouter.get("/websocket")
@@ -81,12 +94,40 @@ async def form_html(
     return templates.TemplateResponse("form.html", {"request": request, "result": result})
 
 
+@apirouter.get("/header")
+async def header(user_agent: Annotated[str | None, Header()] = None):
+    return {"user_agent": user_agent}
+
+
+@apirouter.get("/headers")
+async def headers(request: Request):
+    return {"headers": request.headers}
+
+
+@apirouter.post("/set_cookie")
+async def set_cookie(response: Response):
+    response.set_cookie(
+        key="session_id",
+        value="123456",
+        httponly=True,  # 仅 HTTP 访问，禁止 JS 读取（防止 XSS 攻击）
+        secure=True,  # 仅 HTTPS 环境生效
+        samesite='strict',  # 防止 CSRF 攻击
+        max_age=60 * 60 * 24 * 365,
+    )
+    return ApiResponse.success()
+
+
+@apirouter.get("/get_cookie")
+async def get_cookie(session_id: Annotated[str | None, Cookie(description="会话 ID")] = None):
+    return {"session_id": session_id}
+
+
 ########################################################################################################################
 # app
 ########################################################################################################################
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("start fastapi")
+    logger.info("Start FastAPI")
 
     # router
     app.include_router(apirouter)
@@ -101,7 +142,7 @@ async def lifespan(app: FastAPI):
     yield
     await db_instance.close_db()
 
-    logger.info("close fastapi")
+    logger.info("Close FastAPI")
 
 
 app = FastAPI(lifespan=lifespan, debug=True)
@@ -113,22 +154,7 @@ app.add_middleware(
     allow_headers=["*"],
     allow_credentials=True,
 )
-
-
-@app.exception_handler(Exception)
-async def global_exception_handler(request: Request, exc: Exception):
-    if isinstance(exc, HTTPException):
-        exc: HTTPException
-        if isinstance(exc.detail, str):
-            if 400 <= exc.status_code < 500:
-                return Response.fail(message=exc.detail)
-            else:
-                return Response.error(message=exc.detail)
-        if isinstance(exc.detail, Response):
-            return exc.detail
-
-    message = str(exc) if app.debug else ""
-    return Response.error(message)
+register_exception_handlers(app)
 
 
 def main():
