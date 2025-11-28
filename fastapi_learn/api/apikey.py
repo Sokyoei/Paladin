@@ -10,7 +10,7 @@ from fastapi_learn.schemas import APIKeyCreate, APIKeyResponse
 from fastapi_learn.services.apikey import verify_api_key
 from fastapi_learn.utils.api_response import ApiResponse
 
-apikey_router = APIRouter(prefix="/apikey")
+apikey_router = APIRouter(prefix="/apikey", tags=["API Key"])
 
 
 @apikey_router.get("/protected", dependencies=[Security(verify_api_key)])
