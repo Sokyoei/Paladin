@@ -4,7 +4,7 @@
 
 ```text
 django_learn
-├──app
+├──app              using `django`
 │  ├──migrations/   数据迁移目录
 │  ├──admin.py      后台管理配置
 │  ├──apps.py       应用配置

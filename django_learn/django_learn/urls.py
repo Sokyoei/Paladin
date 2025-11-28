@@ -17,15 +17,18 @@ Including another URLconf
 
 # ruff: noqa: I001
 
+from django.conf import settings
 from django.contrib import admin
-from django.urls import path
-
-from app import views
+from django.urls import path, include
 
 urlpatterns = [
+    path('admin/docs/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
-    # deafult view
-    path('', views.index),
-    # sse view
-    path('sse', views.sse_view),
+    # API
+    path('', include('app.urls')),
 ]
+
+if settings.DEBUG:
+    import debug_toolbar
+
+    urlpatterns = [path('__debug__/', include(debug_toolbar.urls)), *urlpatterns]

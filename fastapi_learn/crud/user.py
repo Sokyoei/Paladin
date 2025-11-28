@@ -5,6 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi_learn.config.config import FIRST_UID
 from fastapi_learn.models import User
 from fastapi_learn.schemas import UserCreate, UserResponse, UserUpdate
+from fastapi_learn.utils.password import password_hash
 
 from .base import BaseAsyncCRUD
 
@@ -18,7 +19,11 @@ class UserCRUD(BaseAsyncCRUD[User, UserCreate, UserUpdate, UserResponse]):
     async def create(cls, db: AsyncSession, data: UserCreate) -> UserResponse:
         new_uid = await cls.__generate_uid(db)
         try:
-            db_obj = cls.model(uid=new_uid, **data.model_dump(exclude_none=True, exclude_unset=True))
+            db_obj = cls.model(
+                uid=new_uid,
+                password=password_hash(data.password),
+                **data.model_dump(exclude_none=True, exclude_unset=True, exclude={"password"}),
+            )
             db.add(db_obj)
             await db.commit()
             await db.refresh(db_obj)
@@ -43,3 +48,15 @@ class UserCRUD(BaseAsyncCRUD[User, UserCreate, UserUpdate, UserResponse]):
             new_uid += 1
 
         return new_uid
+
+    @classmethod
+    async def get_user_by_account(cls, db: AsyncSession, account: str) -> UserResponse | None:
+        result = await db.execute(select(User).where(User.account == account))
+        user = result.scalar_one_or_none()
+        return cls.schema.model_validate(user, from_attributes=True) if user else None
+
+    @classmethod
+    async def get_user_by_uid(cls, db: AsyncSession, uid: int) -> UserResponse | None:
+        result = await db.execute(select(User).where(User.uid == uid))
+        user = result.scalar_one_or_none()
+        return cls.schema.model_validate(user, from_attributes=True) if user else None

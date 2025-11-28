@@ -8,6 +8,7 @@ sqladmin[full]
 sqlalchemy[aiosqlite]
 # sqlalchemy[aiomysql]
 # sqlalchemy[postgresql-asyncpg]
+alembic
 redis
 
 # version

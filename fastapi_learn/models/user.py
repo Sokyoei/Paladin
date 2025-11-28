@@ -1,17 +1,19 @@
-import uuid
+from typing import TYPE_CHECKING
 
 import sqlalchemy
 from packaging import version
-from sqlalchemy import UUID, BigInteger, Column, String
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import BigInteger, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from .base import Base
+from .base import CreateUpdateAtMixin, UUIDMixin
+
+if TYPE_CHECKING:
+    from .apikey import APIKey
 
 if version.parse(sqlalchemy.__version__) >= version.parse("1.4"):
 
-    class User(Base):
+    class User(UUIDMixin, CreateUpdateAtMixin):
         __tablename__ = "user"
-        id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
         uid: Mapped[int] = mapped_column(BigInteger, unique=True, index=True, nullable=False)
         name: Mapped[str] = mapped_column(String(255))
         description: Mapped[str | None] = mapped_column(String(255), nullable=True)
@@ -19,14 +21,18 @@ if version.parse(sqlalchemy.__version__) >= version.parse("1.4"):
         password: Mapped[str] = mapped_column(String(255))
         email: Mapped[str | None] = mapped_column(String(100), unique=True, index=True, nullable=True)
 
-else:
+        api_keys: Mapped[list["APIKey"]] = relationship("APIKey", back_populates="user")
 
-    class User(Base):
+else:
+    from sqlalchemy import Column
+
+    class User(UUIDMixin, CreateUpdateAtMixin):
         __tablename__ = "user"
-        id = Column(UUID(as_uuid=True), primary_key=True, index=True, default=uuid.uuid4)
         uid = Column(BigInteger, unique=True, index=True, nullable=False)
         name = Column(String(255))
         description = Column(String(255), nullable=True)
         account = Column(String(100), unique=True, index=True, nullable=False)
         password = Column(String(255))
         email = Column(String(100), unique=True, index=True, nullable=True)
+
+        api_keys = relationship("APIKey", back_populates="user")

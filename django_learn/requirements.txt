@@ -1,5 +1,16 @@
 django
 
+# for django.contrib.admindocs
+docutils
+
 # Django community extensions
+# Ninja
 django-ninja
+django-ninja-extra
+
+# DRF
 djangorestframework
+
+# development tools
+django-debug-toolbar
+django-extensions

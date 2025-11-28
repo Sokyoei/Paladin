@@ -1,17 +1,14 @@
 import json
 import time
 
-from django.http import StreamingHttpResponse
-from django.shortcuts import HttpResponse
-
-# Create your views here.
+from django.http import HttpRequest, JsonResponse, StreamingHttpResponse
 
 
-def index(request):
-    return HttpResponse("hello world")
+def index(request: HttpRequest):
+    return JsonResponse({"hello": "world"})
 
 
-def sse_view(request):
+def sse_view(request: HttpRequest):
     """
     Server-Sent Events 视图函数
     返回一个持续的 HTTP 响应，用于向客户端推送实时数据
