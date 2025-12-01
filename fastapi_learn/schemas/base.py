@@ -5,8 +5,8 @@ from pydantic import BaseModel, Field
 
 
 class CreateUpdateAtSchema(BaseModel):
-    create_at: datetime = Field(description="Created at")
-    update_at: datetime = Field(description="Updated at")
+    created_at: datetime = Field(description="Created at")
+    updated_at: datetime = Field(description="Updated at")
 
 
 class UUIDSchema(BaseModel):
