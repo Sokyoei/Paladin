@@ -23,6 +23,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from loguru import logger
 
+from fastapi_learn import FASTAPILEARN_ROOT
 from fastapi_learn.api import all_routers
 from fastapi_learn.config import db_instance, websocket_manager
 from fastapi_learn.utils import ApiResponse, register_exception_handlers
@@ -53,7 +54,7 @@ async def sse():
 
 
 @apirouter.post("/upload")
-async def upload(file: UploadFile = File(...)):
+async def upload(file: Annotated[UploadFile, File(description="上传文件")]):
     with open("temp.data", "wb") as f:
         contents = await file.read()
         f.write(contents)
@@ -85,11 +86,15 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 @apirouter.post("/form")
 async def form_html(
     request: Request,
-    username: str | None = Form(None, description="用户名"),
-    message: str | None = Form(None, description="消息"),
+    username: Annotated[str | None, Form(None, description="用户名")],
+    message: Annotated[str | None, Form(None, description="消息")],
 ):
     templates = cast(Jinja2Templates, app.state.templates)
-    result = {"username": username, "message": message} if request.method == "POST" and (username and message) else {}
+    result = (
+        {"username": username, "message": message}
+        if request.method == "POST" and (username is not None and message is not None)
+        else {}
+    )
     return templates.TemplateResponse("form.html", {"request": request, "result": result})
 
 
@@ -133,7 +138,7 @@ async def lifespan(app: FastAPI):
     for router in all_routers:
         app.include_router(router)
     # mount
-    app.mount("/assets", StaticFiles(directory="assets"), name="assets")
+    app.mount("/assets", StaticFiles(directory=FASTAPILEARN_ROOT / "fastapi_learn/assets"), name="assets")
     # template
     app.state.templates = Jinja2Templates(directory="templates")
 

@@ -2,15 +2,14 @@ import uuid
 
 from pydantic import BaseModel, Field
 
-from .base import CreateUpdateMixin, UUIDMixin
+from .base import CreateUpdateAtSchema, UUIDSchema
 
 
 class APIKeyCreate(BaseModel):
     user_id: uuid.UUID = Field(description="User ID")
 
 
-class APIKeyResponse(APIKeyCreate, CreateUpdateMixin, UUIDMixin):
-    id: uuid.UUID = Field(description="API key ID")
+class APIKeyResponse(APIKeyCreate, CreateUpdateAtSchema, UUIDSchema):
     key: str = Field(description="API key", max_length=255)
 
 
