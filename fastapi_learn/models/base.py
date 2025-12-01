@@ -15,8 +15,8 @@ if version.parse(sqlalchemy.__version__) >= version.parse("1.4"):
 
     class CreateUpdateAtMixin(Base):
         __abstract__ = True
-        create_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
-        update_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
+        created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
+        updated_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     class UUIDMixin(Base):
         __abstract__ = True
@@ -24,16 +24,16 @@ if version.parse(sqlalchemy.__version__) >= version.parse("1.4"):
 
     class CreateUpdateByMixin(Base):
         __abstract__ = True
-        create_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=True)
-        update_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=True)
+        created_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=True)
+        updated_by: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), nullable=True)
 
 else:
     from sqlalchemy import Column
 
     class CreateUpdateAtMixin(Base):
         __abstract__ = True
-        create_at = Column(DateTime, default=datetime.now)
-        update_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+        created_at = Column(DateTime, default=datetime.now)
+        updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     class UUIDMixin(Base):
         __abstract__ = True
@@ -41,5 +41,5 @@ else:
 
     class CreateUpdateByMixin(Base):
         __abstract__ = True
-        create_by = Column(UUID(as_uuid=True), nullable=True)
-        update_by = Column(UUID(as_uuid=True), nullable=True)
+        created_by = Column(UUID(as_uuid=True), nullable=True)
+        updated_by = Column(UUID(as_uuid=True), nullable=True)

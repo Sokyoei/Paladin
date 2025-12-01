@@ -86,8 +86,8 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
 @apirouter.post("/form")
 async def form_html(
     request: Request,
-    username: Annotated[str | None, Form(None, description="用户名")],
-    message: Annotated[str | None, Form(None, description="消息")],
+    username: Annotated[str | None, Form(description="用户名")] = None,
+    message: Annotated[str | None, Form(description="消息")] = None,
 ):
     templates = cast(Jinja2Templates, app.state.templates)
     result = (
