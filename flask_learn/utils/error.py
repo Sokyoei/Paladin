@@ -1,0 +1,2 @@
+class PaladinFlaskLearnError(Exception):
+    pass
