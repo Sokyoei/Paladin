@@ -11,3 +11,8 @@ class CreateUpdateAtSchema(BaseModel):
 
 class UUIDSchema(BaseModel):
     id: uuid.UUID = Field(description="Unique identifier")
+
+
+class CreateUpdateBySchema(BaseModel):
+    created_by: uuid.UUID = Field(description="Created by")
+    updated_by: uuid.UUID = Field(description="Updated by")

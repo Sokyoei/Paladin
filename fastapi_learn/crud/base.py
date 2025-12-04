@@ -1,11 +1,11 @@
 from abc import ABC
-from typing import ClassVar, Generic, List, Optional, Type, TypeVar
+from typing import ClassVar, Generic, Sequence, Type, TypeVar
 from uuid import UUID
 
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import DeclarativeBase, Session
+from sqlalchemy.orm import DeclarativeBase, Load, Session
 
 ModelType = TypeVar("ModelType", bound=DeclarativeBase)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)
@@ -28,7 +28,7 @@ class BaseAsyncCRUD(ABC, Generic[ModelType, CreateSchemaType, UpdateSchemaType, 
         return cls.schema.model_validate(db_obj, from_attributes=True)
 
     @classmethod
-    async def delete(cls, db: AsyncSession, obj_id: UUID | int | bytes) -> Optional[ResponseSchemaType]:
+    async def delete(cls, db: AsyncSession, obj_id: UUID | int | bytes) -> ResponseSchemaType | None:
         result = await db.execute(select(cls.model).filter(cls.model.id == obj_id))
         db_obj = result.scalar_one_or_none()
         if db_obj:
@@ -40,7 +40,7 @@ class BaseAsyncCRUD(ABC, Generic[ModelType, CreateSchemaType, UpdateSchemaType, 
     @classmethod
     async def update(
         cls, db: AsyncSession, obj_id: UUID | int | bytes, data: UpdateSchemaType
-    ) -> Optional[ResponseSchemaType]:
+    ) -> ResponseSchemaType | None:
         result = await db.execute(select(cls.model).filter(cls.model.id == obj_id))
         db_obj = result.scalar_one_or_none()
         if db_obj:
@@ -54,8 +54,13 @@ class BaseAsyncCRUD(ABC, Generic[ModelType, CreateSchemaType, UpdateSchemaType, 
         return None
 
     @classmethod
-    async def search(cls, db: AsyncSession, obj_id: UUID | int | bytes) -> Optional[ResponseSchemaType]:
-        result = await db.execute(select(cls.model).filter(cls.model.id == obj_id))
+    async def search(
+        cls, db: AsyncSession, obj_id: UUID | int | bytes, load_options: Sequence[Load] | None = None
+    ) -> ResponseSchemaType | None:
+        query = select(cls.model).filter(cls.model.id == obj_id)
+        if load_options:
+            query = query.options(*load_options)
+        result = await db.execute(query)
         db_obj = result.scalar_one_or_none()
         if db_obj:
             return cls.schema.model_validate(db_obj, from_attributes=True)
@@ -64,8 +69,13 @@ class BaseAsyncCRUD(ABC, Generic[ModelType, CreateSchemaType, UpdateSchemaType, 
     get = search
 
     @classmethod
-    async def get_all(cls, db: AsyncSession, skip: int = 0, limit: int = 100) -> List[ResponseSchemaType]:
-        result = await db.execute(select(cls.model).offset(skip).limit(limit))
+    async def get_all(
+        cls, db: AsyncSession, skip: int = 0, limit: int = 100, load_options: Sequence[Load] | None = None
+    ) -> list[ResponseSchemaType]:
+        query = select(cls.model).offset(skip).limit(limit)
+        if load_options:
+            query = query.options(*load_options)
+        result = await db.execute(query)
         db_objs = result.scalars().all()
         return [cls.schema.model_validate(db_obj, from_attributes=True) for db_obj in db_objs]
 
@@ -85,7 +95,7 @@ class BaseSyncCRUD(ABC, Generic[ModelType, CreateSchemaType, UpdateSchemaType, R
         return cls.schema.model_validate(db_obj, from_attributes=True)
 
     @classmethod
-    def delete(cls, db: Session, obj_id: UUID | int | bytes) -> Optional[ResponseSchemaType]:
+    def delete(cls, db: Session, obj_id: UUID | int | bytes) -> ResponseSchemaType | None:
         result = db.execute(select(cls.model).filter(cls.model.id == obj_id))
         db_obj = result.scalar_one_or_none()
         if db_obj:
@@ -95,7 +105,7 @@ class BaseSyncCRUD(ABC, Generic[ModelType, CreateSchemaType, UpdateSchemaType, R
         return None
 
     @classmethod
-    def update(cls, db: Session, obj_id: UUID | int | bytes, data: UpdateSchemaType) -> Optional[ResponseSchemaType]:
+    def update(cls, db: Session, obj_id: UUID | int | bytes, data: UpdateSchemaType) -> ResponseSchemaType | None:
         result = db.execute(select(cls.model).filter(cls.model.id == obj_id))
         db_obj = result.scalar_one_or_none()
         if db_obj:
@@ -109,8 +119,13 @@ class BaseSyncCRUD(ABC, Generic[ModelType, CreateSchemaType, UpdateSchemaType, R
         return None
 
     @classmethod
-    def search(cls, db: Session, obj_id: UUID | int | bytes) -> Optional[ResponseSchemaType]:
-        result = db.execute(select(cls.model).filter(cls.model.id == obj_id))
+    def search(
+        cls, db: Session, obj_id: UUID | int | bytes, options: Sequence[Load] | None = None
+    ) -> ResponseSchemaType | None:
+        query = select(cls.model).filter(cls.model.id == obj_id)
+        if options:
+            query = query.options(*options)
+        result = db.execute(query)
         db_obj = result.scalar_one_or_none()
         if db_obj:
             return cls.schema.model_validate(db_obj, from_attributes=True)
@@ -119,7 +134,12 @@ class BaseSyncCRUD(ABC, Generic[ModelType, CreateSchemaType, UpdateSchemaType, R
     get = search
 
     @classmethod
-    def get_all(cls, db: Session, skip: int = 0, limit: int = 100) -> List[ResponseSchemaType]:
-        result = db.execute(select(cls.model).offset(skip).limit(limit))
+    def get_all(
+        cls, db: Session, skip: int = 0, limit: int = 100, options: Sequence[Load] | None = None
+    ) -> list[ResponseSchemaType]:
+        query = select(cls.model).offset(skip).limit(limit)
+        if options:
+            query = query.options(*options)
+        result = db.execute(query)
         db_objs = result.scalars().all()
         return [cls.schema.model_validate(db_obj, from_attributes=True) for db_obj in db_objs]
