@@ -1,13 +1,34 @@
 import asyncio
 
-import uvicorn
 from flask import Flask, Response, jsonify, stream_with_context
 
 from flask_learn.api import all_blueprints
+from flask_learn.config import SECRET_KEY, db_instance
+from flask_learn.utils import register_error_handlers
 
+########################################################################################################################
+# app
+########################################################################################################################
 app = Flask(__name__)
 
+# config
+app.config["SECRET_KEY"] = SECRET_KEY
+app.json.ensure_ascii = False  # CJK ascii
 
+# database
+db_instance.init_app(app)
+
+# blueprints
+for blueprint in all_blueprints:
+    app.register_blueprint(blueprint)
+
+# error handlers
+register_error_handlers(app)
+
+
+########################################################################################################################
+# routes
+########################################################################################################################
 @app.get("/")
 async def index():
     return jsonify({"hello": "world"})
@@ -26,10 +47,8 @@ async def sse():
 
 
 def main():
-    for blueprint in all_blueprints:
-        app.register_blueprint(blueprint)
-    # app.run(debug=True, host="0.0.0.0", port=12920)  # WSGI
-    uvicorn.run("main:app", reload=True, host="0.0.0.0", port=12920)
+    app.run(debug=True, host="0.0.0.0", port=12920)  # WSGI
+    # uvicorn.run("main:app", reload=True, host="0.0.0.0", port=12920)  # ASGI
 
 
 if __name__ == "__main__":
