@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from http import HTTPStatus
 from typing import Generic, TypeVar
 
 from ninja import Field, Schema
@@ -14,16 +15,36 @@ class ApiResponse(Schema, Generic[T]):
 
     @classmethod
     def success(cls, data: T | None = None) -> ApiResponse[T]:
-        return cls(code=200, message="success", data=data)
+        return cls(code=HTTPStatus.OK.value, message="success", data=data)
 
     @classmethod
     def fail(cls, message: str, data: T | None = None) -> ApiResponse[T]:
-        return cls(code=400, message=message, data=data)
+        return cls(code=HTTPStatus.BAD_REQUEST.value, message=message, data=data)
+
+    fail_400 = fail
+
+    @classmethod
+    def fail_401(cls, message: str = "401 Unauthorized", data: T | None = None) -> ApiResponse[T]:
+        return cls(code=HTTPStatus.UNAUTHORIZED.value, message=message, data=data)
+
+    @classmethod
+    def fail_403(cls, message: str = "403 Forbidden", data: T | None = None) -> ApiResponse[T]:
+        return cls(code=HTTPStatus.FORBIDDEN.value, message=message, data=data)
 
     @classmethod
     def fail_404(cls, message: str = "404 Not Found", data: T | None = None) -> ApiResponse[T]:
-        return cls(code=404, message=message, data=data)
+        return cls(code=HTTPStatus.NOT_FOUND.value, message=message, data=data)
+
+    @classmethod
+    def fail_405(cls, message: str = "405 Method Not Allowed", data: T | None = None) -> ApiResponse[T]:
+        return cls(code=HTTPStatus.METHOD_NOT_ALLOWED.value, message=message, data=data)
 
     @classmethod
     def error(cls, message: str, data: T | None = None) -> ApiResponse[T]:
-        return cls(code=500, message=message, data=data)
+        return cls(code=HTTPStatus.INTERNAL_SERVER_ERROR.value, message=message, data=data)
+
+    error_500 = error
+
+    @classmethod
+    def error_503(cls, message: str = "503 Service Unavailable", data: T | None = None) -> ApiResponse[T]:
+        return cls(code=HTTPStatus.SERVICE_UNAVAILABLE.value, message=message, data=data)
