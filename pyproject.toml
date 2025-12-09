@@ -25,7 +25,7 @@ dependencies = [
     "PyYAML",     # https://github.com/yaml/pyyaml
     "loguru",     # https://github.com/Delgan/loguru
 ]
-requires-python = ">= 3.8"
+requires-python = ">= 3.12"
 
 [project.urls]
 Repository = "https://github.com/Sokyoei/Paladin"

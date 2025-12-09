@@ -11,7 +11,7 @@ django_learn
 │  ├──models.py     数据模型定义
 │  ├──tests.py      测试
 │  └──views.py      视图定义
-├──django_learn     项目配置目录
+├──config           项目配置目录
 │  ├──asgi.py       ASGI 异步支持
 │  ├──settings.py   项目配置
 │  ├──urls.py       URL 和函数的对应关系
