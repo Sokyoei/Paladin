@@ -26,6 +26,7 @@ from loguru import logger
 from fastapi_learn import FASTAPILEARN_ROOT
 from fastapi_learn.api import all_routers
 from fastapi_learn.config import db_instance, websocket_manager
+from fastapi_learn.config.config import settings
 from fastapi_learn.utils import ApiResponse, register_exception_handlers
 
 apirouter = APIRouter()
@@ -142,6 +143,9 @@ async def lifespan(app: FastAPI):
     # template
     app.state.templates = Jinja2Templates(directory="templates")
 
+    if settings.DEBUG:
+        app.debug = True
+
     await db_instance.init_db()
     yield
     await db_instance.close_db()
@@ -149,7 +153,7 @@ async def lifespan(app: FastAPI):
     logger.info("Close FastAPI")
 
 
-app = FastAPI(lifespan=lifespan, debug=True)
+app = FastAPI(lifespan=lifespan)
 # add middleware when app is started
 app.add_middleware(
     CORSMiddleware,

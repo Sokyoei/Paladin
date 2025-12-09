@@ -5,6 +5,8 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    DEBUG: bool = False
+
     # from pydantic import MySQLDsn
 
     # SQLALCHEMY_DATABASE_URL: MySQLDsn = "mysql+aiomysql://root:ahri@localhost:3306/paladin?charset=utf8mb4"
@@ -32,6 +34,8 @@ def get_settings() -> Settings:
 
 
 settings = get_settings()
+
+DEBUG = settings.DEBUG
 
 SQLALCHEMY_DATABASE_URL = settings.SQLALCHEMY_DATABASE_URL
 
