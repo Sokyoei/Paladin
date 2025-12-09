@@ -12,8 +12,8 @@
             },
             "args": [
                 "run",
-                "--no-debugger",
-                "--no-reload"
+                // "--no-debugger",
+                // "--no-reload"
             ],
             "cwd": "${workspaceFolder}/flask_learn",
             "jinja": true,

@@ -10,20 +10,43 @@ from django.http import JsonResponse
 T = TypeVar('T')
 
 
+########################################################################################################################
+# Models
+########################################################################################################################
 class UUIDModel(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, verbose_name="Unique Identifier")
+
+    class Meta:
+        abstract = True
 
 
 class CreateUpdateAtModel(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Created At")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Updated At")
+
+    class Meta:
+        abstract = True
 
 
 class CreateUpdateByModel(models.Model):
-    created_by = models.UUIDField(null=True, blank=True)
-    updated_by = models.UUIDField(null=True, blank=True)
+    created_by = models.UUIDField(null=True, blank=True, editable=False, verbose_name="Created By")
+    updated_by = models.UUIDField(null=True, blank=True, editable=False, verbose_name="Updated By")
+
+    class Meta:
+        abstract = True
+
+    def save(self, *args, **kwargs):
+        user_id = kwargs.pop('user_id', None)
+        if user_id:
+            if not self.pk:
+                self.created_by = user_id
+            self.updated_by = user_id
+        super().save(*args, **kwargs)
 
 
+########################################################################################################################
+# API Response
+########################################################################################################################
 class ApiResponse(object):
 
     def __init__(self, code: int, message: str, data: T | None = None):

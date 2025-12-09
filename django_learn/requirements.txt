@@ -11,6 +11,8 @@ django-ninja-extra
 # DRF
 djangorestframework
 
+django-filter
+
 # development tools
 django-debug-toolbar
 django-extensions
