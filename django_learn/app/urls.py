@@ -4,7 +4,7 @@ from .views import index, sse_view
 
 urlpatterns = [
     # deafult view
-    path('', index),
+    path('', index, name='index'),
     # sse view
     path('sse', sse_view),
 ]

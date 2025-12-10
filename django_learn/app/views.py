@@ -1,11 +1,12 @@
 import json
 import time
 
-from django.http import HttpRequest, JsonResponse, StreamingHttpResponse
+from django.http import HttpRequest, StreamingHttpResponse
+from django.shortcuts import render
 
 
 def index(request: HttpRequest):
-    return JsonResponse({"hello": "world"})
+    return render(request, 'index.html')
 
 
 def sse_view(request: HttpRequest):
