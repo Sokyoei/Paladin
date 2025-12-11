@@ -15,17 +15,23 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-# ruff: noqa: I001
-
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
+from ninja import NinjaAPI
+
+from django_learn.swallowedstar.api import ss_router
+
+api = NinjaAPI()
+
+api.add_router("/swallowedstar", ss_router)
 
 urlpatterns = [
     path('admin/docs/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
     # API
     path('', include('app.urls')),
+    path('ninja/', api.urls),
 ]
 
 if settings.DEBUG:

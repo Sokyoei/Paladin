@@ -1,11 +1,26 @@
 from __future__ import annotations
 
+import uuid
 from http import HTTPStatus
 from typing import Generic, TypeVar
 
 from ninja import Field, Schema
 
 T = TypeVar("T")
+
+
+class UUIDSchema(Schema):
+    id: uuid.UUID = Field(description="Unique Identifier")
+
+
+class CreateUpdateAtSchema(Schema):
+    created_at: str = Field(description="Created At")
+    updated_at: str = Field(description="Updated At")
+
+
+class CreateUpdateBySchema(Schema):
+    created_by: str = Field(description="Created By")
+    updated_by: str = Field(description="Updated By")
 
 
 class ApiResponse(Schema, Generic[T]):

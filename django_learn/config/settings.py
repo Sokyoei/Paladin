@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.apps.AppConfig',
-    'genshin.apps.GenshinConfig',
+    'swallowedstar.apps.SwallowedStarConfig',
     'rest_framework',
     'debug_toolbar',
 ]
