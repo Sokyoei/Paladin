@@ -23,9 +23,9 @@ urlpatterns = [
     path('admin/docs/', include('django.contrib.admindocs.urls')),
     path('admin/', admin.site.urls),
     # API
-    path('', include('app.urls')),
-    path('ninja/', include('swallowedstar.urls')),
-    path('drf/', include('starsky.urls')),
+    path('', include(('app.urls', 'app'), namespace='app')),
+    path('ninja/', include(('swallowedstar.urls', 'swallowedstar'), namespace='swallowedstar')),
+    path('drf/', include(('starsky.urls', 'starsky'), namespace='starsky')),
     path('api-auth/', include('rest_framework.urls')),
 ]
 

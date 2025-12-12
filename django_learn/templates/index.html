@@ -1,1 +1,28 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Paladin Django Learn 主页{% endblock %}
+
+{% block navbar %}
+<ul class="nav-menu">
+  <li><a href="{% url 'app:root' %}" class="active">主页</a></li>
+  <li><a href="{% url 'app:index' %}">APP(Django)</a></li>
+  <li><a href="{% url 'starsky:index' %}">StarSky(DRF)</a></li>
+  <li><a href="{% url 'swallowedstar:index' %}">SwallowedStar(Django-Ninja)</a></li>
+</ul>
+{% endblock %}
+
+{% block content %}
+<h1>欢迎来到 Paladin Django Learn 项目主页</h1>
+<div class="root-container">
+  <a href="{% url 'app:index' %}" class="root-box root-django">APP(Django)</a>
+  <a href="{% url 'starsky:index' %}" class="root-box root-drf">StarSky(DRF)</a>
+  <a href="{% url 'swallowedstar:index' %}" class="root-box root-ninja">SwallowedStar(Django-Ninja)</a>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

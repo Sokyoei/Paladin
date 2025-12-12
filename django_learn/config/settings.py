@@ -49,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.contrib.admindocs.middleware.XViewMiddleware',
+    # app middlewares
+    'middleware.ApiResponseExceptionMiddleware',
 ]
 ROOT_URLCONF = 'config.urls'
 TEMPLATES = [

@@ -11,6 +11,7 @@ django_learn
 │  ├──models.py     数据模型定义
 │  ├──tests.py      测试
 │  └──views.py      视图定义
+├──starsky          using `django-rest-framework`
 ├──swallowedstar    using `django-ninja`
 ├──config           项目配置目录
 │  ├──asgi.py       ASGI 异步支持

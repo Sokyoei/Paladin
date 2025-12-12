@@ -2,40 +2,41 @@
 <html lang="zh-CN">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paladin Django Learn</title>
-    {% load static %}
-    <link rel="icon" href="{% static 'assets/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/base.css' %}">
-    {% block extra_css %}{% endblock %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paladin Django Learn</title>
+  {% load static %}
+  <link rel="icon" href="{% static 'assets/favicon.ico' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"></script>
+  {% block extra_css %}{% endblock %}
 </head>
 
 <body>
-    <header class="navbar">
-        <div class="container">
-            {% block navbar %}{% endblock %}
-        </div>
-    </header>
+  <header class="navbar">
+    <div class="container">
+      {% block navbar %}{% endblock %}
+    </div>
+  </header>
 
-    <main class="container">
-        <aside class="sidebar">
-            {% block sidebar %}{% endblock %}
-        </aside>
-        {% block content %}
-        <h1>Hello World!</h1>
-        {% endblock %}
-    </main>
+  <main class="container">
+    <aside class="sidebar">
+      {% block sidebar %}{% endblock %}
+    </aside>
+    {% block content %}
+    <h1>Hello World!</h1>
+    {% endblock %}
+  </main>
 
-    <footer>
-        <div class="container">
-            <p>© 2025 Sokyoei All Rights Reserved.</p>
-            {% block footer %}{% endblock %}
-        </div>
-    </footer>
+  <footer>
+    <div class="container">
+      <p>© 2025 Sokyoei All Rights Reserved.</p>
+      {% block footer %}{% endblock %}
+    </div>
+  </footer>
 
-    <script src="{% static 'js/base.js' %}" defer></script>
-    {% block extra_js %}{% endblock %}
+  <script src="{% static 'js/base.js' %}" defer></script>
+  {% block extra_js %}{% endblock %}
 </body>
 
 </html>

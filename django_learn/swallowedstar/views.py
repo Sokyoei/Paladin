@@ -1,3 +1,6 @@
-from django.shortcuts import render  # noqa: F401
+from django.http import HttpRequest
+from django.shortcuts import render
 
-# Create your views here.
+
+def index(request: HttpRequest):
+    return render(request, 'swallowedstar/index.html')

@@ -9,6 +9,9 @@ from ninja import Field, Schema
 T = TypeVar("T")
 
 
+########################################################################################################################
+# Schemas
+########################################################################################################################
 class UUIDSchema(Schema):
     id: uuid.UUID = Field(description="Unique Identifier")
 
@@ -23,6 +26,9 @@ class CreateUpdateBySchema(Schema):
     updated_by: str = Field(description="Updated By")
 
 
+########################################################################################################################
+# API Response
+########################################################################################################################
 class ApiResponse(Schema, Generic[T]):
     code: int = Field(description="状态码")
     message: str = Field(description="消息")

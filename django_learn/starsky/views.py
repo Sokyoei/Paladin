@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from rest_framework import viewsets
 
 from .models import BlackHole, Constellation, Galaxy, Nebula, Star
@@ -8,6 +9,10 @@ from .serializers import (
     NebulaSerializer,
     StarSerializer,
 )
+
+
+def index(request):
+    return render(request, 'starsky/index.html')
 
 
 class StarViewSet(viewsets.ModelViewSet):

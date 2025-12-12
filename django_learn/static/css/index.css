@@ -1,0 +1,29 @@
+.root-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.root-box {
+  width: 25%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+}
+
+.root-django {
+  background-color: #4caf50;
+}
+
+.root-drf {
+  background-color: #2196f3;
+}
+
+.root-ninja {
+  background-color: #ff9800;
+}
