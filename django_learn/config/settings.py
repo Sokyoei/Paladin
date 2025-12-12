@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app.apps.AppConfig',
     'swallowedstar.apps.SwallowedStarConfig',
+    'starsky.apps.StarskyConfig',
     'rest_framework',
     'debug_toolbar',
 ]

@@ -25,6 +25,8 @@ urlpatterns = [
     # API
     path('', include('app.urls')),
     path('ninja/', include('swallowedstar.urls')),
+    path('drf/', include('starsky.urls')),
+    path('api-auth/', include('rest_framework.urls')),
 ]
 
 if settings.DEBUG:
