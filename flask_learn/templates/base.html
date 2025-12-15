@@ -2,12 +2,47 @@
 <html lang="zh-CN">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Paladin Flask Learn</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Paladin Flask Learn{% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  {% block extra_css %}{% endblock %}
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <div class="navbar-nav ms-auto">
+        {% block navbar %}{% endblock %}
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <aside class="sidebar">
+      {% block sidebar %}{% endblock %}
+    </aside>
+    {% block content %}
+    <h1>Hello World!</h1>
+    {% endblock %}
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 Sokyoei All Rights Reserved.</p>
+      {% block footer %}{% endblock %}
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js"></script>
+  <script src="{{ url_for('static', filename='js/base.js') }}" defer></script>
+  {% block extra_js %}{% endblock %}
 </body>
 
 </html>

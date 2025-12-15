@@ -1,6 +1,6 @@
 import asyncio
 
-from flask import Flask, Response, jsonify, stream_with_context
+from flask import Flask, Response, render_template, stream_with_context
 
 from flask_learn.api import all_blueprints
 from flask_learn.config import db_instance, settings
@@ -34,7 +34,7 @@ if settings.DEBUG:
 ########################################################################################################################
 @app.get("/")
 async def index():
-    return jsonify({"hello": "world"})
+    return render_template("index.html")
 
 
 @app.route('/sse')
