@@ -12,7 +12,7 @@ from flask_learn.utils import register_error_handlers
 app = Flask(__name__)
 
 # config
-app.config["SECRET_KEY"] = settings.SECRET_KEY
+app.config.from_object(settings)
 app.json.ensure_ascii = False  # CJK ascii
 
 # database
@@ -24,9 +24,6 @@ for blueprint in all_blueprints:
 
 # error handlers
 register_error_handlers(app)
-
-if settings.DEBUG:
-    app.debug = True
 
 
 ########################################################################################################################

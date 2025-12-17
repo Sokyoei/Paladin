@@ -1,3 +1,3 @@
-from .music import MusicTag, MusicType
+from .music import MusicLoaction, MusicTag, MusicType
 
-__all__ = ["MusicTag", "MusicType"]
+__all__ = ["MusicLoaction", "MusicTag", "MusicType"]

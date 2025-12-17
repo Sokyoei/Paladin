@@ -6,5 +6,10 @@ class MusicType(enum.StrEnum):
     UNKNOW = 'UNKNOW'
 
 
+class MusicLoaction(enum.IntEnum):
+    LOCAL = 0
+    NETWORK = 1
+
+
 class MusicTag(enum.IntEnum):
     pass
