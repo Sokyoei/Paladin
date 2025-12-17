@@ -10,7 +10,7 @@ class MusicCreate(BaseModel):
     artist: str = Field(..., description="歌手")
     album: str | None = Field(None, description="专辑")
     duration: float | None = Field(None, description="时长，单位秒")
-    genre: MusicType = Field(MusicType.OTHER, description="曲风")
+    genre: MusicType = Field(MusicType.UNKNOW, description="曲风")
 
 
 class MusicResponse(UUIDSchema, CreateUpdateAtSchema, CreateUpdateBySchema, MusicCreate):
