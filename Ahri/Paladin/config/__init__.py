@@ -2,11 +2,9 @@
 配置
 """
 
-from Ahri.Paladin import PALADIN_ROOT
+from .config import DEBUG, DOWNLOAD_DIR, LOG_DIR, settings
 
-LOG_DIR = PALADIN_ROOT / "logs"
-LOG_DIR.mkdir(parents=True, exist_ok=True)
-DOWNLOAD_DIR = PALADIN_ROOT / "downloads"
-DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
+settings.LOG_DIR.mkdir(parents=True, exist_ok=True)
+settings.DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
-__all__ = ["DOWNLOAD_DIR", "LOG_DIR"]
+__all__ = ["DEBUG", "DOWNLOAD_DIR", "LOG_DIR", "settings"]
