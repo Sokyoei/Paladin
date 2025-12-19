@@ -4,7 +4,7 @@ from flask import Flask, Response, render_template, stream_with_context
 
 from flask_learn.api import all_blueprints
 from flask_learn.config import db_instance, settings
-from flask_learn.utils import register_error_handlers
+from flask_learn.utils import ORJSONProvider, register_error_handlers
 
 ########################################################################################################################
 # app
@@ -13,7 +13,8 @@ app = Flask(__name__)
 
 # config
 app.config.from_object(settings)
-app.json.ensure_ascii = False  # CJK ascii
+app.json = ORJSONProvider(app)  # use `orjson` instead of `json`
+app.json.ensure_ascii = False  # CJK ascii for `DefaultJSONProvider` or `UJSONProvider`
 
 # database
 db_instance.init_app(app)
