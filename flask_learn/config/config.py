@@ -10,8 +10,11 @@ class Settings(BaseSettings):
 
     # SQLALCHEMY_DATABASE_URI: str = "sqlite+aiosqlite:///./paladin.sqlite3"
     SQLALCHEMY_DATABASE_URI: str = "sqlite:///./paladin.sqlite3"
-    SECRET_KEY: str = "paladin"
+
+    SECRET_KEY: str = "paladin"  # use `os.urandom(24).hex()` to generate a new key
     FIRST_UID: int = 100_0000
+
+    FLASK_ADMIN_NAME: str = "Flask Learn Admin"
 
     model_config = SettingsConfigDict(
         env_file=[FLASKLEARN_ROOT / ".env", FLASKLEARN_ROOT / ".env.dev", FLASKLEARN_ROOT / ".env.prod"],

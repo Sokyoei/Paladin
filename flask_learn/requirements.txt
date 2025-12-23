@@ -1,7 +1,7 @@
 Flask[async]
 Flask-SQLAlchemy
 Flask-Migrate
-Flask-Admin
+Flask-Admin[sqlalchemy,images,export,translation]
 Flask-Login
 Flask-WTF
 Flask-DebugToolbar

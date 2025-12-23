@@ -4,7 +4,8 @@ import atexit
 from flask import Flask, Response, render_template, stream_with_context
 
 from flask_learn.api import all_blueprints
-from flask_learn.config import db_instance, settings
+from flask_learn.config import admin_manager, db_instance, debugger, settings
+from flask_learn.models import all_models
 from flask_learn.utils import ORJSONProvider, register_error_handlers
 
 
@@ -22,6 +23,14 @@ def create_app() -> Flask:
     # database
     db_instance.init_app(app)
     db_instance.init_db(app)
+
+    # admin
+    if app.debug:
+        admin_manager.init_app(app)
+        admin_manager.register_models(all_models)
+
+    # debug toolbar
+    debugger.init_app(app)
 
     # blueprints
     for blueprint in all_blueprints:
@@ -42,7 +51,8 @@ app = create_app()
 # routes
 ########################################################################################################################
 @app.get("/")
-async def index():
+def index():
+    # index.html 在使用 `Flask-DebugToolbar` 时，需要使用同步方法
     return render_template("index.html")
 
 
