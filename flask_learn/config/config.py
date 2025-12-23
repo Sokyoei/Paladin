@@ -2,15 +2,22 @@ from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from flask_learn import FLASKLEARN_ROOT
+
 
 class Settings(BaseSettings):
     DEBUG: bool = False
 
-    SQLALCHEMY_DATABASE_URI: str = "sqlite+aiosqlite:///./paladin.db"
+    # SQLALCHEMY_DATABASE_URI: str = "sqlite+aiosqlite:///./paladin.sqlite3"
+    SQLALCHEMY_DATABASE_URI: str = "sqlite:///./paladin.sqlite3"
     SECRET_KEY: str = "paladin"
     FIRST_UID: int = 100_0000
 
-    model_config = SettingsConfigDict(env_file=[".env", ".env.dev", ".env.prod"], env_file_encoding="utf-8")
+    model_config = SettingsConfigDict(
+        env_file=[FLASKLEARN_ROOT / ".env", FLASKLEARN_ROOT / ".env.dev", FLASKLEARN_ROOT / ".env.prod"],
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
 
 
 @lru_cache()

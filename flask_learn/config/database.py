@@ -21,5 +21,13 @@ class Database(object):
     def migrate(self) -> Migrate:
         return self.__migrate
 
+    def init_db(self, app: Flask):
+        with app.app_context():
+            self.__db.create_all()
+
+    def close_db(self, app: Flask):
+        with app.app_context():
+            self.__db.engine.dispose()
+
 
 db_instance = Database()

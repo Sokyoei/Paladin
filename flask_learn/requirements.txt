@@ -1,6 +1,9 @@
-flask[async]
-flask-sqlalchemy
-flask-migrate
-flask-debugtoolbar
+Flask[async]
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-Admin
+Flask-Login
+Flask-WTF
+Flask-DebugToolbar
 
 gunicorn

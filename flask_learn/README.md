@@ -22,3 +22,14 @@ flask_learn
 ```shell
 gunicorn -w 4 -b 0.0.0.0:5000 main:app
 ```
+
+## Flask-Migrate 数据库迁移
+
+```shell
+# 初始化迁移环境
+flask --app main.py db init
+# 生成迁移文件
+flask --app main.py db migrate
+# 执行迁移
+flask --app main.py db upgrade
+```
