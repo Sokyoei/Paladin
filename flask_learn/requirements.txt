@@ -5,5 +5,7 @@ Flask-Admin[sqlalchemy,images,export,translation]
 Flask-Login
 Flask-WTF
 Flask-DebugToolbar
+Flask-Limiter
+Flask-Caching
 
 gunicorn

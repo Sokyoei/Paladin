@@ -3,7 +3,8 @@ import uuid
 from flask import Blueprint
 
 from flask_learn.crud import MusicCRUD
-from flask_learn.schemas import MusicCreate, MusicResponse, MusicUpdate
+from flask_learn.schemas import MusicCreate, MusicUpdate
+from flask_learn.utils import ApiResponse
 
 bp = Blueprint("music", __name__, url_prefix="/music")
 
@@ -11,27 +12,38 @@ bp = Blueprint("music", __name__, url_prefix="/music")
 @bp.post("/")
 async def create_music(music: MusicCreate):
     music = MusicCRUD.create(music)
-    return MusicResponse.model_validate(music, from_attributes=True)
+    if music:
+        return ApiResponse.success(music)
+    return ApiResponse.error("创建失败")
 
 
 @bp.get("/")
 async def get_all_music():
     musics = MusicCRUD.get_all()
-    return [MusicResponse.model_validate(music, from_attributes=True) for music in musics]
+    if musics:
+        return ApiResponse.success(musics)
+    return ApiResponse.error("获取失败")
 
 
-@bp.get("/<id>")
+@bp.get("/<uuid:id>")
 async def get_music(id: uuid.UUID):
     music = MusicCRUD.get(id)
-    return MusicResponse.model_validate(music, from_attributes=True)
+    if music:
+        return ApiResponse.success(music)
+    return ApiResponse.error("获取失败")
 
 
-@bp.put("/<id>")
+@bp.put("/<uuid:id>")
 async def update_music(id: uuid.UUID, music: MusicUpdate):
     music = MusicCRUD.update(id, music)
-    return MusicResponse.model_validate(music, from_attributes=True)
+    if music:
+        return ApiResponse.success(music)
+    return ApiResponse.error("更新失败")
 
 
-@bp.delete("/<id>")
+@bp.delete("/<uuid:id>")
 async def delete_music(id: uuid.UUID):
-    return MusicCRUD.delete(id)
+    result = MusicCRUD.delete(id)
+    if result:
+        return ApiResponse.success()
+    return ApiResponse.error("删除失败")

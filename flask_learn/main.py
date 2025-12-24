@@ -4,7 +4,7 @@ import atexit
 from flask import Flask, Response, render_template, stream_with_context
 
 from flask_learn.api import all_blueprints
-from flask_learn.config import admin_manager, db_instance, debugger, settings
+from flask_learn.config import admin_manager, db_instance, debugger, login_manager, settings
 from flask_learn.models import all_models
 from flask_learn.utils import ORJSONProvider, register_error_handlers
 
@@ -23,6 +23,9 @@ def create_app() -> Flask:
     # database
     db_instance.init_app(app)
     db_instance.init_db(app)
+
+    # login manager
+    login_manager.init_app(app)
 
     # admin
     if app.debug:

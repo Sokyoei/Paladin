@@ -20,16 +20,16 @@ class BaseSyncCRUD(ABC, Generic[ModelType, CreateSchemaType, UpdateSchemaType, R
     schema: ClassVar[Type[ResponseSchemaType]]
 
     @classmethod
-    def create(self, obj: CreateSchemaType) -> ResponseSchemaType:
-        db_obj = self.model(**obj.model_dump())
+    def create(cls, obj: CreateSchemaType) -> ResponseSchemaType:
+        db_obj = cls.model(**obj.model_dump())
         db.session.add(db_obj)
         db.session.commit()
         db.session.refresh(db_obj)
-        return self.schema.model_validate(db_obj, from_attributes=True)
+        return cls.schema.model_validate(db_obj, from_attributes=True)
 
     @classmethod
-    def delete(self, obj_id: UUID | int) -> bool:
-        db_obj = db.session.get(self.model, obj_id)
+    def delete(cls, obj_id: UUID | int) -> bool:
+        db_obj = db.session.get(cls.model, obj_id)
         if db_obj:
             db.session.delete(db_obj)
             db.session.commit()
@@ -37,8 +37,8 @@ class BaseSyncCRUD(ABC, Generic[ModelType, CreateSchemaType, UpdateSchemaType, R
         return False
 
     @classmethod
-    def update(self, obj_id: UUID | int, obj: UpdateSchemaType) -> ResponseSchemaType | None:
-        db_obj = db.session.get(self.model, obj_id)
+    def update(cls, obj_id: UUID | int, obj: UpdateSchemaType) -> ResponseSchemaType | None:
+        db_obj = db.session.get(cls.model, obj_id)
         if not db_obj:
             return None
 
@@ -48,18 +48,20 @@ class BaseSyncCRUD(ABC, Generic[ModelType, CreateSchemaType, UpdateSchemaType, R
 
         db.session.commit()
         db.session.refresh(db_obj)
-        return self.schema.model_validate(db_obj, from_attributes=True)
+        return cls.schema.model_validate(db_obj, from_attributes=True)
 
     @classmethod
-    def search(self, obj_id: UUID | int) -> ResponseSchemaType | None:
-        db_obj = db.session.get(self.model, obj_id)
+    def search(cls, obj_id: UUID | int, orm=False) -> ModelType | ResponseSchemaType | None:
+        db_obj = db.session.get(cls.model, obj_id)
         if db_obj is None:
             return None
-        return self.schema.model_validate(db_obj, from_attributes=True)
+        return db_obj if orm else cls.schema.model_validate(db_obj, from_attributes=True)
 
     get = search
 
     @classmethod
-    def get_all(self) -> list[ResponseSchemaType]:
-        db_objs = db.session.query(self.model).all()
-        return [self.schema.model_validate(obj, from_attributes=True) for obj in db_objs]
+    def get_all(cls, orm=False) -> list[ModelType] | list[ResponseSchemaType]:
+        db_objs = db.session.query(cls.model).all()
+        if orm:
+            return db_objs
+        return [cls.schema.model_validate(obj, from_attributes=True) for obj in db_objs]
