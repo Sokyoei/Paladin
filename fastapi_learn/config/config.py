@@ -1,7 +1,9 @@
 from functools import lru_cache
 
 from pydantic import RedisDsn
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+from fastapi_learn import FASTAPILEARN_ROOT
 
 
 class Settings(BaseSettings):
@@ -17,15 +19,21 @@ class Settings(BaseSettings):
 
     REDIS_URL: RedisDsn = "redis://localhost"
 
-    JWT_SECRET_KEY: str = "U9oiu812ix1bqi9hap01h2nxn1j212mik"
+    JWT_SECRET_KEY: str = "secret"  # use `os.urandom(24).hex()` to generate a key
     JWT_ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24
     JWT_ALGORITHM: str = "HS256"
 
     FIRST_UID: int = 100000
 
-    class Config:
-        env_file = ".env", ".env.dev", ".env.prod"
-        env_file_encoding = "utf-8"
+    model_config = SettingsConfigDict(
+        env_file=[
+            FASTAPILEARN_ROOT / "fastapi_learn/.env",
+            FASTAPILEARN_ROOT / "fastapi_learn/.env.dev",
+            FASTAPILEARN_ROOT / "fastapi_learn/.env.prod",
+        ],
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
 
 
 @lru_cache()
