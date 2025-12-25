@@ -3,6 +3,8 @@ fastapi[all]
 # fastapi community extensions
 fastapi-users[sqlalchemy, oauth]
 sqladmin[full]
+fastapi-cache2
+fastapi-utils[all]
 
 # database
 sqlalchemy[aiosqlite]

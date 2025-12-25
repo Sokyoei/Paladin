@@ -18,6 +18,7 @@ from fastapi import (
     WebSocketDisconnect,
 )
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.openapi.docs import get_swagger_ui_html
 from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -25,8 +26,7 @@ from loguru import logger
 
 from fastapi_learn import FASTAPILEARN_ROOT
 from fastapi_learn.api import all_routers
-from fastapi_learn.config import db_instance, websocket_manager
-from fastapi_learn.config.config import settings
+from fastapi_learn.config import admin_manager, db_instance, settings, websocket_manager
 from fastapi_learn.utils import ApiResponse, register_exception_handlers
 
 apirouter = APIRouter()
@@ -36,8 +36,9 @@ apirouter = APIRouter()
 # router
 ########################################################################################################################
 @apirouter.get("/")
-async def index():
-    return {"hello": "world"}
+async def index(request: Request):
+    templates = cast(Jinja2Templates, app.state.templates)
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
 @apirouter.get("/sse")
@@ -130,39 +131,62 @@ async def get_cookie(session_id: Annotated[str | None, Cookie(description="会�
 ########################################################################################################################
 # app
 ########################################################################################################################
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    logger.info("Start FastAPI")
+def create_app() -> FastAPI:
 
+    @asynccontextmanager
+    async def lifespan(app: FastAPI):
+        logger.info("Start FastAPI")
+
+        await db_instance.init_db()
+        yield
+        await db_instance.close_db()
+
+        logger.info("Close FastAPI")
+
+    app = FastAPI(lifespan=lifespan, docs_url=None, title="FastAPI Learn")
+
+    if settings.DEBUG:
+        app.debug = True
+
+    # middleware
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=["*"],  # 生产请严格限制
+        allow_methods=["*"],
+        allow_headers=["*"],
+        allow_credentials=True,
+    )
     # router
     app.include_router(apirouter)
     for router in all_routers:
         app.include_router(router)
     # mount
-    app.mount("/assets", StaticFiles(directory=FASTAPILEARN_ROOT / "fastapi_learn/assets"), name="assets")
+    app.mount("/static", StaticFiles(directory=FASTAPILEARN_ROOT / "fastapi_learn/static"), name="static")
     # template
     app.state.templates = Jinja2Templates(directory="templates")
+    # exception handlers
+    register_exception_handlers(app)
 
-    if settings.DEBUG:
-        app.debug = True
+    # admin
+    admin_manager.init_app(app)
+    admin_manager.register_models()
 
-    await db_instance.init_db()
-    yield
-    await db_instance.close_db()
-
-    logger.info("Close FastAPI")
+    return app
 
 
-app = FastAPI(lifespan=lifespan)
-# add middleware when app is started
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],  # 生产请严格限制
-    allow_methods=["*"],
-    allow_headers=["*"],
-    allow_credentials=True,
-)
-register_exception_handlers(app)
+app = create_app()
+
+
+@app.get("/docs")
+async def custom_swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title=f"{app.title} - Swagger UI",
+        oauth2_redirect_url=app.swagger_ui_oauth2_redirect_url,
+        swagger_js_url="",
+        swagger_favicon_url="/static/assets/favicon.ico",
+        swagger_css_url="",
+    )
 
 
 def main():
