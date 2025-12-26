@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 
 from fastapi_learn.models import Base
 
-from .config import SQLALCHEMY_DATABASE_URL
+from .config import SQLALCHEMY_DATABASE_URI
 
 
 class Database(object):
@@ -17,7 +17,7 @@ class Database(object):
         if not cls.__instance:
             cls.__instance = super().__new__(cls)
             cls.__engine = create_async_engine(
-                SQLALCHEMY_DATABASE_URL,
+                SQLALCHEMY_DATABASE_URI,
                 echo=True,  # 打印 SQL 语句
                 pool_pre_ping=True,  # 检查连接是否可用，避免失效连接
                 pool_recycle=3600,  # 连接1小时自动回收，避免长时间空闲

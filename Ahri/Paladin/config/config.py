@@ -5,7 +5,7 @@ config form envioronment variables and .env file
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import MySQLDsn, PostgresDsn, computed_field
+from pydantic import MySQLDsn, PostgresDsn, RedisDsn, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from Ahri.Paladin import PALADIN_ROOT
@@ -18,10 +18,13 @@ class Settings(BaseSettings):
     LOG_DIR: Path = PALADIN_ROOT / "logs"
     DOWNLOAD_DIR: Path = PALADIN_ROOT / "downloads"
 
+    # SQLite
+    SQLALCHEMY_DATABASE_URI_SQLITE: str = "sqlite+aiosqlite:///./paladin.sqlite3"
+
     # PostgreSQL
     POSTGRESQL_HOST: str = "127.0.0.1"
     POSTGRESQL_PORT: int = 5432
-    POSTGRESQL_USERNAME: str = "user"
+    POSTGRESQL_USERNAME: str = "username"
     POSTGRESQL_PASSWORD: str = "password"
     POSTGRESQL_DB: str = "database"
 
@@ -40,7 +43,7 @@ class Settings(BaseSettings):
     # MySQL
     MYSQL_HOST: str = "127.0.0.1"
     MYSQL_PORT: int = 3306
-    MYSQL_USERNAME: str = "user"
+    MYSQL_USERNAME: str = "username"
     MYSQL_PASSWORD: str = "password"
     MYSQL_DB: str = "database"
 
@@ -54,6 +57,25 @@ class Settings(BaseSettings):
             host=self.MYSQL_HOST,
             port=self.MYSQL_PORT,
             path=self.MYSQL_DB,
+        )
+
+    # Redis
+    REDIS_HOST: str = "localhost"
+    REDIS_PORT: int = 6379
+    REDIS_USERNAME: str | None = None
+    REDIS_PASSWORD: str | None = None
+
+    @computed_field
+    @property
+    def REDIS_URI(self) -> RedisDsn:
+        return RedisDsn.build(
+            scheme="redis",
+            username=self.REDIS_USERNAME,
+            password=self.REDIS_PASSWORD,
+            host=self.REDIS_HOST,
+            port=self.REDIS_PORT,
+            path=None,
+            query=None,
         )
 
     # Minio
