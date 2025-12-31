@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Ahri/Paladin/Paladin.pyproj" Type="888888a0-9f3d-457c-b088-3a5042f75d52" Id="e39f5963-a448-4de4-988e-d33181cfb44e">
+    <Build Project="false" />
+  </Project>
+  <Project Path="python/python.pyproj" Type="888888a0-9f3d-457c-b088-3a5042f75d52" Id="632e3691-d23c-44db-9a74-4943b78bebad">
+    <Build Project="false" />
+  </Project>
+</Solution>
