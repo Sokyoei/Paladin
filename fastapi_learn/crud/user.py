@@ -1,3 +1,5 @@
+import uuid
+
 from sqlalchemy import exists, select
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -21,13 +23,31 @@ class UserCRUD(BaseAsyncCRUD[User, UserCreate, UserUpdate, UserResponse]):
         try:
             db_obj = cls.model(
                 uid=new_uid,
-                password=password_hash(data.password),
+                hashed_password=password_hash(data.password),
                 **data.model_dump(exclude_none=True, exclude_unset=True, exclude={"password"}),
             )
             db.add(db_obj)
             await db.commit()
             await db.refresh(db_obj)
             return cls.schema.model_validate(db_obj, from_attributes=True)
+        except SQLAlchemyError:
+            await db.rollback()
+            raise
+
+    @classmethod
+    async def update(cls, db: AsyncSession, obj_id: uuid.UUID | int | bytes, data: UserUpdate) -> UserResponse | None:
+        try:
+            db_obj = await cls.get(db, obj_id)
+            if db_obj:
+                for key, value in data.model_dump(exclude_none=True).items():
+                    if key == "password":
+                        value = password_hash(value)
+                    setattr(db_obj, key, value)
+                await db.commit()
+                await db.refresh(db_obj)
+                return cls.schema.model_validate(db_obj, from_attributes=True)
+            else:
+                return None
         except SQLAlchemyError:
             await db.rollback()
             raise

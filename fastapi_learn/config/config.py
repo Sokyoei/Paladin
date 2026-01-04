@@ -9,6 +9,9 @@ from fastapi_learn import FASTAPILEARN_ROOT
 class Settings(BaseSettings):
     DEBUG: bool = False
 
+    # Flags
+    USE_FASTAPI_USERS: bool = False
+
     # SQLite
     SQLALCHEMY_DATABASE_URI_SQLITE: str = "sqlite+aiosqlite:///./paladin.sqlite3"
 

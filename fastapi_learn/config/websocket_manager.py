@@ -1,24 +1,24 @@
 import asyncio
-from typing import Awaitable, Callable, Dict, Set
+from typing import Awaitable, Callable
 
 from fastapi import WebSocket
 from fastapi.websockets import WebSocketState
 from loguru import logger
 
-MessageType = str | bytes | Dict
+MessageType = str | bytes | dict
 
 
 class WebSocketManager(object):
 
     def __init__(self):
-        self.active_connections: Dict[str, WebSocket] = {}
+        self.active_connections: dict[str, WebSocket] = {}
         self.__lock = asyncio.Lock()
-        self.__send_funcs: Dict[type, Callable[[WebSocket, MessageType], Awaitable[None]]] = {
+        self.__send_funcs: dict[type, Callable[[WebSocket, MessageType], Awaitable[None]]] = {
             str: lambda ws, msg: ws.send_text(msg),
             bytes: lambda ws, msg: ws.send_bytes(msg),
             dict: lambda ws, msg: ws.send_json(msg),
         }
-        self.__disconnecting: Set[str] = set()
+        self.__disconnecting: set[str] = set()
         self.__disconnect_lock = asyncio.Lock()
 
     async def connect(self, websocket: WebSocket, client_id: str):

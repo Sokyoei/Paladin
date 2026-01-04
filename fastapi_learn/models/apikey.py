@@ -12,7 +12,9 @@ if TYPE_CHECKING:
 
 class APIKey(UUIDMixin, CreateUpdateAtMixin):
     __tablename__ = "apikey"
-    key: Mapped[str] = mapped_column(String(255), unique=True, index=True, nullable=False)
-    user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("user.id"), nullable=False)
+    key: Mapped[str] = mapped_column(String(255), unique=True, index=True, nullable=False, comment="API Key")
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("user.id"), nullable=False, comment="用户 ID"
+    )
 
     user: Mapped["User"] = relationship("User", back_populates="api_keys")
