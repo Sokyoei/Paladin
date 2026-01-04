@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>欢迎，{{ user.username }}！</h2>
+  <a href="{{ url_for('login.logout') }}" class="btn btn-danger">登出</a>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title">用户信息</h5>
+    <p><strong>用户ID：</strong>{{ user.id }}</p>
+    <p><strong>邮箱：</strong>{{ user.email }}</p>
+    <p><strong>创建时间：</strong>{{ user.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+  </div>
+</div>
+{% endblock %}

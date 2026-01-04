@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from sqlalchemy import String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
+from werkzeug.security import check_password_hash
 
 from .base import CreateUpdateAtMixin, CreateUpdateByMixin, UUIDMixin
 
@@ -18,3 +19,6 @@ class User(UUIDMixin, CreateUpdateAtMixin, CreateUpdateByMixin, UserMixin):
 
     def __repr__(self) -> str:
         return f"<User id={self.id} username={self.username} email={self.email!r}>"
+
+    def verify_password(self, password: str) -> bool:
+        return check_password_hash(self.hashed_password, password)

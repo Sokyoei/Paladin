@@ -1,4 +1,6 @@
 Flask[async]
+
+# flask community extensions
 Flask-SQLAlchemy
 Flask-Migrate
 Flask-Admin[sqlalchemy,images,export,translation]
@@ -9,3 +11,6 @@ Flask-Limiter
 Flask-Caching
 
 gunicorn
+
+# music
+mutagen

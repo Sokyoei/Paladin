@@ -3,7 +3,7 @@ from typing import ClassVar, Type
 
 from werkzeug.security import generate_password_hash
 
-from flask_learn.config import FIRST_UID, db_instance
+from flask_learn.config import db_instance
 from flask_learn.models import User
 from flask_learn.schemas import UserCreate, UserResponse, UserUpdate
 
@@ -18,7 +18,7 @@ class UserCRUD(BaseSyncCRUD[User, UserCreate, UserUpdate, UserResponse]):
 
     @classmethod
     def create(cls, obj: UserCreate):
-        db_obj = cls.model(uid=FIRST_UID, hashed_password=generate_password_hash(obj.password), **obj.model_dump())
+        db_obj = cls.model(hashed_password=generate_password_hash(obj.password), **obj.model_dump(exclude={"password"}))
         db.session.add(db_obj)
         db.session.commit()
         db.session.refresh(db_obj)
@@ -43,8 +43,8 @@ class UserCRUD(BaseSyncCRUD[User, UserCreate, UserUpdate, UserResponse]):
         return cls.schema.model_validate(db_obj, from_attributes=True)
 
     @classmethod
-    def get_user_by_email(cls, email: str):
-        db_obj = db.session.get(cls.model, email)
+    def get_user_by_email(cls, email: str, orm=False):
+        db_obj = cls.model.query.filter_by(email=email).first()
         if not db_obj:
             return None
-        return cls.schema.model_validate(db_obj, from_attributes=True)
+        return db_obj if orm else cls.schema.model_validate(db_obj, from_attributes=True)

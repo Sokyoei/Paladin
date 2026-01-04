@@ -23,10 +23,14 @@ class AdminManager(object):
 
     @property
     def admin(self):
+        if self.__admin is None:
+            raise ValueError("Admin not initialized")
         return self.__admin
 
     @property
     def babel(self):
+        if self.__babel is None:
+            raise ValueError("Babel not initialized")
         return self.__babel
 
     def register_models(self, model_list: list[Model]):

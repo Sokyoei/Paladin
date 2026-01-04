@@ -4,8 +4,9 @@ import atexit
 from flask import Flask, Response, render_template, stream_with_context
 
 from flask_learn.api import all_blueprints
-from flask_learn.config import admin_manager, db_instance, debugger, login_manager, settings
+from flask_learn.config import admin_manager, db_instance, login_manager, settings
 from flask_learn.models import all_models
+from flask_learn.services import load_user
 from flask_learn.utils import ORJSONProvider, register_error_handlers
 
 
@@ -26,6 +27,7 @@ def create_app() -> Flask:
 
     # login manager
     login_manager.init_app(app)
+    login_manager.user_loader(load_user)
 
     # admin
     if app.debug:
@@ -33,7 +35,9 @@ def create_app() -> Flask:
         admin_manager.register_models(all_models)
 
     # debug toolbar
-    debugger.init_app(app)
+    # NOTE: `flask_debugtoolbar` 与 VSCode 的 `debugpy` 都需要 `cProfile`,
+    # 一起启用会冲突（虽然不影响功能，但终端会打印许多错误堆栈）
+    # debugger.init_app(app)
 
     # blueprints
     for blueprint in all_blueprints:
