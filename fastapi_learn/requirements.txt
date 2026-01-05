@@ -5,6 +5,7 @@ fastapi-users[sqlalchemy, oauth]
 sqladmin[full]
 fastapi-cache2
 fastapi-utils[all]
+fastapi-pagination
 
 # database
 sqlalchemy[aiosqlite]

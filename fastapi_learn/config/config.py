@@ -54,6 +54,8 @@ class Settings(BaseSettings):
             query="charset=utf8mb4",
         )
 
+    SQLALCHEMY_DATABASE_URI: str = SQLALCHEMY_DATABASE_URI_SQLITE
+
     # Redis
     REDIS_HOST: str = "localhost"
     REDIS_PORT: int = 6379

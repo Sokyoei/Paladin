@@ -3,9 +3,7 @@ from typing import AsyncGenerator, Optional
 from loguru import logger
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from fastapi_learn.models import Base
-
-from .config import SQLALCHEMY_DATABASE_URI
+from .config import settings
 
 
 class Database(object):
@@ -17,7 +15,7 @@ class Database(object):
         if not cls.__instance:
             cls.__instance = super().__new__(cls)
             cls.__engine = create_async_engine(
-                SQLALCHEMY_DATABASE_URI,
+                settings.SQLALCHEMY_DATABASE_URI,
                 echo=True,  # 打印 SQL 语句
                 pool_pre_ping=True,  # 检查连接是否可用，避免失效连接
                 pool_recycle=3600,  # 连接1小时自动回收，避免长时间空闲
@@ -68,6 +66,8 @@ class Database(object):
 
     async def init_db(self):
         """初始化数据库"""
+        from fastapi_learn.models import Base
+
         async with self.engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
         logger.info("数据库初始化完成")
