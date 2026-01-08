@@ -6,6 +6,7 @@ sqladmin[full]
 fastapi-cache2
 fastapi-utils[all]
 fastapi-pagination
+prometheus-fastapi-instrumentator
 
 # database
 sqlalchemy[aiosqlite]

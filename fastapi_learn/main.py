@@ -26,7 +26,7 @@ from loguru import logger
 
 from fastapi_learn import FASTAPILEARN_ROOT
 from fastapi_learn.api import all_routers
-from fastapi_learn.config import admin_manager, db_instance, settings, websocket_manager
+from fastapi_learn.config import admin_manager, db_instance, debugger, settings, websocket_manager
 from fastapi_learn.utils import ApiResponse, register_exception_handlers
 
 apirouter = APIRouter()
@@ -170,6 +170,9 @@ def create_app() -> FastAPI:
     # admin
     admin_manager.init_app(app)
     admin_manager.register_models()
+    # debug
+    if settings.DEBUG:
+        debugger.init_app(app)
 
     return app
 
