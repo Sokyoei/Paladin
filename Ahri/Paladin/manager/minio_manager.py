@@ -90,9 +90,7 @@ class MinioManager(object):
 
         with ThreadPoolExecutor(max_workers=4) as executor:
             futures = [
-                executor.submit(
-                    self.upload_file, bucket_name=self.bucket_name, file_path=file_path, object_name=object_name
-                )
+                executor.submit(self.upload_file, file_path=file_path, object_name=object_name)
                 for file_path, object_name in file_paths_and_object_names.items()
             ]
 
@@ -105,7 +103,7 @@ class MinioManager(object):
         upload_tasks = []
 
         for file_path, object_name in file_paths_and_object_names.items():
-            upload_task = self.upload_file(bucket_name=self.bucket_name, file_path=file_path, object_name=object_name)
+            upload_task = self.upload_file(file_path=file_path, object_name=object_name)
             upload_tasks.append(upload_task)
         results = await asyncio.gather(*upload_tasks)
 
