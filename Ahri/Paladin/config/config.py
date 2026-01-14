@@ -84,6 +84,24 @@ class Settings(BaseSettings):
     MINIO_ACCESS_KEY: str = "minioadmin"
     MINIO_SECRET_KEY: str = "minioadmin"
 
+    # Nacos
+    NACOS_IP: str = "127.0.0.1"
+    NACOS_PORT: int = 8848
+
+    @computed_field
+    @property
+    def NACOS_SERVER_ADDRESSES(self) -> str:
+        return f"{self.NACOS_IP}:{self.NACOS_PORT}"
+
+    NACOS_NAMESPACE: str = "public"
+    NACOS_SERVICE_NAME: str = "paladin"
+    NACOS_REGISTER_IP: str = "127.0.0.1"
+    NACOS_REGISTER_PORT: int = 8000
+    NACOS_GROUP: str = "DEFAULT_GROUP"
+    NACOS_USERNAME: str = "nacos"
+    NACOS_PASSWORD: str = "nacos"
+    NACOS_DATA_ID: str = "paladin"
+
     model_config = SettingsConfigDict(
         env_file=[PALADIN_ROOT / ".env", PALADIN_ROOT / ".env.dev", PALADIN_ROOT / ".env.prod"],
         env_file_encoding="utf-8",

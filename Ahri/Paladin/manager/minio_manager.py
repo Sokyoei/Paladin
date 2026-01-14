@@ -6,13 +6,18 @@ from loguru import logger
 from minio import Minio
 from minio.error import S3Error
 
-from Ahri.Paladin.config.config import MINIO_ACCESS_KEY, MINIO_BUCKET_NAME, MINIO_ENDPOINT, MINIO_SECRET_KEY
+from Ahri.Paladin.config.config import settings
 
 
 class MinioManager(object):
 
     def __init__(
-        self, endpoint: str, access_key: str, secret_key: str, bucket_name=MINIO_BUCKET_NAME, secure: bool = True
+        self,
+        endpoint: str,
+        access_key: str,
+        secret_key: str,
+        bucket_name=settings.MINIO_BUCKET_NAME,
+        secure: bool = True,
     ):
         self.client = Minio(endpoint, access_key=access_key, secret_key=secret_key, secure=secure)
         self.bucket_name = bucket_name
@@ -127,5 +132,8 @@ class MinioManager(object):
 
 
 minio_manager = MinioManager(
-    endpoint=MINIO_ENDPOINT, access_key=MINIO_ACCESS_KEY, secret_key=MINIO_SECRET_KEY, secure=False
+    endpoint=settings.MINIO_ENDPOINT,
+    access_key=settings.MINIO_ACCESS_KEY,
+    secret_key=settings.MINIO_SECRET_KEY,
+    secure=False,
 )
