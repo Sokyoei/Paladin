@@ -1,0 +1,25 @@
+FROM python:3.12-slim-bookworm
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+    curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# environment variables
+ENV DEBUG=false
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+COPY fastapi_larn/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY fastapi_learn ./fastapi_learn
+
+EXPOSE 8000
+
+CMD ["uvicorn", "fastapi_learn.main:app"]

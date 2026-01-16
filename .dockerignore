@@ -1,0 +1,32 @@
+# git
+.git
+.gitattributes
+.gitignore
+
+# github
+.github
+
+# docker
+.dockerignore
+Dockerfile.*
+docker-compose.yml
+
+# vscode
+.vscode
+
+# JetBrains
+.idea
+
+# logs
+logs
+
+# Sokyoei dir
+Sokyoei
+temp
+
+# python
+__pycache__
+.pytest_cache
+.ruff_cache
+.mypy_cache
+.ipynb_checkpoints
