@@ -15,7 +15,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-COPY fastapi_larn/requirements.txt .
+COPY fastapi_learn/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY fastapi_learn ./fastapi_learn

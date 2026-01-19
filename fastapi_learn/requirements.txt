@@ -21,3 +21,5 @@ packaging
 # jwt
 python-jose[cryptography]
 passlib
+
+loguru
