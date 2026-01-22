@@ -10,9 +10,13 @@ Flask-DebugToolbar
 Flask-Limiter
 Flask-Caching
 
+# server
 gunicorn
 
 # music
 mutagen
 
+# common
 loguru
+pydantic[email]
+pydantic_settings

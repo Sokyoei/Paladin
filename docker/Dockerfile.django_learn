@@ -15,12 +15,12 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-COPY fastapi_learn/requirements.txt .
+COPY django_learn/requirements.txt .
 RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY fastapi_learn ./fastapi_learn
+COPY django_learn ./django_learn
 
 EXPOSE 8000
 
-CMD ["uvicorn", "fastapi_learn.main:app"]
+CMD ["uvicorn", "django_learn.asgi:application", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]

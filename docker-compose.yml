@@ -1,32 +1,48 @@
-version: "3.8"
-
 services:
   flask_learn:
-    build:
-      context: ./flask_learn
-      dockerfile: docker/Dockerfile.flask_learn
+    # build:
+    #   context: .
+    #   dockerfile: docker/Dockerfile.flask_learn
+    image: flask_learn:v1
     container_name: flask_learn
     ports:
       - "5000:5000"
     environment:
       - DEBUG=${DEBUG:-false}
-    volumes:
-      - ./flask_learn:/app
+    # volumes:
+    #   - ./flask_learn:/app
     restart: unless-stopped
     networks:
       - app-network
 
   fastapi_learn:
-    build:
-      context: ./fastapi_learn
-      dockerfile: docker/Dockerfile.fastapi_learn
+    # build:
+    #   context: .
+    #   dockerfile: docker/Dockerfile.fastapi_learn
+    image: fastapi_learn:v1
     container_name: fastapi_learn
     ports:
       - "8000:8000"
     environment:
       - DEBUG=${DEBUG:-false}
-    volumes:
-      - ./fastapi_learn:/app
+    # volumes:
+    #   - ./fastapi_learn:/app
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  django_learn:
+    # build:
+    #   context: .
+    #   dockerfile: docker/Dockerfile.django_learn
+    image: django_learn:v1
+    container_name: django_learn
+    ports:
+      - "8001:8001"
+    environment:
+      - DEBUG=${DEBUG:-false}
+    # volumes:
+    #   - ./django_learn:/app
     restart: unless-stopped
     networks:
       - app-network

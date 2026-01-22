@@ -16,10 +16,11 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
 COPY flask_learn/requirements.txt .
+RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY flask_learn ./flask_learn
 
 EXPOSE 5000
 
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "main:app"]
+CMD ["gunicorn", "-w", "1", "-b", "0.0.0.0:5000", "flask_learn.main:app"]
