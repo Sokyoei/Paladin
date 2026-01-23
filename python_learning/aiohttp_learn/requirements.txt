@@ -1,0 +1,6 @@
+aiohttp
+aiohttp-debugtoolbar
+aiohttp-admin
+aiohttp-session
+aiohttp-jinja2
+aiohttp-cors
