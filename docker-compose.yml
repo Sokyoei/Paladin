@@ -1,8 +1,8 @@
 services:
   flask_learn:
-    # build:
-    #   context: .
-    #   dockerfile: docker/Dockerfile.flask_learn
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.flask_learn
     image: flask_learn:v1
     container_name: flask_learn
     ports:
@@ -16,9 +16,9 @@ services:
       - app-network
 
   fastapi_learn:
-    # build:
-    #   context: .
-    #   dockerfile: docker/Dockerfile.fastapi_learn
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.fastapi_learn
     image: fastapi_learn:v1
     container_name: fastapi_learn
     ports:
@@ -32,9 +32,9 @@ services:
       - app-network
 
   django_learn:
-    # build:
-    #   context: .
-    #   dockerfile: docker/Dockerfile.django_learn
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.django_learn
     image: django_learn:v1
     container_name: django_learn
     ports:
