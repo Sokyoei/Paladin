@@ -1,0 +1,35 @@
+services:
+  flask_learn:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: flask_learn:v1
+    container_name: flask_learn
+    ports:
+      - "5000:5000"
+    environment:
+      - DEBUG=${DEBUG:-false}
+    # volumes:
+    #   - ./flask_learn:/app
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  flask_nginx:
+    image: nginx:alpine
+    container_name: flask_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./static:/app/static
+      - ./templates:/app/templates
+    depends_on:
+      - flask_learn
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
