@@ -2,6 +2,7 @@
 config form envioronment variables and .env file
 """
 
+import sys
 from functools import lru_cache
 from pathlib import Path
 
@@ -109,9 +110,17 @@ class Settings(BaseSettings):
     )
 
 
-@lru_cache
-def get_settings() -> Settings:
-    return Settings()
+if sys.version_info >= (3, 8):
+
+    @lru_cache
+    def get_settings() -> Settings:
+        return Settings()
+
+else:
+
+    @lru_cache(128)
+    def get_settings() -> Settings:
+        return Settings()
 
 
 settings = get_settings()
