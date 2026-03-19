@@ -21,6 +21,8 @@ class MinioManager(object):
     ):
         self.client = Minio(endpoint, access_key=access_key, secret_key=secret_key, secure=secure)
         self.bucket_name = bucket_name
+        self.endpoint = endpoint
+        self.http_prefix = "https://" if secure else "http://"
 
         if not self.client.bucket_exists(self.bucket_name):
             self.client.make_bucket(self.bucket_name)
@@ -65,7 +67,7 @@ class MinioManager(object):
     async def download_file_async(self, object_name: str, file_path: Path) -> Path | None:
         return await asyncio.to_thread(self.download_file, object_name, file_path)
 
-    def upload_file(self, file_path: Path, object_name: str | None = None):
+    def upload_file(self, file_path: Path, object_name: str | None = None, forever: bool = False):
         try:
             if not file_path.exists():
                 logger.error(f"File not found: {file_path}")
@@ -76,7 +78,13 @@ class MinioManager(object):
             self.client.fput_object(
                 bucket_name=self.bucket_name, object_name=final_object_name, file_path=str(file_path)
             )
-            minio_url = self.client.presigned_get_object(bucket_name=self.bucket_name, object_name=final_object_name)
+
+            if forever:
+                minio_url = f"{self.http_prefix}{self.endpoint}/{self.bucket_name}/{final_object_name}"
+            else:
+                minio_url = self.client.presigned_get_object(
+                    bucket_name=self.bucket_name, object_name=final_object_name
+                )
 
             logger.info(f"File uploaded, local: {file_path} -> minio: {minio_url}")
             return minio_url
