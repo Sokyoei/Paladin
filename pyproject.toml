@@ -51,6 +51,9 @@ build = [
     "wheel",
     "hatch",      # https://github.com/pypa/hatch
 ]
+async = [
+    "asgiref", # https://github.com/django/asgiref
+]
 ai = [
     # python3.9 + cuda11.6
     "torch==1.13.1+cu116; python_version=='3.9'",
@@ -79,12 +82,11 @@ sumo = [
     "sumolib",
     "traci",
 ]
-web = ["flask[async]", "fastapi[all]"]
 webapp = ["streamlit", "gradio"]
 gui = ["PyQt5"]
 cli = ["click"]
-llm = []
 fastapi_learn = ["fastapi[all]", "sqlalchemy[aiomysql]", "redis"]
+flask_learn = ["flask[async]"]
 django_learn = ["django", "django-ninja", "djangorestframework"]
 
 [project.scripts]
