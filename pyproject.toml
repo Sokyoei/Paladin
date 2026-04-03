@@ -38,20 +38,20 @@ utils = [
     "python-dateutil", # https://github.com/dateutil/dateutil
     "packaging",       # https://github.com/pypa/packaging
 ]
-geography = [
-    "wrf-python", # https://github.com/NCAR/wrf-python
-    "eccodes",    # https://github.com/ecmwf/eccodes-python
-    "ecmwflibs",  # https://github.com/ecmwf/ecmwflibs
-    "f90nml",     # https://github.com/marshallward/f90nml
-    "cdsapi",     # https://github.com/ecmwf/cdsapi
-    "netCDF4",    # https://github.com/Unidata/netcdf4-python
-    "xarray",     # https://github.com/pydata/xarray
-    "cfgrib",     # https://github.com/ecmwf/cfgrib
-    "Cartopy",    # https://github.com/SciTools/cartopy
-    "geopandas",  # https://github.com/geopandas/geopandas
-    "pyshp",      # https://github.com/GeospatialPython/pyshp
-    "pyproj",     # https://github.com/pyproj4/pyproj
-]
+# geography = [
+#     "wrf-python", # https://github.com/NCAR/wrf-python
+#     "eccodes",    # https://github.com/ecmwf/eccodes-python
+#     "ecmwflibs",  # https://github.com/ecmwf/ecmwflibs support to python3.11
+#     "f90nml",     # https://github.com/marshallward/f90nml
+#     "cdsapi",     # https://github.com/ecmwf/cdsapi
+#     "netCDF4",    # https://github.com/Unidata/netcdf4-python
+#     "xarray",     # https://github.com/pydata/xarray
+#     "cfgrib",     # https://github.com/ecmwf/cfgrib
+#     "Cartopy",    # https://github.com/SciTools/cartopy
+#     "geopandas",  # https://github.com/geopandas/geopandas
+#     "pyshp",      # https://github.com/GeospatialPython/pyshp
+#     "pyproj",     # https://github.com/pyproj4/pyproj
+# ]
 sumo = [
     # https://github.com/eclipse-sumo/sumo
     "eclipse-sumo",
@@ -134,6 +134,7 @@ path = "hatch_build.py"
 
 [tool.uv]
 default-groups = ["dev", "test"]
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 
 [tool.isort]
 line_length = 120
