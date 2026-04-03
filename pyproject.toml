@@ -18,12 +18,14 @@ license = { text = "MIT" }
 readme = "README.md"
 dependencies = [
     # data analysis
-    "numpy",      # https://github.com/numpy/numpy
-    "scipy",      # https://github.com/scipy/scipy
-    "pandas",     # https://github.com/pandas-dev/pandas
-    "matplotlib", # https://github.com/matplotlib/matplotlib
-    "PyYAML",     # https://github.com/yaml/pyyaml
-    "loguru",     # https://github.com/Delgan/loguru
+    "numpy",             # https://github.com/numpy/numpy
+    "scipy",             # https://github.com/scipy/scipy
+    "pandas",            # https://github.com/pandas-dev/pandas
+    "matplotlib",        # https://github.com/matplotlib/matplotlib
+    "PyYAML",            # https://github.com/yaml/pyyaml
+    "loguru",            # https://github.com/Delgan/loguru
+    "asgiref",           # https://github.com/django/asgiref
+    "pydantic-settings",
 ]
 requires-python = ">= 3.12"
 
@@ -32,33 +34,9 @@ Repository = "https://github.com/Sokyoei/Paladin"
 
 [project.optional-dependencies]
 # Sokyoei know and learn library
-dev = [
-    "ruff",       # https://github.com/astral-sh/ruff
-    "black",      # https://github.com/psf/black
-    "isort",      # https://github.com/PyCQA/isort
-    "pipdeptree", # https://github.com/tox-dev/pipdeptree
-    "viztracer",  # https://github.com/gaogaotiantian/viztracer
-    # "pip_search", # https://github.com/victorgarric/pip_search
-    # "autopep8",   # https://github.com/hhatto/autopep8
-]
 utils = [
     "python-dateutil", # https://github.com/dateutil/dateutil
     "packaging",       # https://github.com/pypa/packaging
-]
-test = ["pytest", "tox", "coverage"]
-build = [
-    "setuptools",
-    "wheel",
-    "hatch",      # https://github.com/pypa/hatch
-]
-async = [
-    "asgiref", # https://github.com/django/asgiref
-]
-ai = [
-    # python3.9 + cuda11.6
-    "torch==1.13.1+cu116; python_version=='3.9'",
-    "torchvision==0.14.1+cu116; python_version=='3.9'",
-    "torchaudio==0.13.1; python_version=='3.9'",
 ]
 geography = [
     "wrf-python", # https://github.com/NCAR/wrf-python
@@ -85,13 +63,53 @@ sumo = [
 webapp = ["streamlit", "gradio"]
 gui = ["PyQt5"]
 cli = ["click"]
-fastapi_learn = ["fastapi[all]", "sqlalchemy[aiomysql]", "redis"]
-flask_learn = ["flask[async]"]
-django_learn = ["django", "django-ninja", "djangorestframework"]
+fastapi_learn = [
+    "fastapi[all]",
+    "sqlalchemy[aiomysql]",
+    "redis",
+    "fastapi-users[sqlalchemy, oauth]",
+    "sqladmin[full]",
+    "fastapi-cache2",
+    "fastapi-utils[all]",
+    "fastapi-pagination",
+    "prometheus-fastapi-instrumentator",
+]
+flask_learn = [
+    "Flask[async]",
+    "Flask-SQLAlchemy",
+    "Flask-Migrate",
+    "Flask-Admin[sqlalchemy,images,export,translation]",
+    "Flask-Login",
+    "Flask-WTF",
+    "Flask-DebugToolbar",
+    "Flask-Limiter",
+    "Flask-Caching",
+]
+django_learn = [
+    "django",
+    "django-ninja",
+    "djangorestframework",
+    "docutils",
+    "django-ninja-extra",
+    "django-filter",
+    "django-debug-toolbar",
+    "django-extensions",
+]
 
 [project.scripts]
 
 [project.gui-scripts]
+
+[dependency-groups]
+build = ["build", "hatch"]
+dev = [
+    "isort",      # https://github.com/PyCQA/isort
+    "ruff",       # https://github.com/astral-sh/ruff
+    "black",      # https://github.com/psf/black
+    "pipdeptree", # https://github.com/tox-dev/pipdeptree
+    "viztracer",  # https://github.com/gaogaotiantian/viztracer
+]
+test = ["pytest", "pytest-asyncio", "tox", "coverage"]
 
 [tool.setuptools]
 include-package-data = true
@@ -113,6 +131,9 @@ exclude = []
 
 [tool.hatch.build.targets.wheel.hooks.custom]
 path = "hatch_build.py"
+
+[tool.uv]
+default-groups = ["dev", "test"]
 
 [tool.isort]
 line_length = 120
