@@ -152,9 +152,12 @@ max_line_length = 120
 [tool.ruff]
 line-length = 120
 indent-width = 4
+target-version = "py312"
 
 [tool.ruff.lint]
+# https://docs.astral.sh/ruff/rules/
 select = [
+    "UP",  # pyupgrade
     "F",   # pyflakes
     "E",   # pycodestyle error
     "W",   # pycodestyle warning
@@ -166,6 +169,8 @@ select = [
     "NPY",  # numpy specific rules
     "RUF",  # ruff specific rules
     "FAST", # FastAPI
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
 ]
 ignore = [
     "E501",   # https://docs.astral.sh/ruff/rules/line-too-long/
@@ -175,11 +180,9 @@ ignore = [
     # "F841",   # unused-variable
 ]
 ignore-init-module-imports = true
+pydocstyle = { convention = "google" }
 
 [tool.ruff.lint.isort]
-
-[tool.ruff.lint.pydocstyle]
-convention = "google"
 
 [tool.ruff.format]
 docstring-code-format = true
