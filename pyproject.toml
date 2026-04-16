@@ -3,10 +3,6 @@
 [build-system]
 # requires = ["setuptools", "wheel"]
 # build-backend = "setuptools.build_meta"
-
-# On Win11 conda virtualenv, `virtualenv` package has a BUG, not find ssl module(copy Library\bin libcryoto-* and
-# libssl-* into DLLs can resolve), hatch require it, waiting to fix.
-
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
@@ -18,13 +14,13 @@ license = { text = "MIT" }
 readme = "README.md"
 dependencies = [
     # data analysis
-    "numpy",             # https://github.com/numpy/numpy
-    "scipy",             # https://github.com/scipy/scipy
-    "pandas",            # https://github.com/pandas-dev/pandas
-    "matplotlib",        # https://github.com/matplotlib/matplotlib
-    "PyYAML",            # https://github.com/yaml/pyyaml
-    "loguru",            # https://github.com/Delgan/loguru
-    "asgiref",           # https://github.com/django/asgiref
+    "numpy",
+    "scipy",
+    "pandas",
+    "matplotlib",
+    "PyYAML",
+    "loguru",
+    "asgiref",
     "pydantic-settings",
 ]
 requires-python = ">= 3.12"
@@ -34,10 +30,7 @@ Repository = "https://github.com/Sokyoei/Paladin"
 
 [project.optional-dependencies]
 # Sokyoei know and learn library
-utils = [
-    "python-dateutil", # https://github.com/dateutil/dateutil
-    "packaging",       # https://github.com/pypa/packaging
-]
+utils = ["python-dateutil", "packaging"]
 # geography = [
 #     "wrf-python", # https://github.com/NCAR/wrf-python
 #     "eccodes",    # https://github.com/ecmwf/eccodes-python
@@ -102,13 +95,7 @@ django_learn = [
 
 [dependency-groups]
 build = ["build", "hatch"]
-dev = [
-    "isort",      # https://github.com/PyCQA/isort
-    "ruff",       # https://github.com/astral-sh/ruff
-    "black",      # https://github.com/psf/black
-    "pipdeptree", # https://github.com/tox-dev/pipdeptree
-    "viztracer",  # https://github.com/gaogaotiantian/viztracer
-]
+dev = ["isort", "ruff", "black", "pipdeptree", "viztracer"]
 test = ["pytest", "pytest-asyncio", "tox", "coverage"]
 
 [tool.setuptools]
