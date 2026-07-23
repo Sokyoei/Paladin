@@ -5,7 +5,6 @@ import os
 import platform
 import ssl
 import sys
-from typing import Optional, Set
 
 from aiohttp import web
 from aiortc import MediaStreamTrack, RTCPeerConnection, RTCRtpSender, RTCSessionDescription
@@ -14,12 +13,12 @@ from loguru import logger
 
 ROOT = os.path.dirname(__file__)
 
-pcs: Set[RTCPeerConnection] = set()
+pcs: set[RTCPeerConnection] = set()
 relay = None  # MediaRelay, 用于共享摄像头
 webcam = None  # MediaPlayer, 用于读取系统摄像头
 
 
-def create_local_tracks(play_from: str, decode: bool) -> tuple[Optional[MediaStreamTrack], Optional[MediaStreamTrack]]:
+def create_local_tracks(play_from: str, decode: bool) -> tuple[MediaStreamTrack | None, MediaStreamTrack | None]:
     global relay, webcam
 
     if play_from:
@@ -52,12 +51,14 @@ def force_codec(pc: RTCPeerConnection, sender: RTCRtpSender, forced_codec: str) 
 
 
 async def index(request: web.Request) -> web.Response:
-    content = open(os.path.join(ROOT, "index.html"), "r").read()
+    with open(os.path.join(ROOT, "index.html")) as index_html:
+        content = index_html.read()
     return web.Response(content_type="text/html", text=content)
 
 
 async def javascript(request: web.Request) -> web.Response:
-    content = open(os.path.join(ROOT, "client.js"), "r").read()
+    with open(os.path.join(ROOT, "client.js")) as client_js:
+        content = client_js.read()
     return web.Response(content_type="application/javascript", text=content)
 
 
@@ -70,7 +71,7 @@ async def offer(request: web.Request) -> web.Response:
 
     @pc.on("connectionstatechange")
     async def on_connectionstatechange() -> None:
-        print("Connection state is %s" % pc.connectionState)
+        print(f"Connection state is {pc.connectionState}")
         if pc.connectionState == "failed":
             await pc.close()
             pcs.discard(pc)
