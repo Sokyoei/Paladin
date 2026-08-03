@@ -127,19 +127,20 @@ index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
 line_length = 120
 multi_line_output = 0
 
+[tool.autopep8]
+max_line_length = 120
+
 [tool.black]
 line-length = 120
 preview = true
 skip-string-normalization = true
 skip-magic-trailing-comma = true
 
-[tool.autopep8]
-max_line_length = 120
-
 [tool.ruff]
 line-length = 120
 indent-width = 4
 target-version = "py312"
+extend-exclude = ["typings"]
 
 [tool.ruff.lint]
 # https://docs.astral.sh/ruff/rules/
@@ -164,9 +165,8 @@ ignore = [
     "RUF001", # https://docs.astral.sh/ruff/rules/ambiguous-unicode-character-string/
     "RUF002", # https://docs.astral.sh/ruff/rules/ambiguous-unicode-character-docstring/
     "RUF003", # https://docs.astral.sh/ruff/rules/ambiguous-unicode-character-comment/
-    # "F841",   # unused-variable
 ]
-ignore-init-module-imports = true
+# ignore-init-module-imports = true # deprecated https://docs.astral.sh/ruff/settings/#lint_ignore-init-module-imports
 pydocstyle = { convention = "google" }
 
 [tool.ruff.lint.isort]
@@ -183,3 +183,8 @@ skip-magic-trailing-comma = true
 minversion = "6.0"
 addopts = "-ra -q"
 testpaths = ["tests"]
+
+[tool.pyright]
+pythonVersion = "3.12"
+ignore = ["typings"]
+typeCheckingMode = "basic"
