@@ -15,4 +15,12 @@ nginx -c your_nginx.conf_path
 nginx -s reload -c your_nginx.conf_path
 # 停止 nginx
 nginx -s stop -c your_nginx.conf_path
+# 启动
+start nginx
+# 停止
+nginx -s stop
+# 重启
+nginx -s reload
+# 关闭 nginx 服务
+nginx -s quit
 ```

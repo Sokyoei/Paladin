@@ -1,5 +1,7 @@
 # Docker
 
+[Docker](https://www.docker.com/)
+
 ## 常用命令
 
 ```bash
@@ -13,6 +15,12 @@ docker build -t your_image_name[:tag] . -f your_Dockerfile_path
 docker save -o image_name.tar image_name:latest
 # 从 tar 中加载镜像
 docker load -i image_name.tar
+# 查看所有容器
+docker ps -a
+# 运行镜像
+docker run -p
+# 运行容器
+docker start container_id__or__container_name
 ```
 
 docker compose 命令
