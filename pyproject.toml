@@ -56,7 +56,7 @@ sumo = [
 webapp = ["streamlit", "gradio"]
 gui = ["PyQt5"]
 cli = ["click"]
-fastapi_learn = [
+fastapi_learning = [
     "fastapi[all]",
     "sqlalchemy[aiomysql]",
     "redis",
@@ -67,7 +67,7 @@ fastapi_learn = [
     "fastapi-pagination",
     "prometheus-fastapi-instrumentator",
 ]
-flask_learn = [
+flask_learning = [
     "Flask[async]",
     "Flask-SQLAlchemy",
     "Flask-Migrate",
@@ -78,7 +78,7 @@ flask_learn = [
     "Flask-Limiter",
     "Flask-Caching",
 ]
-django_learn = [
+django_learning = [
     "django",
     "django-ninja",
     "djangorestframework",
