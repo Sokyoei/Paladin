@@ -5,9 +5,9 @@ Python 3.5: async/await
 import asyncio
 import sys
 
-from Ahri.Paladin.utils import async_timer
+from paladin.utils import async_timer
 
-if sys.version_info >= (3, 5):
+if sys.version_info >= (3, 5):  # noqa: UP036
 
     @async_timer
     async def do_some_thing(x: int):
@@ -35,7 +35,7 @@ async def async_main():
     await task2
     print("create_task end")
     # 方式二
-    if sys.version_info >= (3, 11):
+    if sys.version_info >= (3, 11):  # noqa: UP036
         async with asyncio.TaskGroup() as tg:
             tg.create_task(do_some_thing(1))
             tg.create_task(do_some_thing(2))
@@ -50,7 +50,7 @@ async def async_main():
 def main():
     loop = asyncio.get_event_loop()
     # loop = asyncio.get_running_loop()
-    if sys.version_info >= (3, 11):
+    if sys.version_info >= (3, 11):  # noqa: UP036
         tasks = [
             loop.create_task(do_some_thing(1)),
             loop.create_task(do_some_thing(2)),

@@ -1,9 +1,9 @@
 from redis import asyncio as aioredis
 
-from Ahri.Paladin.config import settings
+from paladin.config import settings
 
 
-class AsyncRedisManager(object):
+class AsyncRedisManager:
 
     def __init__(self):
         self._redis = None

@@ -1,9 +1,9 @@
 import redis
 
-from Ahri.Paladin.config import settings
+from paladin.config import settings
 
 
-class RedisManager(object):
+class RedisManager:
 
     def __init__(self):
         self._redis = None

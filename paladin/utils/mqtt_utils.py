@@ -11,7 +11,7 @@ Test:
 
 import enum
 import random
-from typing import Any, Optional
+from typing import Any
 
 from loguru import logger
 from paho.mqtt import client as mqtt
@@ -24,7 +24,7 @@ class ClientMode(enum.IntEnum):
     SUBSCRIBE = 1
 
 
-class MQTTClient(object):
+class MQTTClient:
 
     def __init__(
         self,
@@ -32,8 +32,8 @@ class MQTTClient(object):
         port: int,
         client_mode: ClientMode,
         client_id: str = f"python-mqtt-{random.randint(0, 1000)}",
-        username: Optional[str] = None,
-        password: Optional[str] = None,
+        username: str | None = None,
+        password: str | None = None,
     ):
         super().__init__()
         self.broker = broker

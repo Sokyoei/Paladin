@@ -1,7 +1,7 @@
 import enum
 import sys
 
-if sys.version_info < (3, 11):
+if sys.version_info < (3, 11):  # noqa: UP036
 
     class StrEnum(str, enum.Enum):
         def __new__(cls, value):

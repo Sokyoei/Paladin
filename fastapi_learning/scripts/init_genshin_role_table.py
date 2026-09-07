@@ -1,6 +1,6 @@
 import pandas as pd
 
-from Ahri.Paladin import SOKYOEI_DATA_DIR
+from paladin import SOKYOEI_DATA_DIR
 
 
 def main():

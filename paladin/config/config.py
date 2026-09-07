@@ -9,7 +9,7 @@ from pathlib import Path
 from pydantic import MySQLDsn, PostgresDsn, RedisDsn, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from Ahri.Paladin import PALADIN_ROOT
+from paladin import PALADIN_ROOT
 
 
 class Settings(BaseSettings):
@@ -18,6 +18,9 @@ class Settings(BaseSettings):
     # dir
     LOG_DIR: Path = PALADIN_ROOT / "logs"
     DOWNLOAD_DIR: Path = PALADIN_ROOT / "downloads"
+
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
     # SQLite
     SQLALCHEMY_DATABASE_URI_SQLITE: str = "sqlite+aiosqlite:///./paladin.sqlite3"
@@ -110,7 +113,7 @@ class Settings(BaseSettings):
     )
 
 
-if sys.version_info >= (3, 8):
+if sys.version_info >= (3, 8):  # noqa: UP036
 
     @lru_cache
     def get_settings() -> Settings:

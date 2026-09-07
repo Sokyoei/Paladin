@@ -2,15 +2,14 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Optional
 
 import requests
 from tqdm import tqdm
 
-from Ahri.Paladin.www import USER_AGENT
+from paladin.www import USER_AGENT
 
 
-def download_file(url: str, dst_path: Optional[str | os.PathLike] = None, check_exists: bool = True):
+def download_file(url: str, dst_path: str | os.PathLike | None = None, check_exists: bool = True):
     """下载文件
 
     Args:
@@ -22,9 +21,10 @@ def download_file(url: str, dst_path: Optional[str | os.PathLike] = None, check_
     if (check_exists and not Path(file_name).exists()) or not check_exists:
         response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=10)
         total = int(response.headers.get("Content-Length", 0))
-        with open(file_name, "wb") as f, tqdm(
-            desc=file_name, total=total, unit="iB", unit_scale=True, unit_divisor=1024
-        ) as t:
+        with (
+            open(file_name, "wb") as f,
+            tqdm(desc=file_name, total=total, unit="iB", unit_scale=True, unit_divisor=1024) as t,
+        ):
             for data in response.iter_content(chunk_size=1024):
                 size = f.write(data)
                 t.update(size)

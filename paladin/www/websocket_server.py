@@ -1,6 +1,5 @@
 import asyncio
 import threading
-from typing import Set
 
 import websockets
 from loguru import logger
@@ -14,7 +13,7 @@ class WebSocketServer(threading.Thread):
         self.host = host
         self.port = port
         self.server = None
-        self.clients: Set[ServerProtocol] = set()
+        self.clients: set[ServerProtocol] = set()
         self.stop_event = asyncio.Event()
 
     async def handle(self, websocket):

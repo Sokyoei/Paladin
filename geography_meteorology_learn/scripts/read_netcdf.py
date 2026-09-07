@@ -15,7 +15,7 @@ from matplotlib import pyplot as plt
 from netCDF4 import Dataset
 from wrf import getvar
 
-from Ahri.Paladin import PALADIN_ROOT
+from paladin import PALADIN_ROOT
 
 SK = 3  # 风场跳过数据的间隔
 

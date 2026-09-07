@@ -6,10 +6,10 @@ from loguru import logger
 from minio import Minio
 from minio.error import S3Error
 
-from Ahri.Paladin.config.config import settings
+from paladin.config import settings
 
 
-class MinioManager(object):
+class MinioManager:
 
     def __init__(
         self,
@@ -27,7 +27,9 @@ class MinioManager(object):
         if not self.client.bucket_exists(self.bucket_name):
             self.client.make_bucket(self.bucket_name)
 
-    def list_objects(self, prefix: str = "", filter=[]) -> list:
+    def list_objects(self, prefix: str = "", filter=None) -> list:
+        if filter is None:
+            filter = []
         try:
             objects = []
             for obj in self.client.list_objects(bucket_name=self.bucket_name, prefix=prefix, recursive=True):
@@ -42,7 +44,9 @@ class MinioManager(object):
             logger.error(f"Unknown error when getting file list `{self.bucket_name}`: {e}")
             return []
 
-    async def list_objects_async(self, prefix: str = "", filter=[]) -> list:
+    async def list_objects_async(self, prefix: str = "", filter=None) -> list:
+        if filter is None:
+            filter = []
         return await asyncio.to_thread(self.list_objects, prefix, filter)
 
     def download_file(self, object_name: str, file_path: Path) -> Path | None:

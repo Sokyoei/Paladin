@@ -3,7 +3,6 @@ from __future__ import annotations
 import os
 import time
 from functools import wraps
-from typing import Optional
 
 from .download import download_file
 
@@ -61,7 +60,7 @@ def async_timer(func):
     return wrapper
 
 
-def download(url: str, dst_path: Optional[str | os.PathLike] = None, check_exists: bool = True):
+def download(url: str, dst_path: str | os.PathLike | None = None, check_exists: bool = True):
     """下载文件装饰器
 
     See also:

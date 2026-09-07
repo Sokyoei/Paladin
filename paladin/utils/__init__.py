@@ -1,4 +1,4 @@
-from Ahri.Paladin.check import check_package_installed
+from paladin.check import check_package_installed
 
 from .check import check_path
 from .decorator import async_timer, timer

@@ -5,10 +5,10 @@
 import logging
 import logging.handlers
 
-from Ahri.Paladin.config import LOG_DIR
+from paladin.config import LOG_DIR
 
 
-class Logger(object):
+class Logger:
 
     def __init__(self, log_name: str, level: int = logging.INFO) -> None:
         self.log_name = log_name

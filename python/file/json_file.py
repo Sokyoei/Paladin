@@ -15,13 +15,13 @@ except ModuleNotFoundError:
     USE_ORJSON = False
 
 
-from Ahri.Paladin import SOKYOEI_DATA_DIR
+from paladin import SOKYOEI_DATA_DIR
 
 ########################################################################################################################
 # std json
 ########################################################################################################################
 # json -> dict
-with open(SOKYOEI_DATA_DIR / "Ahri/Ahri.json", "r", encoding="utf8") as Ahri:
+with open(SOKYOEI_DATA_DIR / "Ahri/Ahri.json", encoding="utf8") as Ahri:
     data = json.load(Ahri)
     print(data)
 
@@ -34,7 +34,7 @@ with open("tempCodeRunnerFile.json", "w", encoding="utf8") as temp:
 ########################################################################################################################
 if USE_UJSON:
     # json -> dict
-    with open(SOKYOEI_DATA_DIR / "Ahri/Ahri.json", "r", encoding="utf8") as Ahri:
+    with open(SOKYOEI_DATA_DIR / "Ahri/Ahri.json", encoding="utf8") as Ahri:
         data = ujson.load(Ahri)
         print(data)
 

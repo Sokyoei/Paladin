@@ -1,15 +1,15 @@
 import threading
 import time
-from typing import Callable
+from collections.abc import Callable
 
 from loguru import logger
 from nacos import NacosClient
 from nacos.exception import NacosException
 
-from Ahri.Paladin.config import settings
+from paladin.config import settings
 
 
-class NacosManager(object):
+class NacosManager:
 
     def __init__(
         self,
@@ -121,7 +121,7 @@ class NacosManager(object):
             service_metadata = {
                 "version": "1.0.0",
                 "timestamp": str(int(time.time())),
-                "source": "Ahri.Paladin",
+                "source": "paladin",
                 "group": group_name,
                 "cluster": cluster_name,
             }

@@ -15,7 +15,7 @@ import xarray as xr
 from cartopy.mpl.geoaxes import GeoAxes
 from cartopy.mpl.ticker import LatitudeFormatter, LongitudeFormatter
 
-from Ahri.Paladin import PALADIN_ROOT
+from paladin import PALADIN_ROOT
 
 TOLS = [
     'meanSea',

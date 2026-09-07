@@ -3,19 +3,18 @@ Get v2ray clash and singbox nodes
 """
 
 import datetime
-from typing import Dict
 
 import requests
 from requests.exceptions import ConnectionError, ReadTimeout
 
-from Ahri.Paladin.www import USER_AGENT
+from paladin.www import USER_AGENT
 
 V2RAY = False
 CLASH = True
 SINGBOX = False
 
 
-def _get_url(days: int = 1) -> Dict[str, str]:  # noqa: C901
+def _get_url(days: int = 1) -> dict[str, str]:  # noqa: C901
     """get num days nodefree urls.
 
     Args:
@@ -26,7 +25,7 @@ def _get_url(days: int = 1) -> Dict[str, str]:  # noqa: C901
     """
     today = datetime.date.today()
     # urls = []
-    urls: Dict[str, str] = {}
+    urls: dict[str, str] = {}
     for day in range(days):
         date = today - datetime.timedelta(days=day)
         yyyy = f"{date.year:0>4}"

@@ -10,7 +10,7 @@ from pathlib import Path
 
 import yaml
 
-from Ahri.Paladin import PALADIN_ROOT
+from paladin import PALADIN_ROOT
 
 
 def init_logging(config_path: Path = PALADIN_ROOT / "Ahri/Paladin/utils/logger.yaml"):

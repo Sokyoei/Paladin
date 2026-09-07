@@ -1,11 +1,11 @@
 import sys
 
-if sys.version_info >= (3, 11):
+if sys.version_info >= (3, 11):  # noqa: UP036
     import tomllib  # only read
 
 import tomli_w
 
-from Ahri.Paladin import SOKYOEI_DATA_DIR
+from paladin import SOKYOEI_DATA_DIR
 
 with open(SOKYOEI_DATA_DIR / "Ahri/Ahri.toml", "rb") as Ahri:
     data = tomllib.load(Ahri)
