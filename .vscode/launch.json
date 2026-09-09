@@ -15,7 +15,7 @@
                 // "--no-debugger",
                 // "--no-reload"
             ],
-            "cwd": "${workspaceFolder}/flask_learn",
+            "cwd": "${workspaceFolder}/flask_learning",
             "jinja": true,
             "autoStartBrowser": false
         },
@@ -28,7 +28,7 @@
             ],
             "django": true,
             "autoStartBrowser": false,
-            "program": "${workspaceFolder}/django_learn/manage.py"
+            "program": "${workspaceFolder}/django_learning/manage.py"
         },
         {
             "name": "Python 调试程序: FastAPI",
@@ -39,7 +39,7 @@
                 "main:app",
                 "--reload"
             ],
-            "cwd": "${workspaceFolder}/fastapi_learn",
+            "cwd": "${workspaceFolder}/fastapi_learning",
             "jinja": true
         },
         {

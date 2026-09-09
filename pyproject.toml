@@ -14,14 +14,14 @@ license = { text = "MIT" }
 readme = "README.md"
 dependencies = [
     # data analysis
-    "numpy",
-    "scipy",
-    "pandas",
-    "matplotlib",
-    "PyYAML",
-    "loguru",
-    "asgiref",
-    "pydantic-settings",
+    "numpy>=2.5.3",
+    "scipy>=1.18.1",
+    "pandas>=3.0.5",
+    "matplotlib>=3.11.1",
+    "PyYAML>=6.0.1",
+    "loguru>=0.7.3",
+    "asgiref>=3.12.1",
+    "pydantic-settings>=2.15.0",
 ]
 requires-python = ">= 3.12"
 
@@ -30,7 +30,7 @@ Repository = "https://github.com/Sokyoei/Paladin"
 
 [project.optional-dependencies]
 # Sokyoei know and learn library
-utils = ["python-dateutil", "packaging"]
+utils = ["python-dateutil>=2.9.0.post0", "packaging"]
 # geography = [
 #     "wrf-python", # https://github.com/NCAR/wrf-python
 #     "eccodes",    # https://github.com/ecmwf/eccodes-python
@@ -55,7 +55,7 @@ sumo = [
 ]
 webapp = ["streamlit", "gradio"]
 gui = ["PyQt5"]
-cli = ["click"]
+cli = ["click>=8.5.0"]
 fastapi_learning = [
     "fastapi[all]",
     "sqlalchemy[aiomysql]",
@@ -106,13 +106,13 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.sdist]
 ignore-vcs = true
-packages = ["./data", "./docs", "./python", "./tests"]
+packages = ["python", "paladin"]
 include = []
-exclude = ["/.vscode"]
+exclude = [".vscode"]
 
 [tool.hatch.build.targets.wheel]
 ignore-vcs = true
-packages = ["./data", "./docs", "./python", "./tests"]
+packages = ["python", "paladin"]
 include = []
 exclude = []
 
