@@ -1,4 +1,0 @@
-# Cython generate C/C++ source file
-*.c
-*.h
-*.cpp

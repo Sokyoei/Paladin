@@ -1,0 +1,127 @@
+[build-system]
+requires = ["meson-python>=0.21.0", "meson>=1.12.0", "numpy>=2", "Cython>=3.3.0", "pybind11>=3.1.0"]
+build-backend = "mesonpy"
+
+[project]
+name = "paladin_extensions"
+version = "1.0.0"
+authors = [{ name = "Sokyoei" }]
+license = { text = "MIT" }
+readme = "README.md"
+dependencies = [
+    "meson-python>=0.21.0",
+    "meson>=1.12.0",
+    "numpy>=2",
+    "Cython>=3.3.0",
+    "pybind11>=3.1.0",
+    "loguru>=0.7.3",
+]
+requires-python = ">= 3.12"
+
+[project.urls]
+Repository = "https://github.com/Sokyoei/Paladin/tree/master/extensions"
+
+[project.scripts]
+
+[project.gui-scripts]
+
+[dependency-groups]
+build = ["build", "hatch"]
+dev = ["isort", "ruff", "black", "pipdeptree", "viztracer"]
+test = ["pytest", "pytest-asyncio", "tox", "coverage"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel.hooks.custom]
+path = "../hatch_build.py"
+
+[tool.hatch.build.extensions]
+
+[tool.meson-python]
+editable-verbose = true
+# abi3, 需要 extension_module(limited‑api: true) 一起打开才可以
+# limited-api = true
+
+[tool.meson-python.args]
+setup = [
+    # '--vsenv',          # Windows only for MSVC
+    '-Db_vscrt=md',
+    '-Doptimization=3',
+]
+compile = ["-j4"]
+install = ['--tags=runtime,python-runtime']
+# dist = ["--include-subprojects"]
+
+[tool.uv]
+default-groups = ["dev", "test"]
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+[tool.isort]
+line_length = 120
+multi_line_output = 0
+
+[tool.autopep8]
+max_line_length = 120
+
+[tool.black]
+line-length = 120
+preview = true
+skip-string-normalization = true
+skip-magic-trailing-comma = true
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+target-version = "py312"
+extend-exclude = ["typings"]
+
+[tool.ruff.lint]
+# https://docs.astral.sh/ruff/rules/
+select = [
+    "UP",  # pyupgrade
+    "F",   # pyflakes
+    "E",   # pycodestyle error
+    "W",   # pycodestyle warning
+    "C90", # mccabe
+    "I",   # isort
+    # "N",   # pep8-naming
+    # "D",   # pydocstyle
+    "PD",   # pandas-vet
+    "NPY",  # numpy specific rules
+    "RUF",  # ruff specific rules
+    "FAST", # FastAPI
+    "B",    # flake8-bugbear
+    "SIM",  # flake8-simplify
+]
+ignore = [
+    "E501",   # https://docs.astral.sh/ruff/rules/line-too-long/
+    "RUF001", # https://docs.astral.sh/ruff/rules/ambiguous-unicode-character-string/
+    "RUF002", # https://docs.astral.sh/ruff/rules/ambiguous-unicode-character-docstring/
+    "RUF003", # https://docs.astral.sh/ruff/rules/ambiguous-unicode-character-comment/
+]
+# ignore-init-module-imports = true # deprecated https://docs.astral.sh/ruff/settings/#lint_ignore-init-module-imports
+pydocstyle = { convention = "google" }
+
+[tool.ruff.lint.isort]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 120
+indent-style = "space"
+line-ending = "lf"
+quote-style = "double"
+skip-magic-trailing-comma = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = ["tests"]
+
+[tool.pyright]
+pythonVersion = "3.12"
+ignore = ["typings"]
+typeCheckingMode = "basic"
