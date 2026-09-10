@@ -1,7 +1,7 @@
-// gcc (-g) -shared -fPIC .\AhriC.c -o .\AhriC.dll
+// gcc (-g) -shared -fPIC .\ctypes_learning.c -o .\ctypes_learning.dll
 //
-// cl /c Ahri.c
-// link /dll Ahri.obj
+// cl /c ctypes_learning.c
+// link /dll ctypes_learning.obj
 
 #include <stdio.h>
 #include <string.h>

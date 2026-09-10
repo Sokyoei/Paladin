@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ctypes_example"
+name = "ctypes_learning"
 version = "0.0.1"
 authors = [{ name = "Sokyoei" }]
 license = { text = "MIT" }
