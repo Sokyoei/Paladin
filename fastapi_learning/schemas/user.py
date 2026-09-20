@@ -1,37 +1,39 @@
 import uuid
 from typing import Annotated
 
-from pydantic import BaseModel, EmailStr, Field
+from fastapi_users import schemas
+from pydantic import EmailStr, Field
 
 User_id = Annotated[uuid.UUID, Field(description="用户 UUID")]
 User_uid = Annotated[int, Field(description="用户 UID")]
 User_name = Annotated[str, Field(description="用户名")]
 User_description = Annotated[str | None, Field(description="用户描述")]
-User_account = Annotated[str, Field(description="用户账号")]
+User_phone = Annotated[str | None, Field(description="手机号")]
 User_password = Annotated[str, Field(description="用户密码")]
-User_email = Annotated[EmailStr | None, Field(description="用户邮箱")]
+User_hashed_password = Annotated[str, Field(description="用户密码哈希值")]
+User_email = Annotated[EmailStr | None, Field(description="用户邮箱（可选）")]
 
 
-class UserCreate(BaseModel):
+class UserCreate(schemas.BaseUserCreate):
     name: User_name
     description: User_description = None
-    account: User_account
+    phone: User_phone = None
     password: User_password
     email: User_email = None
 
 
-class UserResponse(BaseModel):
+class UserResponse(schemas.BaseUser[uuid.UUID]):
     id: User_id
     uid: User_uid
     name: User_name
     description: User_description
-    account: User_account
+    phone: User_phone
     email: User_email
 
 
-class UserUpdate(BaseModel):
+class UserUpdate(schemas.BaseUserUpdate):
     name: User_name | None = None
     description: User_description | None = None
-    # account: User_account | None = None
+    phone: User_phone = None
     password: User_password | None = None
-    email: User_email | None = None
+    email: User_email = None

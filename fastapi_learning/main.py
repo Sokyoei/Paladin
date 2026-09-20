@@ -24,7 +24,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from loguru import logger
 
-from fastapi_learning import FASTAPILEARN_ROOT
+from fastapi_learning import PALADIN_FASTAPI_LEARNING_ROOT
 from fastapi_learning.api import all_routers
 from fastapi_learning.config import admin_manager, db_instance, debugger, settings, websocket_manager
 from fastapi_learning.utils import ApiResponse, register_exception_handlers
@@ -38,7 +38,8 @@ apirouter = APIRouter()
 @apirouter.get("/")
 async def index(request: Request):
     templates = cast(Jinja2Templates, app.state.templates)
-    return templates.TemplateResponse("index.html", {"request": request})
+    # NOTE: Starlette 1.0 函数签名更改，参见 https://github.com/Kludex/starlette/pull/2191
+    return templates.TemplateResponse(request, "index.html")
 
 
 @apirouter.get("/sse")
@@ -66,7 +67,7 @@ async def upload(file: Annotated[UploadFile, File(description="上传文件")]):
 @apirouter.get("/websocket")
 def websocket_html(request: Request):
     templates = cast(Jinja2Templates, app.state.templates)
-    return templates.TemplateResponse("websocket.html", {"request": request})
+    return templates.TemplateResponse(request, "websocket.html")
 
 
 @apirouter.websocket("/ws/{client_id}")
@@ -97,7 +98,7 @@ async def form_html(
         if request.method == "POST" and (username is not None and message is not None)
         else {}
     )
-    return templates.TemplateResponse("form.html", {"request": request, "result": result})
+    return templates.TemplateResponse(request, "form.html", {"result": result})
 
 
 @apirouter.get("/header")
@@ -161,7 +162,9 @@ def create_app() -> FastAPI:
     for router in all_routers:
         app.include_router(router)
     # mount
-    app.mount("/static", StaticFiles(directory=FASTAPILEARN_ROOT / "fastapi_learning/static"), name="static")
+    app.mount(
+        "/static", StaticFiles(directory=PALADIN_FASTAPI_LEARNING_ROOT / "fastapi_learning/static"), name="static"
+    )
     # template
     app.state.templates = Jinja2Templates(directory="templates")
     # exception handlers
@@ -183,7 +186,7 @@ app = create_app()
 @app.get("/docs")
 async def custom_swagger_ui_html():
     return get_swagger_ui_html(
-        openapi_url=app.openapi_url,
+        openapi_url=app.openapi_url or "/openapi.json",
         title=f"{app.title} - Swagger UI",
         oauth2_redirect_url=app.swagger_ui_oauth2_redirect_url,
         swagger_favicon_url="/static/assets/favicon.ico",

@@ -19,7 +19,7 @@ class UserCRUD(BaseAsyncCRUD[User, UserCreate, UserUpdate, UserResponse]):
 
     @classmethod
     async def create(cls, db: AsyncSession, data: UserCreate) -> UserResponse:
-        new_uid = await cls.__generate_uid(db)
+        new_uid = await cls.generate_uid(db)
         try:
             db_obj = cls.model(
                 uid=new_uid,
@@ -53,7 +53,7 @@ class UserCRUD(BaseAsyncCRUD[User, UserCreate, UserUpdate, UserResponse]):
             raise
 
     @classmethod
-    async def __generate_uid(cls, db: AsyncSession) -> int:
+    async def generate_uid(cls, db: AsyncSession) -> int:
         result = await db.execute(select(User.uid).order_by(User.uid.desc()).limit(1))
         max_uid = result.scalar_one_or_none()
         max_uid = max_uid if max_uid else 0
@@ -68,15 +68,3 @@ class UserCRUD(BaseAsyncCRUD[User, UserCreate, UserUpdate, UserResponse]):
             new_uid += 1
 
         return new_uid
-
-    @classmethod
-    async def get_user_by_account(cls, db: AsyncSession, account: str) -> UserResponse | None:
-        result = await db.execute(select(User).where(User.account == account))
-        user = result.scalar_one_or_none()
-        return cls.schema.model_validate(user, from_attributes=True) if user else None
-
-    @classmethod
-    async def get_user_by_uid(cls, db: AsyncSession, uid: int) -> UserResponse | None:
-        result = await db.execute(select(User).where(User.uid == uid))
-        user = result.scalar_one_or_none()
-        return cls.schema.model_validate(user, from_attributes=True) if user else None

@@ -23,7 +23,7 @@ class AdminManager:
         from fastapi_learning.models.admin import all_model_views
 
         for model in all_model_views:
-            self.__admin.add_view(model)
+            self.admin.add_view(model)
 
 
 admin_manager = AdminManager()

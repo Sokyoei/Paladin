@@ -2,7 +2,7 @@ from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from flask_learning import FLASKLEARN_ROOT
+from flask_learning import PALADIN_FLASK_LEARNING_ROOT
 
 
 class Settings(BaseSettings):
@@ -17,7 +17,11 @@ class Settings(BaseSettings):
     FLASK_ADMIN_NAME: str = "Flask Learning Admin"
 
     model_config = SettingsConfigDict(
-        env_file=[FLASKLEARN_ROOT / ".env", FLASKLEARN_ROOT / ".env.dev", FLASKLEARN_ROOT / ".env.prod"],
+        env_file=[
+            PALADIN_FLASK_LEARNING_ROOT / ".env",
+            PALADIN_FLASK_LEARNING_ROOT / ".env.dev",
+            PALADIN_FLASK_LEARNING_ROOT / ".env.prod",
+        ],
         env_file_encoding="utf-8",
         extra="ignore",
     )

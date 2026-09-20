@@ -18,9 +18,11 @@ class Settings(BaseSettings):
     # dir
     LOG_DIR: Path = PALADIN_ROOT / "logs"
     DOWNLOAD_DIR: Path = PALADIN_ROOT / "downloads"
+    DATA_DIR: Path = PALADIN_ROOT / "data"
 
     LOG_DIR.mkdir(parents=True, exist_ok=True)
     DOWNLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
 
     # SQLite
     SQLALCHEMY_DATABASE_URI_SQLITE: str = "sqlite+aiosqlite:///./paladin.sqlite3"

@@ -65,7 +65,7 @@ fastapi_learning = [
     "fastapi-cache2",
     "fastapi-utils[all]",
     "fastapi-pagination",
-    "prometheus-fastapi-instrumentator",
+    "prometheus-fastapi-instrumentator>=8.1.0",
 ]
 flask_learning = [
     "Flask[async]",

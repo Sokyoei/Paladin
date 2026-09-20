@@ -2,24 +2,18 @@
 注册到 sqladmin 后台管理
 """
 
-from typing import ClassVar, TypeVar
-
 from sqladmin import ModelView
-from sqlalchemy import Column
-from sqlalchemy.orm import MappedColumn
 
 from .genshin import GenshinRole
 from .user import User
 
-MV = TypeVar("MV", bound=ModelView)
-
 
 class UserAdmin(ModelView, model=User):
-    column_list: ClassVar[list[Column | MappedColumn]] = [User.id, User.email]
+    column_list = [User.id, User.email]  # noqa: RUF012
 
 
 class GenshinRoleAdmin(ModelView, model=GenshinRole):
-    column_list: ClassVar[list[Column | MappedColumn]] = [GenshinRole.id, GenshinRole.name]
+    column_list = [GenshinRole.id, GenshinRole.name]  # noqa: RUF012
 
 
-all_model_views: list[type[MV]] = [UserAdmin, GenshinRoleAdmin]
+all_model_views: list[type[ModelView]] = [UserAdmin, GenshinRoleAdmin]

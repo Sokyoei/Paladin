@@ -33,8 +33,8 @@ class AdminManager:
             raise ValueError("Babel not initialized")
         return self.__babel
 
-    def register_models(self, model_list: list[Model]):
-        self.__admin.add_views(
+    def register_models(self, model_list: list[type[Model]]):
+        self.admin.add_views(
             *[ModelView(model, db.session, endpoint=f"{model.__name__}_admin") for model in model_list]
         )
 

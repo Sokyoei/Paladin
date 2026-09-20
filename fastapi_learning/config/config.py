@@ -3,17 +3,18 @@ from functools import lru_cache
 from pydantic import MySQLDsn, PostgresDsn, RedisDsn, computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from fastapi_learning import FASTAPILEARN_ROOT
+from fastapi_learning import PALADIN_FASTAPI_LEARNING_ROOT
+from paladin.config import settings
 
 
 class Settings(BaseSettings):
     DEBUG: bool = False
 
     # Flags
-    USE_FASTAPI_USERS: bool = False
+    USE_FASTAPI_USERS: bool = True
 
     # SQLite
-    SQLALCHEMY_DATABASE_URI_SQLITE: str = "sqlite+aiosqlite:///./paladin.sqlite3"
+    SQLALCHEMY_DATABASE_URI_SQLITE: str = f"sqlite+aiosqlite:///{settings.DATA_DIR}/paladin.sqlite3"
 
     # PostgreSQL
     POSTGRESQL_HOST: str = "127.0.0.1"
@@ -81,11 +82,14 @@ class Settings(BaseSettings):
 
     FIRST_UID: int = 100000
 
+    GOOGLE_OAUTH_CLIENT_ID: str = ""
+    GOOGLE_OAUTH_CLIENT_SECRET: str = ""
+
     model_config = SettingsConfigDict(
         env_file=[
-            FASTAPILEARN_ROOT / "fastapi_learning/.env",
-            FASTAPILEARN_ROOT / "fastapi_learning/.env.dev",
-            FASTAPILEARN_ROOT / "fastapi_learning/.env.prod",
+            PALADIN_FASTAPI_LEARNING_ROOT / "fastapi_learning/.env",
+            PALADIN_FASTAPI_LEARNING_ROOT / "fastapi_learning/.env.dev",
+            PALADIN_FASTAPI_LEARNING_ROOT / "fastapi_learning/.env.prod",
         ],
         env_file_encoding="utf-8",
         extra="ignore",

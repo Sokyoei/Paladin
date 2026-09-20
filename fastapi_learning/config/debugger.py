@@ -1,3 +1,4 @@
+from fastapi import FastAPI
 from prometheus_fastapi_instrumentator import Instrumentator
 
 
@@ -6,7 +7,7 @@ class Debugger:
     def __init__(self):
         self.__instrumentator: Instrumentator | None = None
 
-    def init_app(self, app: object) -> None:
+    def init_app(self, app: FastAPI) -> None:
         self.__instrumentator = Instrumentator().instrument(app).expose(app)
 
     @property

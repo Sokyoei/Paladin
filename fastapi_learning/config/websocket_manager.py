@@ -1,5 +1,6 @@
 import asyncio
 from collections.abc import Awaitable, Callable
+from typing import cast
 
 from fastapi import WebSocket
 from fastapi.websockets import WebSocketState
@@ -14,9 +15,9 @@ class WebSocketManager:
         self.active_connections: dict[str, WebSocket] = {}
         self.__lock = asyncio.Lock()
         self.__send_funcs: dict[type, Callable[[WebSocket, MessageType], Awaitable[None]]] = {
-            str: lambda ws, msg: ws.send_text(msg),
-            bytes: lambda ws, msg: ws.send_bytes(msg),
-            dict: lambda ws, msg: ws.send_json(msg),
+            str: lambda ws, msg: ws.send_text(cast(str, msg)),
+            bytes: lambda ws, msg: ws.send_bytes(cast(bytes, msg)),
+            dict: lambda ws, msg: ws.send_json(cast(dict, msg)),
         }
         self.__disconnecting: set[str] = set()
         self.__disconnect_lock = asyncio.Lock()
