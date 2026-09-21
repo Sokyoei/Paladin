@@ -18,7 +18,7 @@ dependencies = [
     "scipy>=1.18.1",
     "pandas>=3.0.5",
     "matplotlib>=3.11.1",
-    "PyYAML>=6.0.1",
+    "PyYAML>=6.0.3",
     "loguru>=0.7.3",
     "asgiref>=3.12.1",
     "pydantic-settings>=2.15.0",
@@ -30,7 +30,7 @@ Repository = "https://github.com/Sokyoei/Paladin"
 
 [project.optional-dependencies]
 # Sokyoei know and learn library
-utils = ["python-dateutil>=2.9.0.post0", "packaging"]
+utils = ["python-dateutil>=2.9.0.post0", "packaging>=26.3"]
 # geography = [
 #     "wrf-python", # https://github.com/NCAR/wrf-python
 #     "eccodes",    # https://github.com/ecmwf/eccodes-python
@@ -47,46 +47,46 @@ utils = ["python-dateutil>=2.9.0.post0", "packaging"]
 # ]
 sumo = [
     # https://github.com/eclipse-sumo/sumo
-    "eclipse-sumo",
-    "libsumo",
-    "libtraci",
-    "sumolib",
-    "traci",
+    "eclipse-sumo>=1.27.1",
+    "libsumo>=1.27.1",
+    "libtraci>=1.19.0",
+    "sumolib>=1.27.1",
+    "traci>=1.27.1",
 ]
-webapp = ["streamlit", "gradio"]
-gui = ["PyQt5"]
+webapp = ["streamlit>=1.63.0", "gradio>=6.26.0"]
+# gui = ["PyQt5"]
 cli = ["click>=8.5.0"]
 fastapi_learning = [
-    "fastapi[all]",
-    "sqlalchemy[aiomysql]",
-    "redis",
-    "fastapi-users[sqlalchemy, oauth]",
-    "sqladmin[full]",
-    "fastapi-cache2",
-    "fastapi-utils[all]",
-    "fastapi-pagination",
+    "fastapi[all]>=0.141.1",
+    "sqlalchemy[aiomysql]>=2.0.52",
+    "redis>=8.1.0",
+    "fastapi-users[sqlalchemy, oauth]>=15.0.5",
+    "sqladmin[full]>=0.31.1",
+    "fastapi-cache2>=0.2.2",
+    "fastapi-utils[all]>=0.8.0",
+    "fastapi-pagination>=0.15.16",
     "prometheus-fastapi-instrumentator>=8.1.0",
 ]
 flask_learning = [
-    "Flask[async]",
-    "Flask-SQLAlchemy",
-    "Flask-Migrate",
-    "Flask-Admin[sqlalchemy,images,export,translation]",
-    "Flask-Login",
-    "Flask-WTF",
-    "Flask-DebugToolbar",
-    "Flask-Limiter",
-    "Flask-Caching",
+    "Flask[async]>=3.1.3",
+    "Flask-SQLAlchemy>=3.1.1",
+    "Flask-Migrate>=4.1.0",
+    "Flask-Admin[sqlalchemy,images,export,translation]>=2.2.0",
+    "Flask-Login>=0.6.3",
+    "Flask-WTF>=1.3.0",
+    "Flask-DebugToolbar>=0.16.0",
+    "Flask-Limiter>=4.1.1",
+    "Flask-Caching>=2.5.1",
 ]
 django_learning = [
-    "django",
-    "django-ninja",
-    "djangorestframework",
-    "docutils",
-    "django-ninja-extra",
-    "django-filter",
-    "django-debug-toolbar",
-    "django-extensions",
+    "django>=6.1.1",
+    "django-ninja>=1.7.0",
+    "djangorestframework>=3.18.1",
+    "docutils>=0.23",
+    "django-ninja-extra>=0.31.7",
+    "django-filter>=26.1",
+    "django-debug-toolbar>=8.0.0",
+    "django-extensions>=4.1",
 ]
 
 [project.scripts]
@@ -94,9 +94,9 @@ django_learning = [
 [project.gui-scripts]
 
 [dependency-groups]
-build = ["build", "hatch"]
-dev = ["isort", "ruff", "black", "pipdeptree", "viztracer"]
-test = ["pytest", "pytest-asyncio", "tox", "coverage"]
+build = ["build>=1.6.0", "hatch>=1.18.0"]
+dev = ["isort>=9.0.1", "ruff>=0.16.6", "black>=26.5.1", "pipdeptree>=4.2.3", "viztracer>=1.1.1"]
+test = ["pytest>=9.1.1", "pytest-asyncio>=1.4.0", "tox>=4.61.2", "coverage>=7.16.0"]
 
 [tool.setuptools]
 include-package-data = true
