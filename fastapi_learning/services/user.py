@@ -8,7 +8,6 @@ from fastapi_users.authentication import AuthenticationBackend, BearerTransport,
 from fastapi_users_db_sqlalchemy import SQLAlchemyUserDatabase
 from httpx_oauth.clients.google import GoogleOAuth2
 from loguru import logger
-from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from fastapi_learning.config import get_db, settings
@@ -49,7 +48,7 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
             if existing_user is not None:
                 raise exceptions.UserAlreadyExists()
         if user_create.phone is not None:
-            existing_user = await self._get_by_phone(user_create.phone)
+            existing_user = await UserCRUD.get_by_phone(self.session, user_create.phone)
             if existing_user is not None:
                 raise exceptions.UserAlreadyExists()
 
@@ -72,11 +71,11 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
         user = await self._get_by_email(identifier)
         # 2) 按 phone 查找
         if user is None:
-            user = await self._get_by_phone(identifier)
+            user = await UserCRUD.get_by_phone(self.session, identifier)
         # 3) 按 uid（数字）查找
         if user is None:
             try:
-                user = await self._get_by_uid(int(identifier))
+                user = await UserCRUD.get_by_uid(self.session, int(identifier))
             except ValueError:
                 user = None
 
@@ -100,14 +99,6 @@ class UserManager(UUIDIDMixin, BaseUserManager[User, uuid.UUID]):
         if not email:
             return None
         return await self.user_db.get_by_email(email)
-
-    async def _get_by_phone(self, phone: str) -> User | None:
-        result = await self.session.execute(select(User).where(User.phone == phone))
-        return result.unique().scalar_one_or_none()
-
-    async def _get_by_uid(self, uid: int) -> User | None:
-        result = await self.session.execute(select(User).where(User.uid == uid))
-        return result.unique().scalar_one_or_none()
 
 
 async def get_user_manager(user_db: Annotated[SQLAlchemyUserDatabase, Depends(get_user_db)]):

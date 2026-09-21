@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from loguru import logger
 from redis import asyncio as aioredis
 
-from .config import REDIS_URI
+from .config import settings
 
 
 class AsyncRedisManager:
@@ -17,7 +17,7 @@ class AsyncRedisManager:
         return self.__redis
 
     async def start(self, app: FastAPI):
-        self.__redis = await aioredis.from_url(REDIS_URI)
+        self.__redis = await aioredis.from_url(settings.REDIS_URI)
         self.__redis.ping()
         logger.info("Redis connection successfully")
         app.state.redis = self.__redis

@@ -1,7 +1,7 @@
 import uuid
 from typing import Annotated
 
-from fastapi import APIRouter, Body, Depends, Path
+from fastapi import APIRouter, Body, Depends, HTTPException, Path
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from fastapi_learning.config import get_db, settings
@@ -42,7 +42,7 @@ else:
         new_user = await UserCRUD.create(db, user)
         if new_user:
             return ApiResponse.success(new_user)
-        return ApiResponse.error("用户创建失败")
+        raise HTTPException(status_code=400, detail="用户创建失败")
 
     @user_router.delete("/{user_id}", summary="删除用户", response_model=ApiResponse[UserResponse | None])
     async def delete_user(
@@ -51,7 +51,7 @@ else:
         result = await UserCRUD.delete(db, user_id)
         if result:
             return ApiResponse.success(result)
-        return ApiResponse.error("用户不存在")
+        raise HTTPException(status_code=404, detail="用户不存在")
 
     @user_router.patch("/{user_id}", summary="更新用户", response_model=ApiResponse[UserResponse | None])
     async def update_user(
@@ -62,7 +62,7 @@ else:
         updated_user = await UserCRUD.update(db, user_id, user_update)
         if updated_user:
             return ApiResponse.success(updated_user)
-        return ApiResponse.error("用户不存在")
+        raise HTTPException(status_code=404, detail="用户不存在")
 
     @user_router.get("/{user_id}", summary="查找用户", response_model=ApiResponse[UserResponse | None])
     async def search_user(
@@ -71,7 +71,7 @@ else:
         user = await UserCRUD.search(db, user_id)
         if user:
             return ApiResponse.success(user)
-        return ApiResponse.error("用户不存在")
+        raise HTTPException(status_code=404, detail="用户不存在")
 
     @user_router.get("", summary="获取所有用户", response_model=ApiResponse[list[UserResponse]])
     async def get_all_users(db: Annotated[AsyncSession, Depends(get_db)]):

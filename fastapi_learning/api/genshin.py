@@ -1,7 +1,7 @@
 import uuid
 from typing import Annotated
 
-from fastapi import APIRouter, Body, Depends, Path
+from fastapi import APIRouter, Body, Depends, HTTPException, Path
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from fastapi_learning.config import get_db
@@ -27,7 +27,7 @@ async def delete_genshin_role(
     result = await GenshinRoleCRUD.delete(db, role_id)
     if result:
         return ApiResponse.success(result)
-    return ApiResponse.error("角色不存在")
+    raise HTTPException(status_code=404, detail="角色不存在")
 
 
 @genshin_role_router.patch("/{role_id}", summary="更新角色", response_model=ApiResponse[GenshinRoleResponse | None])
@@ -39,7 +39,7 @@ async def update_genshin_role(
     updated_role = await GenshinRoleCRUD.update(db, role_id, role_update)
     if updated_role:
         return ApiResponse.success(updated_role)
-    return ApiResponse.error("角色不存在")
+    raise HTTPException(status_code=404, detail="角色不存在")
 
 
 @genshin_role_router.get("/{role_id}", summary="查找角色", response_model=ApiResponse[GenshinRoleResponse | None])
@@ -49,7 +49,7 @@ async def search_genshin_role(
     role = await GenshinRoleCRUD.search(db, role_id)
     if role:
         return ApiResponse.success(role)
-    return ApiResponse.error("角色不存在")
+    raise HTTPException(status_code=404, detail="角色不存在")
 
 
 @genshin_role_router.get("", summary="获取所有角色", response_model=ApiResponse[list[GenshinRoleResponse]])

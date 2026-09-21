@@ -102,15 +102,3 @@ def get_settings() -> Settings:
 
 
 settings = get_settings()
-
-DEBUG = settings.DEBUG
-
-SQLALCHEMY_DATABASE_URI = settings.SQLALCHEMY_DATABASE_URI_SQLITE
-
-REDIS_URI = settings.REDIS_URI
-
-JWT_SECRET_KEY = settings.JWT_SECRET_KEY
-JWT_ACCESS_TOKEN_EXPIRE_MINUTES = settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES
-JWT_ALGORITHM = settings.JWT_ALGORITHM
-
-FIRST_UID = settings.FIRST_UID

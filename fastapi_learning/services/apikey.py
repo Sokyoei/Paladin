@@ -9,8 +9,6 @@ api_key_header = APIKeyHeader(name="Ahri-API-Key", description="Requires Ahri-AP
 
 
 async def verify_api_key(api_key: str = Security(api_key_header), db: AsyncSession = Depends(get_db)):  # noqa: B008
-    apikeys = await APIKeyCRUD.get_all(db)
-    valid_api_keys = {apikey.key for apikey in apikeys}
-    if not api_key or api_key not in valid_api_keys:
+    if not api_key or not await APIKeyCRUD.count(db, key=api_key):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authorization Failed")
     return api_key
